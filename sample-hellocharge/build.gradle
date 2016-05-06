@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+dependencies {
+  compile project(':register-sdk')
+  compile "com.android.support:appcompat-v7:23.2.1"
+  compile "com.android.support:design:23.2.1"
+}
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  compileOptions {
+    sourceCompatibility rootProject.ext.javaVersion
+    targetCompatibility rootProject.ext.javaVersion
+  }
+
+  defaultConfig {
+    applicationId "com.example.hellocharge"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.compileSdkVersion
+
+    versionCode 1
+    versionName "1.0"
+  }
+  
+  buildTypes {
+    debug {
+      project.addClientIdField(buildTypes.debug)
+    }
+    release {
+      project.addClientIdField(buildTypes.release)
+    }
+  }
+}
+
+void addClientIdField(def buildType) {
+  if (file('hellocharge.properties').exists()) {
+    def props = new Properties()
+    props.load(new FileInputStream(file('hellocharge.properties')))
+    buildType.buildConfigField "String", "CLIENT_ID", props['clientId']
+  } else {
+    throw new GradleException('Please create hellocharge.properties in sample-hellocharge, ' +
+        'see hellocharge.properties.example')
+  }
+}
+
+
+

@@ -1,0 +1,24 @@
+<resources>
+  <string name="app_name">HelloCharge</string>
+  <string name="auto_return_timeout_hint">Auto Return Timeout (optional, in millis)</string>
+  <string name="card_text">Card</string>
+  <string name="cash_text">Cash</string>
+  <string name="currency_code_default">USD</string>
+  <string name="currency_code_hint">Currency Code</string>
+  <string name="install_register_confirm">Open Play Store</string>
+  <string name="install_register_message">Please download Square Register from the Play Store.</string>
+  <string name="install_register_title">Square Register is not installed</string>
+  <string name="location_id_hint">Location ID (optional)</string>
+  <string name="miscellaneous_header">Miscellaneous</string>
+  <string name="note_default">Build with Square</string>
+  <string name="note_hint">Note (optional)</string>
+  <string name="oauth_button_text">Authorize via OAuth</string>
+  <string name="other_tender_text">Other Tenders</string>
+  <string name="tender_header">Tender Types</string>
+  <string name="transaction_amount_default">100</string>
+  <string name="transaction_amount_hint">Transaction Amount (cents)</string>
+  <string name="transaction_details_header">Transaction Details</string>
+  <string name="request_metadata_default">Very Meta.</string>
+  <string name="request_metadata_hint">Request Metadata</string>
+  <string name="result_title">Register API Result</string>
+</resources>

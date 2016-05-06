@@ -1,0 +1,28 @@
+version rootProject.ext.VERSION_NAME
+group rootProject.ext.GROUP
+
+apply plugin: 'com.android.library'
+
+def gitSha() {
+  return 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
+dependencies {
+  compile 'com.android.support:support-annotations:23.3.0'
+}
+
+android {
+  resourcePrefix 'register_sdk_'
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    buildConfigField "String", "LIBRARY_VERSION", "\"${rootProject.ext.VERSION_NAME}\""
+    buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
+    consumerProguardFiles 'consumer-proguard-rules.pro'
+  }
+}
+
+apply from: rootProject.file('gradle/checkstyle.gradle')
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

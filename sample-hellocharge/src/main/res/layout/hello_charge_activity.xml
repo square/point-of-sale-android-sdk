@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText"
+    tools:context="com.example.hellocharge.HelloChargeActivity"
+>
+
+  <ScrollView
+      android:id="@+id/content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+  >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_space"
+        android:layout_marginRight="@dimen/horizontal_space"
+        android:orientation="vertical"
+    >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="24sp"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+          android:text="@string/transaction_details_header"
+      />
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+      >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/transaction_amount_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:hint="@string/transaction_amount_hint"
+            android:text="@string/transaction_amount_default"
+        />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+      >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/currency_code_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/currency_code_hint"
+            android:text="@string/currency_code_default"
+        />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+      >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/note_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/note_hint"
+            android:text="@string/note_default"
+        />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="24sp"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+          android:text="@string/tender_header"
+      />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+      >
+
+        <CheckBox
+            android:id="@+id/card_tender_checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:layout_marginBottom="@dimen/vertical_space"
+            android:text="@string/card_text"
+            android:checked="true"
+        />
+
+        <CheckBox
+            android:id="@+id/cash_tender_checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:layout_marginBottom="@dimen/vertical_space"
+            android:text="@string/cash_text"
+            android:checked="true"
+        />
+
+        <CheckBox
+            android:id="@+id/other_tender_checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:layout_marginBottom="@dimen/vertical_space"
+            android:text="@string/other_tender_text"
+            android:checked="true"
+        />
+
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="24sp"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+          android:text="@string/miscellaneous_header"
+      />
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+      >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/location_id_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/location_id_hint"
+            android:inputType="text|textCapCharacters|textNoSuggestions"
+        />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+      >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/auto_return_timeout_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:hint="@string/auto_return_timeout_hint"
+            android:text=""
+        />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+      >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/request_metadata_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/request_metadata_hint"
+            android:text="@string/request_metadata_default"
+        />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <Button
+          android:id="@+id/oauth_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+          android:text="@string/oauth_button_text"
+      />
+
+    </LinearLayout>
+
+  </ScrollView>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/start_transaction_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end|bottom"
+      android:layout_margin="@dimen/fab_margin"
+      android:src="@drawable/start_transaction"
+  />
+
+</android.support.design.widget.CoordinatorLayout>
