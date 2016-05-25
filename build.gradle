@@ -25,10 +25,10 @@ ext {
   POM_PACKAGING = "pom"
   POM_DESCRIPTION= "Square Register Android SDK"
 
-  POM_URL="http://github.com/square/SquareRegisterSDK-Android/"
-  POM_SCM_URL="http://github.com/square/SquareRegisterSDK-Android/"
-  POM_SCM_CONNECTION="scm:git:https://github.com/square/SquareRegisterSDK-Android.git"
-  POM_SCM_DEV_CONNECTION="scm:git:git@github.com:square/SquareRegisterSDK-Android.git"
+  POM_URL="http://github.com/square/register-android-sdk/"
+  POM_SCM_URL="http://github.com/square/register-android-sdk/"
+  POM_SCM_CONNECTION="scm:git:https://github.com/square/register-android-sdk.git"
+  POM_SCM_DEV_CONNECTION="scm:git:git@github.com:square/register-android-sdk.git"
 
   POM_LICENCE_NAME="The Apache Software License, Version 2.0"
   POM_LICENCE_URL="http://www.apache.org/licenses/LICENSE-2.0.txt"
