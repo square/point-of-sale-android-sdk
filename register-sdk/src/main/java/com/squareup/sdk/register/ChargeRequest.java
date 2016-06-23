@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CARD;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CASH;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_OTHER;
+import static com.squareup.sdk.register.RegisterSdkHelper.nonNull;
 import static java.util.Collections.unmodifiableSet;
 
 /**
@@ -160,7 +161,7 @@ public final class ChargeRequest {
         throw new IllegalArgumentException("totalAmount must be non-negative");
       }
       this.totalAmount = totalAmount;
-      this.currencyCode = RegisterSdkHelper.nonNull(currencyCode, "currencyCode");
+      this.currencyCode = nonNull(currencyCode, "currencyCode");
       tenderTypes = EnumSet.allOf(TenderType.class);
       autoReturnMillis = RegisterApi.AUTO_RETURN_NO_TIMEOUT;
     }
@@ -177,7 +178,7 @@ public final class ChargeRequest {
      */
     public @NonNull ChargeRequest.Builder restrictTendersTo(
         @NonNull Collection<TenderType> tenderTypes) {
-      RegisterSdkHelper.nonNull(tenderTypes, "tenderTypes");
+      nonNull(tenderTypes, "tenderTypes");
       if (tenderTypes.isEmpty()) {
         throw new IllegalArgumentException("Please restrict to at least one TenderType.");
       }
@@ -188,7 +189,7 @@ public final class ChargeRequest {
 
     /** @see #restrictTendersTo(Collection) */
     public @NonNull ChargeRequest.Builder restrictTendersTo(@NonNull TenderType... tenderTypes) {
-      RegisterSdkHelper.nonNull(tenderTypes, "tenderTypes");
+      nonNull(tenderTypes, "tenderTypes");
       if (tenderTypes.length == 0) {
         throw new IllegalArgumentException("Please restrict to at least one TenderType.");
       }
@@ -236,7 +237,7 @@ public final class ChargeRequest {
       long autoReturnMillis;
       if (timeout != RegisterApi.AUTO_RETURN_NO_TIMEOUT) {
         autoReturnMillis = unit.toMillis(timeout);
-        RegisterSdkHelper.nonNull(unit, "unit");
+        nonNull(unit, "unit");
         if (autoReturnMillis < RegisterApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS) {
           throw new IllegalArgumentException(
               "timeout should be at least " + RegisterApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS);
