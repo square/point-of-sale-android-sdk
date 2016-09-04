@@ -19,7 +19,7 @@ git clone https://github.com/square/register-android-sdk.git
 cd register-android-sdk
 ```
 
-Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to [your client id](https://docs.connect.squareup.com/articles/register-api-android/#registerapisetup):
+Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to [your client id](https://docs.connect.squareup.com/articles/register-api-android/#registerapisetup) which is the same as your application id of your app (`sq0idp-XXXXXXXXXXXXXXX`)
 
 ```
 echo clientId=\"YourClientId\" > sample-hellocharge/hellocharge.properties
