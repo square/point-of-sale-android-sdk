@@ -15,7 +15,7 @@ A sample app is available in the `sample-hellocharge` folder.
 Check out this repo:
 
 ```
-git clone git@github.com:square/register-android-sdk.git
+git clone https://github.com/square/register-android-sdk.git
 cd register-android-sdk
 ```
 
