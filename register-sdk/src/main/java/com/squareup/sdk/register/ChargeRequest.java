@@ -369,6 +369,9 @@ public final class ChargeRequest {
     /** The Register API is not currently available. */
     DISABLED(RegisterApi.ERROR_DISABLED),
 
+    /** Employee management is enabled but no employee is logged in to Square Register. */
+    NO_EMPLOYEE_LOGGED_IN(RegisterApi.ERROR_NO_EMPLOYEE_LOGGED_IN),
+
     /** The Register API does not currently support Square gift card transactions. */
     GIFT_CARDS_NOT_SUPPORTED(RegisterApi.ERROR_GIFT_CARDS_NOT_SUPPORTED),
 

@@ -154,7 +154,7 @@ public class RealRegisterClientTest {
     assertThat(intent.getStringExtra(EXTRA_CURRENCY_CODE)).isEqualTo("USD");
     assertThat(intent.getStringExtra(EXTRA_REGISTER_CLIENT_ID)).isEqualTo(CLIENT_ID);
     assertThat(intent.getStringExtra(EXTRA_NOTE)).isEqualTo("note");
-    assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("1.0");
+    assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v1.1");
     assertThat(intent.getStringExtra(EXTRA_REQUEST_METADATA)).isEqualTo("metadata");
     assertThat(intent.getStringExtra(EXTRA_LOCATION_ID)).isEqualTo("location");
     assertThat(intent.getStringArrayListExtra(EXTRA_TENDER_TYPES)).containsExactly(

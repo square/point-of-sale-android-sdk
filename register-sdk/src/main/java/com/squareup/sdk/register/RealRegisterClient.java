@@ -45,7 +45,7 @@ final class RealRegisterClient implements RegisterClient {
 
   private static final String SDK_VERSION =
       "register-sdk-" + BuildConfig.LIBRARY_VERSION + "-" + BuildConfig.GIT_SHA;
-  private static final String API_VERSION = "1.0";
+  private static final String API_VERSION = "v1.1";
   private static final String REGISTER_PACKAGE_NAME = "com.squareup";
   private static final Uri PLAY_STORE_WEB_URL =
       Uri.parse("https://play.google.com/store/apps/details?id=" + REGISTER_PACKAGE_NAME);

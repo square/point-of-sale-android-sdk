@@ -29,7 +29,7 @@ public final class RegisterApi {
 
   /**
    * API version number String extra. Uses semantic versioning.
-   * Should currently be set to "1.0".
+   * Should currently be set to "v1.1".
    */
   public static final String EXTRA_API_VERSION = NAMESPACE + "API_VERSION";
 
@@ -74,6 +74,9 @@ public final class RegisterApi {
   public static final String RESULT_ERROR_CODE = NAMESPACE + "ERROR_CODE";
 
   public static final String RESULT_ERROR_DESCRIPTION = NAMESPACE + "ERROR_DESCRIPTION";
+
+  public static final String ERROR_NO_EMPLOYEE_LOGGED_IN =
+      NAMESPACE + "ERROR_NO_EMPLOYEE_LOGGED_IN";
 
   public static final String ERROR_GIFT_CARDS_NOT_SUPPORTED =
       NAMESPACE + "ERROR_GIFT_CARDS_NOT_SUPPORTED";
