@@ -27,6 +27,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CARD;
+import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CARD_ON_FILE;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CASH;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_OTHER;
 import static com.squareup.sdk.register.RegisterSdkHelper.nonNull;
@@ -63,6 +64,9 @@ public final class ChargeRequest {
   /** @see Builder#requestMetadata */
   @Nullable public final String requestMetadata;
 
+  /** @see Builder#customerId(String) */
+  @Nullable public final String customerId;
+
   ChargeRequest(Builder builder) {
     this.tenderTypes = unmodifiableSet(
         builder.tenderTypes.isEmpty() ? EnumSet.noneOf(TenderType.class)
@@ -73,6 +77,7 @@ public final class ChargeRequest {
     this.autoReturnMillis = builder.autoReturnMillis;
     this.locationId = builder.locationId;
     this.requestMetadata = builder.requestMetadata;
+    this.customerId = builder.customerId;
   }
 
   /** Creates a new {@link Builder} copied from {@link this} transaction. */
@@ -88,7 +93,8 @@ public final class ChargeRequest {
         .note(note)
         .autoReturn(autoReturnMillis, TimeUnit.MILLISECONDS)
         .enforceBusinessLocation(locationId)
-        .requestMetadata(requestMetadata);
+        .requestMetadata(requestMetadata)
+        .customerId(customerId);
   }
 
   @Override public boolean equals(Object o) {
@@ -98,9 +104,7 @@ public final class ChargeRequest {
     if (!(o instanceof ChargeRequest)) {
       return false;
     }
-
     ChargeRequest that = (ChargeRequest) o;
-
     if (totalAmount != that.totalAmount) {
       return false;
     }
@@ -119,8 +123,14 @@ public final class ChargeRequest {
     if (locationId != null ? !locationId.equals(that.locationId) : that.locationId != null) {
       return false;
     }
-    return requestMetadata != null ? requestMetadata.equals(that.requestMetadata)
-        : that.requestMetadata == null;
+    if (requestMetadata != null ? !requestMetadata.equals(that.locationId)
+        : that.requestMetadata != null) {
+      return false;
+    }
+    if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) {
+      return false;
+    }
+    return true;
   }
 
   @Override public int hashCode() {
@@ -131,6 +141,7 @@ public final class ChargeRequest {
     result = 31 * result + (int) (autoReturnMillis ^ (autoReturnMillis >>> 32));
     result = 31 * result + (locationId != null ? locationId.hashCode() : 0);
     result = 31 * result + (requestMetadata != null ? requestMetadata.hashCode() : 0);
+    result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
     return result;
   }
 
@@ -144,6 +155,7 @@ public final class ChargeRequest {
     long autoReturnMillis;
     @Nullable String locationId;
     @Nullable String requestMetadata;
+    @Nullable String customerId;
 
     /**
      * @param totalAmount Amount to charge. Register might add taxes and / or a tip on top,
@@ -283,6 +295,19 @@ public final class ChargeRequest {
     }
 
     /**
+     * Optional customer id to associate the sale to a specific customer.
+     *
+     * @param customerId the customer id, see the online documentation on <a
+     * href="https://docs.connect.squareup.com/articles/saving-customer-information/">saving
+     * customer information</a>.
+     * @return This builder to allow chaining of builder method calls.
+     */
+    public @NonNull ChargeRequest.Builder customerId(@Nullable String customerId) {
+      this.customerId = customerId;
+      return this;
+    }
+
+    /**
      * Constructs a {@link ChargeRequest} from the current state of this builder.
      */
     public @NonNull ChargeRequest build() {
@@ -366,21 +391,33 @@ public final class ChargeRequest {
   }
 
   public enum ErrorCode {
+
     /** The Register API is not currently available. */
     DISABLED(RegisterApi.ERROR_DISABLED),
 
-    /** Employee management is enabled but no employee is logged in to Square Register. */
-    NO_EMPLOYEE_LOGGED_IN(RegisterApi.ERROR_NO_EMPLOYEE_LOGGED_IN),
+    /** The merchant account does not support Customer Management. */
+    CUSTOMER_MANAGEMENT_NOT_SUPPORTED(RegisterApi.ERROR_CUSTOMER_MANAGEMENT_NOT_SUPPORTED),
 
-    /** The Register API does not currently support Square gift card transactions. */
-    GIFT_CARDS_NOT_SUPPORTED(RegisterApi.ERROR_GIFT_CARDS_NOT_SUPPORTED),
+    /**
+     * The Customer Id is invalid. This could happen if the account logged in to Square Register is
+     * different from the account from which the customer information was downloaded.
+     */
+    ERROR_INVALID_CUSTOMER_ID(RegisterApi.ERROR_INVALID_CUSTOMER_ID),
+
+    /** @deprecated Starting with SDK 1.1, Square Register supports Square Prepaid Gift Cards. */
+    @Deprecated GIFT_CARDS_NOT_SUPPORTED(RegisterApi.ERROR_GIFT_CARDS_NOT_SUPPORTED),
 
     /**
      * The provided location ID does not correspond to the location currently logged in to Square
      * Register.
      */
     ILLEGAL_LOCATION_ID(RegisterApi.ERROR_ILLEGAL_LOCATION_ID),
-    INSUFFICIENT_CARD_BALANCE(RegisterApi.ERROR_INSUFFICIENT_CARD_BALANCE),
+
+    /**
+     * @deprecated Starting with SDK 1.1, Square Register supports split tender transactions, so
+     * a transaction can be completed as a split tender if a card has insufficient balance.
+     */
+    @Deprecated INSUFFICIENT_CARD_BALANCE(RegisterApi.ERROR_INSUFFICIENT_CARD_BALANCE),
 
     /**
      * The information provided in the transaction request was invalid (a required field might have
@@ -389,6 +426,9 @@ public final class ChargeRequest {
      * {@link Error#debugDescription} provides additional details.
      */
     INVALID_REQUEST(RegisterApi.ERROR_INVALID_REQUEST),
+
+    /** Employee management is enabled but no employee is logged in to Square Register. */
+    NO_EMPLOYEE_LOGGED_IN(RegisterApi.ERROR_NO_EMPLOYEE_LOGGED_IN),
 
     /**
      * Square Register was unable to validate the Register API request because the Android device
@@ -459,12 +499,27 @@ public final class ChargeRequest {
   /**
    * Possible forms of payment that a merchant can accept for a Register API
    * transaction.
+   *
    * @see Builder#restrictTendersTo(Collection)
    */
   public enum TenderType {
 
+    /**
+     * Allow Magstripe cards, Chip Cards, Keyed-In Cards, Contactless (NFC) Payments, Square
+     * Prepaid Gift Cards.
+     */
     CARD(EXTRA_TENDER_CARD),
+
+    /** Allow Card On File transactions. */
+    CARD_ON_FILE(EXTRA_TENDER_CARD_ON_FILE),
+
+    /** Allow Cash transactions. Useful to keep all payment records in one place. */
     CASH(EXTRA_TENDER_CASH),
+
+    /**
+     * Allow Check, Third-Party Gift Cards, and Other Tender transactions. Useful to keep all
+     * payment records in one place.
+     */
     OTHER(EXTRA_TENDER_OTHER);
 
     String apiExtraName;

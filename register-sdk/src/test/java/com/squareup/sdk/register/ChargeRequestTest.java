@@ -19,6 +19,7 @@ package com.squareup.sdk.register;
 import org.junit.Test;
 
 import static com.squareup.sdk.register.ChargeRequest.TenderType.CARD;
+import static com.squareup.sdk.register.ChargeRequest.TenderType.CARD_ON_FILE;
 import static com.squareup.sdk.register.ChargeRequest.TenderType.CASH;
 import static com.squareup.sdk.register.ChargeRequest.TenderType.OTHER;
 import static com.squareup.sdk.register.CurrencyCode.CAD;
@@ -41,7 +42,7 @@ public class ChargeRequestTest {
 
   @Test public void requestHasAllTenderTypesByDefault() {
     ChargeRequest request = new ChargeRequest.Builder(1_00, USD).build();
-    assertThat(request.tenderTypes).containsOnly(CARD, CASH, OTHER);
+    assertThat(request.tenderTypes).containsOnly(CARD, CARD_ON_FILE, CASH, OTHER);
   }
 
   @Test public void requestHasNoTimeoutByDefault() {
@@ -97,11 +98,17 @@ public class ChargeRequestTest {
     assertThat(request.requestMetadata).isEqualTo("metadata");
   }
 
+  @Test public void requestHasCustomerId() {
+    ChargeRequest request = new ChargeRequest.Builder(1_00, USD).customerId("customerId").build();
+    assertThat(request.customerId).isEqualTo("customerId");
+  }
+
   @Test public void copyKeepingAmount() {
     ChargeRequest request = new ChargeRequest.Builder(1_00, USD).restrictTendersTo(CARD)
         .autoReturn(4, SECONDS)
         .enforceBusinessLocation("location")
         .requestMetadata("metadata")
+        .customerId("customerId")
         .note("note")
         .build();
     ChargeRequest updatedRequest = request.newBuilder()
@@ -109,6 +116,7 @@ public class ChargeRequestTest {
         .autoReturn(5, SECONDS)
         .enforceBusinessLocation("location2")
         .requestMetadata("metadata2")
+        .customerId("customerId2")
         .note("note2")
         .build();
     assertThat(updatedRequest.totalAmount).isEqualTo(1_00);
@@ -117,6 +125,7 @@ public class ChargeRequestTest {
     assertThat(updatedRequest.autoReturnMillis).isEqualTo(5_000);
     assertThat(updatedRequest.locationId).isEqualTo("location2");
     assertThat(updatedRequest.requestMetadata).isEqualTo("metadata2");
+    assertThat(updatedRequest.customerId).isEqualTo("customerId2");
     assertThat(updatedRequest.note).isEqualTo("note2");
   }
 
@@ -125,6 +134,7 @@ public class ChargeRequestTest {
         .autoReturn(4, SECONDS)
         .enforceBusinessLocation("location")
         .requestMetadata("metadata")
+        .customerId("customerId")
         .note("note")
         .build();
     ChargeRequest updatedRequest = request.newBuilder(2_00, CAD).build();
@@ -134,6 +144,7 @@ public class ChargeRequestTest {
     assertThat(updatedRequest.autoReturnMillis).isEqualTo(4_000);
     assertThat(updatedRequest.locationId).isEqualTo("location");
     assertThat(updatedRequest.requestMetadata).isEqualTo("metadata");
+    assertThat(updatedRequest.customerId).isEqualTo("customerId");
     assertThat(updatedRequest.note).isEqualTo("note");
   }
 

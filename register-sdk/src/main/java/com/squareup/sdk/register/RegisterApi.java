@@ -55,7 +55,11 @@ public final class RegisterApi {
 
   public static final String EXTRA_TENDER_OTHER = NAMESPACE + "TENDER_OTHER";
 
+  public static final String EXTRA_TENDER_CARD_ON_FILE = NAMESPACE + "TENDER_CARD_ON_FILE";
+
   public static final String EXTRA_AUTO_RETURN_TIMEOUT_MS = NAMESPACE + "AUTO_RETURN_TIMEOUT_MS";
+
+  public static final String EXTRA_CUSTOMER_ID = NAMESPACE + "CUSTOMER_ID";
 
   public static final long AUTO_RETURN_NO_TIMEOUT = 0L;
 
@@ -109,6 +113,11 @@ public final class RegisterApi {
   public static final String ERROR_USER_NOT_LOGGED_IN = NAMESPACE + "ERROR_USER_NOT_LOGGED_IN";
 
   public static final String ERROR_USER_NOT_ACTIVATED = NAMESPACE + "ERROR_USER_NOT_ACTIVATED";
+
+  public static final String ERROR_CUSTOMER_MANAGEMENT_NOT_SUPPORTED =
+      NAMESPACE + "ERROR_CUSTOMER_MANAGEMENT_NOT_SUPPORTED";
+
+  public static final String ERROR_INVALID_CUSTOMER_ID = NAMESPACE + "ERROR_INVALID_CUSTOMER_ID";
 
   private RegisterApi() {
     throw new AssertionError();
