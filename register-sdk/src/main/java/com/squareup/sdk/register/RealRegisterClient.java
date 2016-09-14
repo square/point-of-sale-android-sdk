@@ -145,6 +145,7 @@ final class RealRegisterClient implements RegisterClient {
     intent.putExtra(RegisterApi.EXTRA_SDK_VERSION, SDK_VERSION);
     intent.putExtra(RegisterApi.EXTRA_CURRENCY_CODE, chargeRequest.currencyCode.name());
     intent.putExtra(RegisterApi.EXTRA_REQUEST_METADATA, chargeRequest.requestMetadata);
+    intent.putExtra(RegisterApi.EXTRA_CUSTOMER_ID, chargeRequest.customerId);
 
     ArrayList<String> tenderTypeExtra = new ArrayList<>();
     for (ChargeRequest.TenderType tenderType : chargeRequest.tenderTypes) {
