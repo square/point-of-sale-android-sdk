@@ -155,6 +155,3 @@ public class MainActivity extends AppCompatActivity {
     BikeApplication.from(this).getDataLoader().clearListener();
   }
 }
-
-
-

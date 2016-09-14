@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -47,3 +48,39 @@
       />
 
 </RelativeLayout>
+||||||| merged common ancestors
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/BikeListItem"
+    >
+
+
+  <TextView
+      android:id="@+id/option_price"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"
+      android:padding="@dimen/list_item_margin"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/black"
+      />
+
+  <TextView
+      android:id="@+id/option_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_centerVertical="true"
+      android:layout_toStartOf="@id/option_price"
+      android:ellipsize="end"
+      android:padding="@dimen/list_item_margin"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:textColor="@color/black"
+      />
+
+</RelativeLayout>
+>>>>>>> Add sample bikeshop app.

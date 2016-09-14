@@ -40,3 +40,4 @@ class Option implements Serializable {
     return price_money.amount;
   }
 }
+

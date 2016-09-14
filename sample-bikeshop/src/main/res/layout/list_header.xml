@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -31,3 +32,23 @@
       />
 
 </FrameLayout>
+||||||| merged common ancestors
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/ListHeader">
+
+  <TextView
+      android:id="@+id/list_header"
+      android:gravity="start|center_vertical"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/list_header_height"
+      android:layout_marginStart="@dimen/list_item_margin"
+      android:textColor="@color/black"
+      />
+
+</FrameLayout>
+>>>>>>> Add sample bikeshop app.

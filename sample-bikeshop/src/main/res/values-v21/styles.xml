@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -25,3 +26,17 @@
     <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
   </style>
 </resources>
+||||||| merged common ancestors
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+  </style>
+</resources>
+>>>>>>> Add sample bikeshop app.

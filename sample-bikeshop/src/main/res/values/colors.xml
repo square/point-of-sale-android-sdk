@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -26,3 +27,18 @@
   <color name="owen_yellow">#ffc210</color>
   <color name="white">#FFFFFF</color>
 </resources>
+||||||| merged common ancestors
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="black">#000000</color>
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#302f2e</color>
+  <color name="colorAccent">#FF4081</color>
+  <color name="owen_light_grey">#F6F6F6</color>
+  <color name="owen_grey_text">#9D9D9D</color>
+  <color name="owen_border_grey">#D7D7D7</color>
+  <color name="owen_yellow">#ffc210</color>
+  <color name="white">#FFFFFF</color>
+</resources>
+>>>>>>> Add sample bikeshop app.

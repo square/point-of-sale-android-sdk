@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
   <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -23,3 +24,15 @@
         android:right="1px"
         android:bottom="2px"/>
   </shape>
+||||||| merged common ancestors
+=======
+<?xml version="1.0" encoding="utf-8"?>
+  <shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/owen_light_grey"/>
+    <stroke android:width="1px" android:color="@color/owen_border_grey"/>
+    <padding android:left="1px"
+        android:top="2px"
+        android:right="1px"
+        android:bottom="2px"/>
+  </shape>
+>>>>>>> Add sample bikeshop app.

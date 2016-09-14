@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -38,3 +39,30 @@
   </application>
 
 </manifest>
+||||||| merged common ancestors
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.owensbikes">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+
+  <application
+      android:allowBackup="true"
+      android:icon="@drawable/logo_white"
+      android:name=".BikeApplication"
+      android:label="@string/app_name"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme">
+    <activity android:name=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+    <activity android:name=".TransactionSuccessActivity">
+    </activity>
+  </application>
+
+</manifest>
+>>>>>>> Add sample bikeshop app.

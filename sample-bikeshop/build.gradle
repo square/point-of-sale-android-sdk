@@ -62,3 +62,4 @@ void addClientIdField(def buildType) {
         'see bikeshop.properties.example')
   }
 }
+

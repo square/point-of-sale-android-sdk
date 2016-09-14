@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 [
   {
     "id": "a1224695-363e-4979-a7e5-ec92f7b57f0a",
@@ -294,3 +295,302 @@
     ]
   }
 ]
+||||||| merged common ancestors
+=======
+[
+  {
+    "id": "37b2736a-f3a6-416d-b91e-28fb8b78ba03",
+    "name": "Frame",
+    "category": "MODIFIER",
+    "options": [
+      {
+        "name": "Pro Performance",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 42500
+        }
+      }
+    ]
+  },
+  {
+    "id": "624d7c13-3d09-4090-ac9c-9ebb7c039884",
+    "name": "Bike Light",
+    "category": "ACCESSORY",
+    "options": [
+      {
+        "name": "LED",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 500
+        }
+      },
+      {
+        "name": "Light and Motion",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 1000
+        }
+      }
+    ]
+  },
+  {
+    "id": "333d7c13-394ug-4090-ac9c-9ebb7c749365",
+    "name": "Handlebar Tape",
+    "category": "ACCESSORY",
+    "options": [
+      {
+        "name": "Sleek Silver",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      },
+      {
+        "name": "Luxury Leather",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      },
+      {
+        "name": "Cork Bar Tape",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      },
+      {
+        "name": "Red Lizard Skin",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      },
+      {
+        "name": "Classic White",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      }
+    ]
+  },
+  {
+    "id": "7e3069f1-2247-491f-8de1-76c5dbcd3420",
+    "name": "Helmet",
+    "category":  "ACCESSORY",
+    "options": [
+      {
+        "name": "Black",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 500
+        }
+      },
+      {
+        "name": "Silver",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 500
+        }
+      },
+      {
+        "name": "Red",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 1000
+        }
+      }
+    ]
+  },
+  {
+    "id": "ace42dcd-1300-452f-88db-bebac1768c26",
+    "name": "Kickstand",
+    "category": "ACCESSORY",
+    "options": [
+      {
+        "name": "Chrome",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 1000
+        }
+      }
+    ]
+  },
+  {
+    "id": "8419599f-eef2-4573-9e21-c39a1da13ad7",
+    "name": "Frame Size",
+    "category": "MODIFIER",
+    "options": [
+      {
+        "name": "47 cm",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 18000
+        }
+      },
+      {
+        "name": "50 cm",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 18000
+        }
+      },
+      {
+        "name": "53 cm",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 18000
+        }
+      },
+      {
+        "name": "56 cm",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 18000
+        }
+      },
+      {
+        "name": "59 cm",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 20000
+        }
+      },
+      {
+        "name": "62 cm",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 20000
+        }
+      }
+    ]
+  },
+  {
+    "id": "4ccf27d0-281a-4577-8ec3-658e79999b13",
+    "name": "Grips",
+    "category": "MODIFIER",
+    "options": [
+      {
+        "name": "Sports Rubber",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      },
+      {
+        "name": "No Grip",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": "85887ca5-6812-4f4c-9ac3-512b889bb764",
+    "name": "Gearing",
+    "category": "MODIFIER",
+    "options": [
+      {
+        "name": "Single Speed",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 6500
+        }
+      },
+      {
+        "name": "8-Speed",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 8000
+        }
+      }
+    ]
+  },
+  {
+    "id": "a1224695-363e-4979-a7e5-ec92f7b57f0a",
+    "name": "Saddle",
+    "category": "MODIFIER",
+    "options": [
+      {
+        "name": "Lightweight Performance",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      },
+      {
+        "name": "Plush Comfort Saddle",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 2000
+        }
+      }
+    ]
+  },
+  {
+    "id": "c5ab0f3b-b7c0-490c-83c9-5a4de49127ec",
+    "name": "Crankset",
+    "category": "MODIFIER",
+    "options": [
+      {
+        "name": "Record Carbon",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 4000
+        }
+      },
+      {
+        "name": "6800 11-Speed Crankset",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 6000
+        }
+      },
+      {
+        "name": "Compact Crankset",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 6000
+        }
+      }
+    ]
+  },
+  {
+    "id": "e2be94d2-03be-474b-b9b6-05a9c9bb892e",
+    "name": "Handlebar",
+    "category": "MODIFIER",
+    "options": [
+      {
+        "name": "Tracker",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 7500
+        }
+      },
+      {
+        "name": "Upright Cafe",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 8000
+        }
+      },
+      {
+        "name": "Classic Drop",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 7500
+        }
+      },
+      {
+        "name": "Powerful Bullhorn Bar",
+        "price_money": {
+          "currency_code": "USD",
+          "amount": 8000
+        }
+      }
+    ]
+  }
+]
+>>>>>>> Add sample bikeshop app.

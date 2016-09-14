@@ -1,3 +1,4 @@
+<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <!--
   ~ Copyright (C) 2016 Square, Inc.
   ~
@@ -38,3 +39,30 @@
 </resources>
 
 
+||||||| merged common ancestors
+=======
+<resources>
+  <dimen name="checkout_button_min_height">50dp</dimen>
+  <dimen name="complete_transaction_vertical_margin">100dp</dimen>
+  <dimen name="large_padding">35dp</dimen>
+  <dimen name="logo_padding">10dp</dimen>
+  <dimen name="list_row_height">50dp</dimen>
+  <dimen name="text_box_margin">10dp</dimen>
+  <dimen name="list_item_margin">20dp</dimen>
+  <dimen name="button_vertical_padding">20dp</dimen>
+  <dimen name="list_header_height">36dp</dimen>
+  <dimen name="bike_image_modifier_margin">15dp</dimen>
+  <dimen name="bike_image_modifier_height">90dp</dimen>
+  <dimen name="small_margin">10dp</dimen>
+  <dimen name="large_logo">100dp</dimen>
+  <dimen name="button_text_padding">45dp</dimen>
+  <dimen name="selected_option_text_size">18sp</dimen>
+  <dimen name="large_text">35sp</dimen>
+  <dimen name="total_row_height">50dp</dimen>
+  <dimen name="checkout_column_width">340dp</dimen>
+  <dimen name="bike_item_list_portrait_height">260dp</dimen>
+  <bool name="isTablet">false</bool>
+</resources>
+
+
+>>>>>>> Add sample bikeshop app.
