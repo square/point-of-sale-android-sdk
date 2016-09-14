@@ -43,6 +43,6 @@ void addClientIdField(def buildType) {
     buildType.buildConfigField "String", "CLIENT_ID", props['clientId']
   } else {
     throw new GradleException('Please create bikeshop.properties, ' +
-        'see hellocharge.properties.example')
+        'see bikeshop.properties.example')
   }
 }
