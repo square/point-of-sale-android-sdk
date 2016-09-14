@@ -8,7 +8,7 @@
   <dimen name="list_item_margin">20dp</dimen>
   <dimen name="button_vertical_padding">20dp</dimen>
   <dimen name="list_header_height">36dp</dimen>
-  <dimen name="bike_image_modifier_margin">15dp</dimen>
+  <dimen name="bike_image_modifier_margin">25dp</dimen>
   <dimen name="bike_image_modifier_height">90dp</dimen>
   <dimen name="small_margin">10dp</dimen>
   <dimen name="large_logo">100dp</dimen>

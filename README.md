@@ -8,9 +8,9 @@ The Register Android SDK lets you quickly build custom Android point-of-sale app
 
 Here's [how to get help](https://docs.connect.squareup.com/articles/faq/#implementationquestions).
 
-## Building the Sample App
+## Building the Hellocharge Sample App
 
-A sample app is available in the `sample-hellocharge` folder.
+The hellocharge app is available in the `sample-hellocharge` folder.
 
 Check out this repo:
 
@@ -22,7 +22,7 @@ cd register-android-sdk
 Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to your application's client id which is the same as your application id in the Square Developer Portal (`sq0idp-XXXXXXXXXXXXXXX`)
 
 ```
-echo clientId=\"YourClientId\" > sample-hellocharge/hellocharge.properties
+echo clientId=\"[put your clientId here]\" > sample-hellocharge/hellocharge.properties
 ```
 
 Build the SDK and the sample app:
@@ -44,6 +44,10 @@ Install the sample app:
 ```
 
 ![hellocharge_demo.gif](sample-hellocharge/assets/hellocharge_demo.gif)
+
+## Bikeshop Sample App
+
+Another sample application is available in the `sample-bikeshop` folder. The bikeshop is an example of a real point-of-sale application. To build this sample app, follow the same instructions as above, substituting "hellocharge" for "bikeshop". 
 
 ## Contributing
 
