@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.owensbikes.BikeModifierView
+    style="@style/BikeModifierButton"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:animateLayoutChanges="true"
+    android:gravity="start|center_vertical"
+    android:orientation="vertical"
+    android:layout_height="@dimen/bike_image_modifier_height"
+    android:layout_marginEnd="20dp"
+    >
+
+  <TextView
+      android:id="@+id/bike_image_modifier_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/text_box_margin"
+      android:textColor="@color/white"
+      />
+
+  <TextSwitcher
+      android:id="@+id/text_switcher"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/text_box_margin"
+      android:layout_marginEnd="@dimen/text_box_margin"
+      android:inAnimation="@android:anim/slide_in_left"
+      android:outAnimation="@android:anim/slide_out_right"
+      />
+
+</com.example.owensbikes.BikeModifierView>
+

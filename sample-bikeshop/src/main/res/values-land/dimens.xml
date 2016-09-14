@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="bike_image_modifier_margin">35dp</dimen>
+</resources>

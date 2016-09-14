@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bike_image_modifier_value"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/white"
+    android:singleLine="true"
+    android:ellipsize="end"
+    android:textSize="@dimen/selected_option_text_size"
+    />

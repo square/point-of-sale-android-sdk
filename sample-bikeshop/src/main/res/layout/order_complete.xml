@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+
+
+  <TextView
+      android:id="@+id/order_complete_text"
+      android:gravity="center"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_centerVertical="true"
+      android:text="@string/order_complete"
+      android:textColor="@color/colorPrimaryDark"
+      android:textSize="@dimen/large_text"
+      />
+
+
+  <ImageView
+      android:id="@+id/logo"
+      android:contentDescription="@string/logo"
+      android:layout_height="@dimen/large_logo"
+      android:layout_width="@dimen/large_logo"
+      android:scaleType="center"
+      android:layout_marginBottom="@dimen/large_padding"
+      android:layout_centerHorizontal="true"
+      android:layout_above="@id/order_complete_text"
+      android:src="@drawable/logo"
+      />
+
+  <TextView
+      android:id="@+id/order_complete_subtitle"
+      android:gravity="center"
+      android:layout_below="@id/order_complete_text"
+      android:layout_centerHorizontal="true"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_marginTop="@dimen/list_item_margin"
+      android:paddingLeft="@dimen/large_padding"
+      android:paddingRight="@dimen/large_padding"
+      android:singleLine="false"
+      android:text="@string/order_info"
+      android:textColor="@color/owen_grey_text"
+      android:textSize="20sp"
+      />
+
+  <Button
+      android:id="@+id/customize_new_bike"
+      android:layout_height="wrap_content"
+      android:paddingLeft="@dimen/button_text_padding"
+      android:paddingRight="@dimen/button_text_padding"
+      android:paddingTop="@dimen/button_vertical_padding"
+      android:paddingBottom="@dimen/button_vertical_padding"
+      android:layout_width="wrap_content"
+      android:text="@string/customize_new_bike"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="@dimen/complete_transaction_vertical_margin"
+      style="@style/Button.Primary.White"
+      />
+
+</RelativeLayout>
