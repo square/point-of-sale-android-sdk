@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_row_height"
+    android:gravity="center_vertical"
+    style="@style/NewAccessoryItem"
+    >
+
+  <TextView
+      android:id="@+id/plus_sign"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_marginEnd="@dimen/list_item_margin"
+      android:text="@string/plus"
+      android:textColor="@color/owen_yellow"
+      />
+
+  <TextView
+      android:id="@+id/item_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_marginStart="@dimen/list_item_margin"
+      android:layout_toStartOf="@id/plus_sign"
+      android:ellipsize="end"
+      android:singleLine="true"
+      android:text="@string/add_accessory"
+      android:textColor="@color/owen_yellow"
+      />
+
+</RelativeLayout>

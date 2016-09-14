@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <bool name="isTablet">true</bool>
+  <dimen name="logo_padding">25dp</dimen>
+  <dimen name="list_row_height">55dp</dimen>
+  <dimen name="total_row_height">64dp</dimen>
+  <dimen name="checkout_button_min_height">64dp</dimen>
+</resources>
