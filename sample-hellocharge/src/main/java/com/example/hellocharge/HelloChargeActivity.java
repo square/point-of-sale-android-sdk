@@ -61,6 +61,7 @@ public class HelloChargeActivity extends AppCompatActivity {
   private CheckBox cashCheckbox;
   private CheckBox otherTenderCheckbox;
   private EditText locationIdEditText;
+  private EditText customerIdEditText;
   private EditText autoReturnTimeoutEditText;
   private EditText requestMetadataEditText;
 
@@ -78,6 +79,7 @@ public class HelloChargeActivity extends AppCompatActivity {
     cashCheckbox = findView(R.id.cash_tender_checkbox);
     otherTenderCheckbox = findView(R.id.other_tender_checkbox);
     locationIdEditText = findView(R.id.location_id_edit_text);
+    customerIdEditText = findView(R.id.customer_id_edit_text);
     autoReturnTimeoutEditText = findView(R.id.auto_return_timeout_edit_text);
     requestMetadataEditText = findView(R.id.request_metadata_edit_text);
 
@@ -131,6 +133,7 @@ public class HelloChargeActivity extends AppCompatActivity {
       tenderTypes.add(ChargeRequest.TenderType.OTHER);
     }
     String locationId = locationIdEditText.getText().toString();
+    String customerId = customerIdEditText.getText().toString();
     String timeoutString = autoReturnTimeoutEditText.getText().toString();
     long timeout = isBlank(timeoutString) ? AUTO_RETURN_NO_TIMEOUT : Integer.valueOf(timeoutString);
 
@@ -139,6 +142,7 @@ public class HelloChargeActivity extends AppCompatActivity {
     ChargeRequest chargeRequest =
         new ChargeRequest.Builder(amount, CurrencyCode.valueOf(currencyCode)).note(note)
             .enforceBusinessLocation(locationId)
+            .customerId(customerId)
             .autoReturn(timeout, TimeUnit.MILLISECONDS)
             .requestMetadata(requestMetadata)
             .restrictTendersTo(tenderTypes)

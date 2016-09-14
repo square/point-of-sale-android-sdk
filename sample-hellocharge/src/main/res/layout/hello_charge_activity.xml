@@ -168,6 +168,23 @@
       >
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/customer_id_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/customer_id_hint"
+            android:inputType="text|textCapCharacters|textNoSuggestions"
+        />
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:layout_marginBottom="@dimen/vertical_space"
+      >
+
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/auto_return_timeout_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
