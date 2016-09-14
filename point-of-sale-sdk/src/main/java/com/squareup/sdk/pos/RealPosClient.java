@@ -85,7 +85,8 @@ final class RealPosClient implements PosClient {
   @Override public void launchPointOfSale() {
     List<ResolveInfo> activities = queryChargeActivities();
     PackageInfo pointOfSalePackage = findPointOfSaleWithHighestVersion(activities);
-    Intent pointOfSaleIntent = packageManager.getLaunchIntentForPackage(pointOfSalePackage.packageName);
+    Intent pointOfSaleIntent =
+        packageManager.getLaunchIntentForPackage(pointOfSalePackage.packageName);
     context.startActivity(pointOfSaleIntent);
   }
 
