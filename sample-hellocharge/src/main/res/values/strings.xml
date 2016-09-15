@@ -5,6 +5,7 @@
   <string name="cash_text">Cash</string>
   <string name="currency_code_default">USD</string>
   <string name="currency_code_hint">Currency Code</string>
+  <string name="customer_id_hint">Customer ID (optional)</string>
   <string name="install_register_confirm">Open Play Store</string>
   <string name="install_register_message">Please download Square Register from the Play Store.</string>
   <string name="install_register_title">Square Register is not installed</string>

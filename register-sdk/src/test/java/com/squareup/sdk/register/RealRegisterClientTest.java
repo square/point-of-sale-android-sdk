@@ -41,10 +41,12 @@ import static com.squareup.sdk.register.CurrencyCode.USD;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_API_VERSION;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_AUTO_RETURN_TIMEOUT_MS;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_CURRENCY_CODE;
+import static com.squareup.sdk.register.RegisterApi.EXTRA_CUSTOMER_ID;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_LOCATION_ID;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_NOTE;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_REGISTER_CLIENT_ID;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_REQUEST_METADATA;
+import static com.squareup.sdk.register.RegisterApi.EXTRA_SDK_VERSION;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CARD;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_TYPES;
 import static com.squareup.sdk.register.RegisterApi.EXTRA_TOTAL_AMOUNT;
@@ -144,6 +146,7 @@ public class RealRegisterClientTest {
     ChargeRequest request = new ChargeRequest.Builder(1_00, USD).restrictTendersTo(CARD)
         .autoReturn(4, SECONDS)
         .enforceBusinessLocation("location")
+        .customerId("customerId")
         .requestMetadata("metadata")
         .note("note")
         .build();
@@ -157,10 +160,29 @@ public class RealRegisterClientTest {
     assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v1.1");
     assertThat(intent.getStringExtra(EXTRA_REQUEST_METADATA)).isEqualTo("metadata");
     assertThat(intent.getStringExtra(EXTRA_LOCATION_ID)).isEqualTo("location");
+    assertThat(intent.getStringExtra(EXTRA_CUSTOMER_ID)).isEqualTo("customerId");
     assertThat(intent.getStringArrayListExtra(EXTRA_TENDER_TYPES)).containsExactly(
         EXTRA_TENDER_CARD);
     assertThat(intent.getLongExtra(EXTRA_AUTO_RETURN_TIMEOUT_MS, -1)).isEqualTo(4_000);
     assertThat(intent.getPackage()).isEqualTo("com.squareup");
+  }
+
+  @Test public void fieldsSetAsExpectedForDefaultRequest() {
+    ChargeRequest request = new ChargeRequest.Builder(1_00, USD).build();
+
+    Intent intent = client.createChargeIntent(request);
+
+    assertThat(intent.hasExtra(EXTRA_REGISTER_CLIENT_ID)).isTrue();
+    assertThat(intent.hasExtra(EXTRA_TOTAL_AMOUNT)).isTrue();
+    assertThat(intent.hasExtra(EXTRA_API_VERSION)).isTrue();
+    assertThat(intent.hasExtra(EXTRA_SDK_VERSION)).isTrue();
+    assertThat(intent.hasExtra(EXTRA_CURRENCY_CODE)).isTrue();
+    assertThat(intent.hasExtra(EXTRA_REQUEST_METADATA)).isTrue();
+    assertThat(intent.hasExtra(EXTRA_TENDER_TYPES)).isTrue();
+
+    assertThat(intent.hasExtra(EXTRA_CUSTOMER_ID)).isFalse();
+    assertThat(intent.hasExtra(EXTRA_LOCATION_ID)).isFalse();
+    assertThat(intent.hasExtra(EXTRA_AUTO_RETURN_TIMEOUT_MS)).isFalse();
   }
 
   @Test public void pinsToHighestVersionNumber() {
