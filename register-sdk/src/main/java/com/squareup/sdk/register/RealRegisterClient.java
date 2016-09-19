@@ -82,6 +82,13 @@ final class RealRegisterClient implements RegisterClient {
     return false;
   }
 
+  @Override public void launchRegister() {
+    List<ResolveInfo> activities = queryChargeActivities();
+    PackageInfo registerPackage = findRegisterWithHighestVersion(activities);
+    Intent registerIntent = packageManager.getLaunchIntentForPackage(registerPackage.packageName);
+    context.startActivity(registerIntent);
+  }
+
   @Override public void openRegisterPlayStoreListing() {
     Uri uri = isPlayStoreInstalled() ? PLAY_STORE_APP_URL : PLAY_STORE_WEB_URL;
     Intent playStoreIntent = new Intent(ACTION_VIEW, uri);

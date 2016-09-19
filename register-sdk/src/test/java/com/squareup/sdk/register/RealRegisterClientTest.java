@@ -103,6 +103,13 @@ public class RealRegisterClientTest {
     verify(context).startActivity(expectedIntent);
   }
 
+  @Test public void launchRegister() {
+    client.launchRegister();
+
+    Intent expectedIntent = context.getPackageManager().getLaunchIntentForPackage("com.squareup");
+    verify(context).startActivity(expectedIntent);
+  }
+
   @Test public void registerInstalled() {
     assertThat(client.isRegisterInstalled()).isTrue();
   }
@@ -205,6 +212,19 @@ public class RealRegisterClientTest {
     chargeActivities.clear();
     installApp("com.squareup", 2, INVALID_SIGNATURE);
     client.createChargeIntent(new ChargeRequest.Builder(1_00, USD).build());
+  }
+
+  @Test(expected = ActivityNotFoundException.class)
+  public void launchRegisterThrowsWithNoRegisterInstalled() {
+    chargeActivities.clear();
+    client.launchRegister();
+  }
+
+  @Test(expected = ActivityNotFoundException.class)
+  public void launchRegisterThrowsWithInvalidSignature() {
+    chargeActivities.clear();
+    installApp("com.squareup", 2, INVALID_SIGNATURE);
+    client.launchRegister();
   }
 
   private void installApp(String packageName, int versionCode, Signature signature) {
