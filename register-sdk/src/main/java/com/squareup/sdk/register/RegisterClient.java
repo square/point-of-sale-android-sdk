@@ -38,10 +38,20 @@ public interface RegisterClient {
   @NonNull Intent createChargeIntent(@NonNull ChargeRequest chargeRequest);
 
   /**
-    * @return {@code true} if a version of Square Register that supports the Register API is installed.
-    * {@code false} otherwise.
-    */
+   * @return {@code true} if a version of Square Register that supports the Register API is installed,
+   * {@code false} otherwise.
+   */
   boolean isRegisterInstalled();
+
+  /**
+   * Launches the Square Register application. This is equivalent to pressing the home button
+   * and opening the Register app. It is useful for handling errors that require the user to
+   * complete an action within Register, such as completing a transaction after receiving a
+   * {@link ChargeRequest.ErrorCode#TRANSACTION_ALREADY_IN_PROGRESS} error.
+   *
+   * @throws android.content.ActivityNotFoundException if Square Register is not installed.
+   */
+  void launchRegister();
 
   /**
    * Opens the Square Register install page in the Google Play Store. The Play Store
