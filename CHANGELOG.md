@@ -3,7 +3,7 @@ Change Log
 
 ## Version 1.1
 
-_Not released yet._
+_2016-09-21_
 
 * Supported in **Register 4.48 and above.**
   * Prior to v4.48, Square Register will return an `INVALID_REQUEST` error.
