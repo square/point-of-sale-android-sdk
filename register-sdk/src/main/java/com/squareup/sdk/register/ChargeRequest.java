@@ -123,7 +123,7 @@ public final class ChargeRequest {
     if (locationId != null ? !locationId.equals(that.locationId) : that.locationId != null) {
       return false;
     }
-    if (requestMetadata != null ? !requestMetadata.equals(that.locationId)
+    if (requestMetadata != null ? !requestMetadata.equals(that.requestMetadata)
         : that.requestMetadata != null) {
       return false;
     }
