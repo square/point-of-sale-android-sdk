@@ -14,7 +14,7 @@ split tender if a card has insufficient balance.
   * Deprecated the `GIFT_CARDS_NOT_SUPPORTED` error type.
 * New `CARD_ON_FILE` tender type to allow charging a previously-stored card instrument.
 * Support for linking customers to transactions
-  * see `ChargeRequest.Builder.customerId()`.
+  * See `ChargeRequest.Builder.customerId()`.
   * New `CUSTOMER_MANAGEMENT_NOT_SUPPORTED` error type returned if the merchant account does not
 support Customer Management.
   * New `ERROR_INVALID_CUSTOMER_ID` error type.
