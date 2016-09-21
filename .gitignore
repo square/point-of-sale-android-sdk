@@ -4,6 +4,7 @@ build
 local.properties
 reports
 hellocharge.properties
+bikeshop.properties
 
 # Maven
 target
