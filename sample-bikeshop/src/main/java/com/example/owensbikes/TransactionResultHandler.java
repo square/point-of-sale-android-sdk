@@ -8,8 +8,6 @@ import com.squareup.sdk.register.RegisterClient;
 
 public class TransactionResultHandler {
 
-  private static final String TAG = "ResultHandler";
-
   private final Activity activity;
   private final RegisterClient registerClient;
   private final DialogComposer dialogComposer;
@@ -36,7 +34,7 @@ public class TransactionResultHandler {
   }
 
   public void showErrorDialog(ChargeRequest.Error errorResult) {
-    Log.e(TAG, errorResult.debugDescription);
+    Log.e(String.valueOf(errorResult.code), errorResult.debugDescription);
     switch (errorResult.code) {
       case UNAUTHORIZED_CLIENT_ID:
         dialogComposer.showOAuthAlertDialog();
