@@ -28,7 +28,6 @@ import com.squareup.sdk.pos.PosClient;
 public class DialogComposer {
 
   private static final String POINT_OF_SALE_PACKAGE = "com.squareup";
-
   private final MainActivity activity;
   private final PosClient posClient;
 

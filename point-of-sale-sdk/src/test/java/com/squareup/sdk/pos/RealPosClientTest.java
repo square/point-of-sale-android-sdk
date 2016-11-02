@@ -231,14 +231,14 @@ public class RealPosClientTest {
   @Test(expected = ActivityNotFoundException.class)
   public void launchRegisterThrowsWithNoRegisterInstalled() {
     chargeActivities.clear();
-    client.launchRegister();
+    client.launchPointOfSale();
   }
 
   @Test(expected = ActivityNotFoundException.class)
   public void launchRegisterThrowsWithInvalidSignature() {
     chargeActivities.clear();
     installApp("com.squareup", 2, INVALID_SIGNATURE);
-    client.launchRegister();
+    client.launchPointOfSale();
   }
 
   private void installApp(String packageName, int versionCode, Signature signature) {
