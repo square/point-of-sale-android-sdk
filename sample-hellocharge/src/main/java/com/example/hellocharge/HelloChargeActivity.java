@@ -49,11 +49,6 @@ public class HelloChargeActivity extends AppCompatActivity {
 
   private static final int CHARGE_REQUEST_CODE = 0xF00D;
 
-  private static final Uri OAUTH_LINK = Uri.parse(
-      "https://connect.squareup.com/oauth2/authorize?client_id="
-          + BuildConfig.CLIENT_ID
-          + "&response_type=token&scope=PAYMENTS_WRITE");
-
   private EditText transactionAmountEditText;
   private EditText currencyCodeEditText;
   private EditText noteEditText;
@@ -83,12 +78,6 @@ public class HelloChargeActivity extends AppCompatActivity {
     autoReturnTimeoutEditText = findView(R.id.auto_return_timeout_edit_text);
     requestMetadataEditText = findView(R.id.request_metadata_edit_text);
 
-    findView(R.id.oauth_button).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        startOAuth();
-      }
-    });
-
     findView(R.id.start_transaction_button).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         startTransaction();
@@ -96,11 +85,6 @@ public class HelloChargeActivity extends AppCompatActivity {
     });
 
     registerClient = RegisterSdk.createClient(this, BuildConfig.CLIENT_ID);
-  }
-
-  private void startOAuth() {
-    Intent browserIntent = new Intent(ACTION_VIEW, OAUTH_LINK);
-    startActivity(browserIntent);
   }
 
   private void startTransaction() {

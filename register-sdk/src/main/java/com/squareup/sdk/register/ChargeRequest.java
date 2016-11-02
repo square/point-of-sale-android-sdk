@@ -452,8 +452,11 @@ public final class ChargeRequest {
     /** The merchant canceled the transaction. */
     TRANSACTION_CANCELED(RegisterApi.ERROR_TRANSACTION_CANCELED),
 
-    /** The application with the provided client ID is not authorized to use the Register API. */
-    UNAUTHORIZED_CLIENT_ID(RegisterApi.ERROR_UNAUTHORIZED_CLIENT_ID),
+    /**
+     * @deprecated Starting with SDK 1.2, the OAuth authorization flow is no longer required for
+     * Register API, and this error will never be returned.
+     */
+    @Deprecated UNAUTHORIZED_CLIENT_ID(RegisterApi.ERROR_UNAUTHORIZED_CLIENT_ID),
 
     /**
      * An unexpected error occurred. Please contact <a href="mailto:developers@squareup.com">developers@squareup.com</a>

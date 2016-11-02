@@ -29,7 +29,7 @@ public final class RegisterApi {
 
   /**
    * API version number String extra. Uses semantic versioning.
-   * Should currently be set to "v1.1".
+   * Should currently be set to "v1.2".
    */
   public static final String EXTRA_API_VERSION = NAMESPACE + "API_VERSION";
 
