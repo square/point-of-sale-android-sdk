@@ -13,7 +13,6 @@
   <string name="miscellaneous_header">Miscellaneous</string>
   <string name="note_default">Build with Square</string>
   <string name="note_hint">Note (optional)</string>
-  <string name="oauth_button_text">Authorize via OAuth</string>
   <string name="other_tender_text">Other Tenders</string>
   <string name="tender_header">Tender Types</string>
   <string name="transaction_amount_default">100</string>

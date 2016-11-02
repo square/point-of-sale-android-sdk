@@ -36,9 +36,6 @@ public class TransactionResultHandler {
   public void showErrorDialog(ChargeRequest.Error errorResult) {
     Log.e(String.valueOf(errorResult.code), errorResult.debugDescription);
     switch (errorResult.code) {
-      case UNAUTHORIZED_CLIENT_ID:
-        dialogComposer.showOAuthAlertDialog();
-        break;
       case DISABLED:
         dialogComposer.showErrorDialog(R.string.error_api_disabled, R.string.error_api_disabled_message);
         break;
