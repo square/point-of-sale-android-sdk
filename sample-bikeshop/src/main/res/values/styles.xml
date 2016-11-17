@@ -1,4 +1,3 @@
-<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <!--
   ~ Copyright (C) 2016 Square, Inc.
   ~
@@ -61,53 +60,3 @@
 
   <dimen name="my_button_padding">45dp</dimen>
 </resources>
-||||||| merged common ancestors
-=======
-<resources xmlns:android="http://schemas.android.com/tools">
-
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
-
-  <style name="OptionsDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-    <item name="android:layout_margin">0dp</item>
-    <item name="android:padding">0dp</item>
-  </style>
-
-  <style name="Button.Primary" parent="@android:style/Widget.Button">
-    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
-    <item name="android:textColor">@color/white</item>
-    <item name="android:background">@color/owen_yellow</item>
-  </style>
-
-  <style name="Button.Primary.White" parent="@android:style/Widget.Button">
-    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
-    <item name="android:textColor">@color/owen_yellow</item>
-    <item name="android:background">@drawable/owen_selector_clear_yellow_border</item>
-    <item name="android:paddingLeft">@dimen/my_button_padding</item>
-    <item name="android:paddingRight">@dimen/my_button_padding</item>
-  </style>
-
-  <style name="ListHeader" parent="TextAppearance.AppCompat.Medium">
-    <item name="android:background">@drawable/list_header_light_grey_darker_grey_border</item>
-  </style>
-
-  <style name="BikeListItem" parent="AppTheme">
-    <item name="android:background">@drawable/owen_selector_white_gray_border</item>
-  </style>
-
-  <style name="NewAccessoryItem" parent="BikeListItem">
-    <item name="android:textColor">@color/owen_yellow</item>
-  </style>
-
-  <style name="BikeModifierButton" parent="@android:style/Widget.Button">
-    <item name="android:background">@drawable/clear_rounded_white_border</item>
-  </style>
-
-  <dimen name="my_button_padding">45dp</dimen>
-</resources>
->>>>>>> Add sample bikeshop app.
