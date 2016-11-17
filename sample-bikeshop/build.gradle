@@ -31,7 +31,7 @@ dependencies {
   compile 'com.android.support:recyclerview-v7:24.1.1'
   compile 'com.android.support:leanback-v17:24.1.0'
   compile 'com.google.code.gson:gson:2.6.2'
-  compile 'com.squareup.sdk:register-sdk:1.1'
+  compile 'com.squareup.sdk:register-sdk:1.2'
 }
 
 
