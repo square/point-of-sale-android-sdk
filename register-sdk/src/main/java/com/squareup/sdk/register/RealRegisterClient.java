@@ -49,8 +49,6 @@ final class RealRegisterClient implements RegisterClient {
   private static final String REGISTER_PACKAGE_NAME = "com.squareup";
   private static final Uri PLAY_STORE_WEB_URL =
       Uri.parse("https://play.google.com/store/apps/details?id=" + REGISTER_PACKAGE_NAME);
-  private static final Uri PLAY_STORE_APP_URL =
-      Uri.parse("market://details?id=" + REGISTER_PACKAGE_NAME);
   private static final String REGISTER_FINGERPRINT =
       "EA:54:A3:62:C8:5B:F4:34:F2:9F:B6:B0:42:D8:3E:5C:7D:C3:8A:D3";
 
@@ -90,7 +88,7 @@ final class RealRegisterClient implements RegisterClient {
   }
 
   @Override public void openRegisterPlayStoreListing() {
-    Uri uri = isPlayStoreInstalled() ? PLAY_STORE_APP_URL : PLAY_STORE_WEB_URL;
+    Uri uri = PLAY_STORE_WEB_URL;
     Intent playStoreIntent = new Intent(ACTION_VIEW, uri);
     //noinspection deprecation
     playStoreIntent.addFlags(
@@ -236,17 +234,5 @@ final class RealRegisterClient implements RegisterClient {
       }
     }
     return true;
-  }
-
-  private boolean isPlayStoreInstalled() {
-    boolean playStoreInstalled;
-    try {
-      // Check whether Google Play store is installed or not.
-      packageManager.getPackageInfo("com.android.vending", 0);
-      playStoreInstalled = true;
-    } catch (PackageManager.NameNotFoundException e) {
-      playStoreInstalled = false;
-    }
-    return playStoreInstalled;
   }
 }
