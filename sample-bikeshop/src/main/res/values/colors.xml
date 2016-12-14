@@ -17,7 +17,7 @@
 
 <resources>
   <color name="black">#000000</color>
-  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimary">@color/owen_yellow</color>
   <color name="colorPrimaryDark">#302f2e</color>
   <color name="colorAccent">#FF4081</color>
   <color name="owen_light_grey">#F6F6F6</color>
