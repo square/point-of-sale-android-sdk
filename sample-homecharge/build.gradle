@@ -44,3 +44,4 @@ void addClientIdField(def buildType) {
         'see homecharge.properties.example')
   }
 }
+
