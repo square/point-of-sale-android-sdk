@@ -1,3 +1,5 @@
 include ':register-sdk'
 include ':sample-hellocharge'
 include ':sample-bikeshop'
+include ':sample-homecharge'
+include ':sample-homecharge-server'
