@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.squareup.sdk.register.ChargeRequest;
 import com.squareup.sdk.register.RegisterClient;
 import com.squareup.sdk.register.RegisterSdk;
-import info.piwai.chargeassistant.BuildConfig;
 
 import static com.squareup.sdk.register.ChargeRequest.TenderType.CARD;
 import static com.squareup.sdk.register.CurrencyCode.USD;
