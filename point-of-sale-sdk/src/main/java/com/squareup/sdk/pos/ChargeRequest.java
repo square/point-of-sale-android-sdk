@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,20 +26,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CARD;
-import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CARD_ON_FILE;
-import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_CASH;
-import static com.squareup.sdk.register.RegisterApi.EXTRA_TENDER_OTHER;
-import static com.squareup.sdk.register.RegisterSdkHelper.nonNull;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_ON_FILE;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CASH;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_OTHER;
+import static com.squareup.sdk.pos.PosSdkHelper.nonNull;
 import static java.util.Collections.unmodifiableSet;
 
 /**
- * Represents the details of a transaction to initiate with the Register API.
+ * Represents the details of a transaction to initiate with the Point of Sale API.
  * After building a {@code ChargeRequest} instance with {@link Builder#Builder(int, CurrencyCode)},
- * pass it to the {@link RegisterClient#createChargeIntent(ChargeRequest)} method to initiate
+ * pass it to the {@link PosClient#createChargeIntent(ChargeRequest)} method to initiate
  * the transaction.
  *
- * @see RegisterSdk code sample
+ * @see PosSdk code sample
  */
 public final class ChargeRequest {
 
@@ -158,13 +158,13 @@ public final class ChargeRequest {
     @Nullable String customerId;
 
     /**
-     * @param totalAmount Amount to charge. Register might add taxes and / or a tip on top,
+     * @param totalAmount Amount to charge. Point of Sale might add taxes and / or a tip on top,
      * depending on the user account configuration. Smallest divisible unit of currency for a given
      * locale, scaled by the default number of decimal places for the currency.
      * For example, totalAmount = 100 in USD means $1.00.
      * @param currencyCode {@link CurrencyCode} representing ISO-4217 currency codes. Square
-     * Register will ensure that the passed in currency code matches the currency of the user
-     * logged in to Register.
+     * Point of Sale will ensure that the passed in currency code matches the currency of the user
+     * logged in to Point of Sale.
      * @throws IllegalArgumentException if totalAmount is negative.
      * @throws NullPointerException if currencyCode is null.
      */
@@ -175,7 +175,7 @@ public final class ChargeRequest {
       this.totalAmount = totalAmount;
       this.currencyCode = nonNull(currencyCode, "currencyCode");
       tenderTypes = EnumSet.allOf(TenderType.class);
-      autoReturnMillis = RegisterApi.AUTO_RETURN_NO_TIMEOUT;
+      autoReturnMillis = PosApi.AUTO_RETURN_NO_TIMEOUT;
     }
 
     /**
@@ -223,43 +223,43 @@ public final class ChargeRequest {
      * @throws IllegalArgumentException if the note is longer than 500 characters.
      */
     public @NonNull ChargeRequest.Builder note(@Nullable String note) {
-      if (note != null && note.length() > RegisterApi.NOTE_MAX_LENGTH) {
+      if (note != null && note.length() > PosApi.NOTE_MAX_LENGTH) {
         throw new IllegalArgumentException(
-            "note character length must be less than " + RegisterApi.NOTE_MAX_LENGTH);
+            "note character length must be less than " + PosApi.NOTE_MAX_LENGTH);
       }
       this.note = note;
       return this;
     }
 
     /**
-     * <p>After a transaction completes, Square Register automatically returns
+     * <p>After a transaction completes, Square Point of Sale automatically returns
      * to your app after the timeout you provide to this method.
      *
      * @param timeout The timeout to set, in the provided unit, or {@link
-     * RegisterApi#AUTO_RETURN_NO_TIMEOUT}. If you specify a timeout, it must be
+     * PosApi#AUTO_RETURN_NO_TIMEOUT}. If you specify a timeout, it must be
      * between 3.2 seconds and 10 seconds.
      * @param unit the {@link TimeUnit} for the passed in timeout value. May be null if timeout is
-     * {@link RegisterApi#AUTO_RETURN_NO_TIMEOUT}
+     * {@link PosApi#AUTO_RETURN_NO_TIMEOUT}
      * @return This builder to allow chaining of builder method calls.
      * @throws IllegalArgumentException if timeout is not between {@link
-     * RegisterApi#AUTO_RETURN_TIMEOUT_MIN_MILLIS} and
-     * {@link RegisterApi#AUTO_RETURN_TIMEOUT_MAX_MILLIS}.
+     * PosApi#AUTO_RETURN_TIMEOUT_MIN_MILLIS} and
+     * {@link PosApi#AUTO_RETURN_TIMEOUT_MAX_MILLIS}.
      */
     public @NonNull ChargeRequest.Builder autoReturn(long timeout, TimeUnit unit) {
       long autoReturnMillis;
-      if (timeout != RegisterApi.AUTO_RETURN_NO_TIMEOUT) {
+      if (timeout != PosApi.AUTO_RETURN_NO_TIMEOUT) {
         autoReturnMillis = unit.toMillis(timeout);
         nonNull(unit, "unit");
-        if (autoReturnMillis < RegisterApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS) {
+        if (autoReturnMillis < PosApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS) {
           throw new IllegalArgumentException(
-              "timeout should be at least " + RegisterApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS);
+              "timeout should be at least " + PosApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS);
         }
-        if (autoReturnMillis > RegisterApi.AUTO_RETURN_TIMEOUT_MAX_MILLIS) {
+        if (autoReturnMillis > PosApi.AUTO_RETURN_TIMEOUT_MAX_MILLIS) {
           throw new IllegalArgumentException(
-              "timeout should be less than " + RegisterApi.AUTO_RETURN_TIMEOUT_MAX_MILLIS);
+              "timeout should be less than " + PosApi.AUTO_RETURN_TIMEOUT_MAX_MILLIS);
         }
       } else {
-        autoReturnMillis = RegisterApi.AUTO_RETURN_NO_TIMEOUT;
+        autoReturnMillis = PosApi.AUTO_RETURN_NO_TIMEOUT;
       }
       this.autoReturnMillis = autoReturnMillis;
       return this;
@@ -270,10 +270,10 @@ public final class ChargeRequest {
      * merchant's business.
      *
      * @param locationId If provided, this ID must correspond to whichever location
-     * is currently logged in to Square Register. Otherwise, Square Register will
+     * is currently logged in to Square Point of Sale. Otherwise, Square Point of Sale will
      * respond with {@link ErrorCode#ILLEGAL_LOCATION_ID}. If you don't provide
      * this value, the payment will be processed by whichever location is logged
-     * in to Square Register.
+     * in to Square Point of Sale.
      * @return This builder to allow chaining of builder method calls.
      */
     public @NonNull ChargeRequest.Builder enforceBusinessLocation(@Nullable String locationId) {
@@ -282,7 +282,7 @@ public final class ChargeRequest {
     }
 
     /**
-     * Optional request metadata that Square Register will return in its response, as
+     * Optional request metadata that Square Point of Sale will return in its response, as
      * {@link Success#requestMetadata} or {@link Error#requestMetadata}. This metadata is currently
      * not sent to Square servers.
      *
@@ -316,7 +316,7 @@ public final class ChargeRequest {
   }
 
   /**
-   * Contains values returned by Square Register after a successfully processed
+   * Contains values returned by Square Point of Sale after a successfully processed
    * transaction.
    */
   public static class Success {
@@ -335,8 +335,8 @@ public final class ChargeRequest {
     /**
      * The server-generated ID of the transaction, if available. This value is
      * {@code null} if the created transaction had not yet been assigned an ID
-     * by Square servers before Square Register returned to your app. This happens
-     * most commonly for cash payments and payments processed in Square Register's
+     * by Square servers before Square Point of Sale returned to your app. This happens
+     * most commonly for cash payments and payments processed in Square Point of Sale's
      * offline mode.
      */
     @Nullable public final String serverTransactionId;
@@ -356,7 +356,7 @@ public final class ChargeRequest {
   }
 
   /**
-   * Contains values returned by Square Register after failing to process a
+   * Contains values returned by Square Point of Sale after failing to process a
    * transaction.
    */
   public static class Error {
@@ -392,32 +392,33 @@ public final class ChargeRequest {
 
   public enum ErrorCode {
 
-    /** The Register API is not currently available. */
-    DISABLED(RegisterApi.ERROR_DISABLED),
+    /** The Point of Sale API is not currently available. */
+    DISABLED(PosApi.ERROR_DISABLED),
 
     /** The merchant account does not support Customer Management. */
-    CUSTOMER_MANAGEMENT_NOT_SUPPORTED(RegisterApi.ERROR_CUSTOMER_MANAGEMENT_NOT_SUPPORTED),
+    CUSTOMER_MANAGEMENT_NOT_SUPPORTED(PosApi.ERROR_CUSTOMER_MANAGEMENT_NOT_SUPPORTED),
 
     /**
-     * The Customer Id is invalid. This could happen if the account logged in to Square Register is
-     * different from the account from which the customer information was downloaded.
+     * The Customer Id is invalid. This could happen if the account logged in to Square Point of
+     * Sale is different from the account from which the customer information was downloaded.
      */
-    ERROR_INVALID_CUSTOMER_ID(RegisterApi.ERROR_INVALID_CUSTOMER_ID),
+    ERROR_INVALID_CUSTOMER_ID(PosApi.ERROR_INVALID_CUSTOMER_ID),
 
-    /** @deprecated Starting with SDK 1.1, Square Register supports Square Prepaid Gift Cards. */
-    @Deprecated GIFT_CARDS_NOT_SUPPORTED(RegisterApi.ERROR_GIFT_CARDS_NOT_SUPPORTED),
+    /** @deprecated Starting with SDK 1.1, Square Point of Sale supports Square Prepaid Gift Cards. */
+    @Deprecated GIFT_CARDS_NOT_SUPPORTED(PosApi.ERROR_GIFT_CARDS_NOT_SUPPORTED),
 
     /**
      * The provided location ID does not correspond to the location currently logged in to Square
-     * Register.
+     * Point of Sale.
      */
-    ILLEGAL_LOCATION_ID(RegisterApi.ERROR_ILLEGAL_LOCATION_ID),
+    ILLEGAL_LOCATION_ID(PosApi.ERROR_ILLEGAL_LOCATION_ID),
 
     /**
-     * @deprecated Starting with SDK 1.1, Square Register supports split tender transactions, so
+     * @deprecated Starting with SDK 1.1, Square Point of Sale supports split tender transactions,
+     * so
      * a transaction can be completed as a split tender if a card has insufficient balance.
      */
-    @Deprecated INSUFFICIENT_CARD_BALANCE(RegisterApi.ERROR_INSUFFICIENT_CARD_BALANCE),
+    @Deprecated INSUFFICIENT_CARD_BALANCE(PosApi.ERROR_INSUFFICIENT_CARD_BALANCE),
 
     /**
      * The information provided in the transaction request was invalid (a required field might have
@@ -425,60 +426,61 @@ public final class ChargeRequest {
      *
      * {@link Error#debugDescription} provides additional details.
      */
-    INVALID_REQUEST(RegisterApi.ERROR_INVALID_REQUEST),
+    INVALID_REQUEST(PosApi.ERROR_INVALID_REQUEST),
 
-    /** Employee management is enabled but no employee is logged in to Square Register. */
-    NO_EMPLOYEE_LOGGED_IN(RegisterApi.ERROR_NO_EMPLOYEE_LOGGED_IN),
-
-    /**
-     * Square Register was unable to validate the Register API request because the Android device
-     * did not have an active network connection.
-     */
-    NO_NETWORK(RegisterApi.ERROR_NO_NETWORK),
+    /** Employee management is enabled but no employee is logged in to Square Point of Sale. */
+    NO_EMPLOYEE_LOGGED_IN(PosApi.ERROR_NO_EMPLOYEE_LOGGED_IN),
 
     /**
-     * Square Register did not return a transaction result. In only this case, any value that you
-     * provided in {@link Builder#requestMetadata(String)} will not be returned.
+     * Square Point of Sale was unable to validate the Point of Sale API request because the Android
+     * device did not have an active network connection.
      */
-    NO_RESULT(RegisterApi.ERROR_NO_RESULT),
+    NO_NETWORK(PosApi.ERROR_NO_NETWORK),
 
     /**
-     * Another Square Register transaction is already in progress. The merchant should open Square
-     * Register to complete or cancel the current transaction before attempting to initiate a new
-     * one.
+     * Square Point of Sale did not return a transaction result. In only this case, any value that
+     * you provided in {@link Builder#requestMetadata(String)} will not be returned.
      */
-    TRANSACTION_ALREADY_IN_PROGRESS(RegisterApi.ERROR_TRANSACTION_ALREADY_IN_PROGRESS),
+    NO_RESULT(PosApi.ERROR_NO_RESULT),
+
+    /**
+     * Another Square Point of Sale transaction is already in progress. The merchant should open
+     * Square Point of Sale to complete or cancel the current transaction before attempting to
+     * initiate a new one.
+     */
+    TRANSACTION_ALREADY_IN_PROGRESS(PosApi.ERROR_TRANSACTION_ALREADY_IN_PROGRESS),
 
     /** The merchant canceled the transaction. */
-    TRANSACTION_CANCELED(RegisterApi.ERROR_TRANSACTION_CANCELED),
+    TRANSACTION_CANCELED(PosApi.ERROR_TRANSACTION_CANCELED),
 
     /**
      * @deprecated Starting with SDK 1.2, the OAuth authorization flow is no longer required for
-     * Register API, and this error will never be returned.
+     * Point of Sale API, and this error will never be returned.
      */
-    @Deprecated UNAUTHORIZED_CLIENT_ID(RegisterApi.ERROR_UNAUTHORIZED_CLIENT_ID),
+    @Deprecated UNAUTHORIZED_CLIENT_ID(PosApi.ERROR_UNAUTHORIZED_CLIENT_ID),
 
     /**
      * An unexpected error occurred. Please contact <a href="mailto:developers@squareup.com">developers@squareup.com</a>
      * and include any code snippets and descriptions of your use case that might help diagnose the
      * issue.
      */
-    UNEXPECTED(RegisterApi.ERROR_UNEXPECTED),
+    UNEXPECTED(PosApi.ERROR_UNEXPECTED),
 
     /**
-     * The installed version of Square Register doesn't support this version of the Register SDK.
-     * This is probably because the installed version of Square Register is out of date.
+     * The installed version of Square Point of Sale doesn't support this version of the Point of
+     * Sale SDK.
+     * This is probably because the installed version of Square Point of Sale is out of date.
      */
-    UNSUPPORTED_API_VERSION(RegisterApi.ERROR_UNSUPPORTED_API_VERSION),
+    UNSUPPORTED_API_VERSION(PosApi.ERROR_UNSUPPORTED_API_VERSION),
 
     /**
      * The merchant tried to process the transaction with a credit card, but the merchant's Square
      * account has not yet been activated for card processing.
      */
-    USER_NOT_ACTIVATED(RegisterApi.ERROR_USER_NOT_ACTIVATED),
+    USER_NOT_ACTIVATED(PosApi.ERROR_USER_NOT_ACTIVATED),
 
-    /** No user is currently logged in to Square Register. */
-    USER_NOT_LOGGED_IN(RegisterApi.ERROR_USER_NOT_LOGGED_IN);
+    /** No user is currently logged in to Square Point of Sale. */
+    USER_NOT_LOGGED_IN(PosApi.ERROR_USER_NOT_LOGGED_IN);
 
     private static final Map<String, ErrorCode> errorCodeByApiString = new LinkedHashMap<>();
 
@@ -500,8 +502,7 @@ public final class ChargeRequest {
   }
 
   /**
-   * Possible forms of payment that a merchant can accept for a Register API
-   * transaction.
+   * Possible forms of payment that a merchant can accept for a Point of Sale API transaction.
    *
    * @see Builder#restrictTendersTo(Collection)
    */

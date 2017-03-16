@@ -25,24 +25,24 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
-import com.squareup.sdk.register.ChargeRequest;
-import com.squareup.sdk.register.RegisterClient;
-import com.squareup.sdk.register.RegisterSdk;
+import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.PosClient;
+import com.squareup.sdk.pos.PosSdk;
 
-import static com.squareup.sdk.register.ChargeRequest.TenderType.CARD;
-import static com.squareup.sdk.register.CurrencyCode.USD;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD;
+import static com.squareup.sdk.pos.CurrencyCode.USD;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class ChargeActivity extends AppCompatActivity {
 
   private static final int CHARGE_REQUEST_CODE = 1;
 
-  private RegisterClient posClient;
+  private PosClient posClient;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_charge);
-    posClient = RegisterSdk.createClient(this, BuildConfig.SQUARE_CLIENT_ID);
+    posClient = PosSdk.createClient(this, BuildConfig.SQUARE_CLIENT_ID);
   }
 
   public void startTransaction(int dollarAmount, String note) {
@@ -55,7 +55,7 @@ public class ChargeActivity extends AppCompatActivity {
       startActivityForResult(intent, CHARGE_REQUEST_CODE);
     } catch (ActivityNotFoundException e) {
       showDialog("Error", "Square POS is not installed", null);
-      posClient.openRegisterPlayStoreListing();
+      posClient.openPointOfSalePlayStoreListing();
     }
   }
 
