@@ -19,19 +19,19 @@ package com.example.owensbikes;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import com.squareup.sdk.register.ChargeRequest;
-import com.squareup.sdk.register.RegisterClient;
+import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.PosClient;
 
 public class TransactionResultHandler {
 
   private final Activity activity;
-  private final RegisterClient registerClient;
+  private final PosClient posClient;
   private final DialogComposer dialogComposer;
 
-  TransactionResultHandler(Activity activity, RegisterClient registerClient,
+  TransactionResultHandler(Activity activity, PosClient posClient,
       DialogComposer dialogComposer) {
     this.activity = activity;
-    this.registerClient = registerClient;
+    this.posClient = posClient;
     this.dialogComposer = dialogComposer;
   }
 
@@ -40,12 +40,12 @@ public class TransactionResultHandler {
   }
 
   public void onSuccess(Intent data) {
-    ChargeRequest.Success success = registerClient.parseChargeSuccess(data);
+    ChargeRequest.Success success = posClient.parseChargeSuccess(data);
     TransactionSuccessActivity.start(activity, success.requestMetadata);
   }
 
   public void onError(Intent data) {
-    ChargeRequest.Error error = registerClient.parseChargeError(data);
+    ChargeRequest.Error error = posClient.parseChargeError(data);
     showErrorDialog(error);
   }
 
@@ -57,7 +57,7 @@ public class TransactionResultHandler {
         break;
       case ILLEGAL_LOCATION_ID:
         throw new IllegalStateException(
-            "This sample app never passes a location id to the Register API.");
+            "This sample app never passes a location id to the Point of Sale API.");
       case INVALID_REQUEST:
         dialogComposer.showErrorDialog(R.string.error_unspecified,
             R.string.error_invalid_request_message);
@@ -74,7 +74,7 @@ public class TransactionResultHandler {
             R.string.error_transaction_cancelled_message);
         break;
       case UNSUPPORTED_API_VERSION:
-        dialogComposer.showUpdateRegisterDialog();
+        dialogComposer.showUpdatePointOfSaleDialog();
         break;
       case USER_NOT_ACTIVATED:
         dialogComposer.showErrorDialogWithRetry(R.string.error_not_activated,

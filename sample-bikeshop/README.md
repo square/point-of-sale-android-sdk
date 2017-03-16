@@ -1,6 +1,6 @@
 # The Bikeshop
 
-The bikeshop app is a point-of-sale application for a fictional bike shop called Owen's Bikes. The application allows customers to customize their bikes before using the Register Android SDK to process the transaction.
+The bikeshop app is a point-of-sale application for a fictional bike shop called Owen's Bikes. The application allows customers to customize their bikes before using the Point of Sale Android SDK to process the transaction.
 
 ## Building the App
 

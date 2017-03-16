@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 /**
  * ISO-4217 Currency Codes: http://www.currency-iso.org/dl_iso_table_a1.xml

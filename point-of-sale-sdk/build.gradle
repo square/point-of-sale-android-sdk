@@ -31,7 +31,7 @@ dependencies {
 }
 
 android {
-  resourcePrefix 'register_sdk_'
+  resourcePrefix 'point_of_sale_sdk_'
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
   defaultConfig {

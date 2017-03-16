@@ -19,25 +19,25 @@ package com.example.owensbikes;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.squareup.sdk.register.ChargeRequest;
-import com.squareup.sdk.register.CurrencyCode;
-import com.squareup.sdk.register.RegisterApi;
-import com.squareup.sdk.register.RegisterClient;
-import com.squareup.sdk.register.RegisterSdk;
+import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.CurrencyCode;
+import com.squareup.sdk.pos.PosApi;
+import com.squareup.sdk.pos.PosClient;
+import com.squareup.sdk.pos.PosSdk;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-import static com.squareup.sdk.register.ChargeRequest.TenderType.CARD;
-import static com.squareup.sdk.register.ChargeRequest.TenderType.CASH;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.CASH;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
   private static final int FIRST_ORDER_NUMBER = 1;
   private static final int CHARGE_REQUEST_CODE = 0xCAFE;
 
-  private RegisterClient registerClient;
+  private PosClient posClient;
   private DataLoader dataLoader;
   private SharedPreferences orderInfoPrefs;
   private ProgressBar spinner;
@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
     loadingMessage = (TextView) findViewById(R.id.progress_bar_text);
 
     orderInfoPrefs = getSharedPreferences(ORDER_INFO, MODE_PRIVATE);
-    registerClient = RegisterSdk.createClient(this, BuildConfig.CLIENT_ID);
-    dialogComposer = new DialogComposer(this, registerClient);
-    transactionResultHandler = new TransactionResultHandler(this, registerClient, dialogComposer);
+    posClient = PosSdk.createClient(this, BuildConfig.CLIENT_ID);
+    dialogComposer = new DialogComposer(this, posClient);
+    transactionResultHandler = new TransactionResultHandler(this, posClient, dialogComposer);
     dataLoader = BikeApplication.from(this).getDataLoader();
     boolean isTablet = getResources().getBoolean(R.bool.isTablet);
     boolean isLandscape =
@@ -124,14 +124,14 @@ public class MainActivity extends AppCompatActivity {
 
     ChargeRequest.Builder chargeRequest = new ChargeRequest.Builder(amount, CurrencyCode.USD) //
         .note(note) //
-        .autoReturn(RegisterApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS, TimeUnit.MILLISECONDS) //
+        .autoReturn(PosApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS, TimeUnit.MILLISECONDS) //
         .requestMetadata(requestMetadata) //
         .restrictTendersTo(tenderTypes);
     try {
-      Intent chargeIntent = registerClient.createChargeIntent(chargeRequest.build());
+      Intent chargeIntent = posClient.createChargeIntent(chargeRequest.build());
       startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);
     } catch (ActivityNotFoundException e) {
-      dialogComposer.showRegisterUninstalledDialog();
+      dialogComposer.showPointOfSaleUninstalledDialog();
     }
   }
 
