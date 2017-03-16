@@ -62,7 +62,7 @@ The bikeshop is an example of a real point-of-sale application, available in the
 
 ## Home Charge
 
-Home Charge is a demo that uses an App Engine server and FireBase push messages to start Register API transactions. It is available in the `sample-homecharge` and `sample-homecharge-server` folders. 
+Home Charge is a demo that uses an App Engine server and FireBase push messages to start Point of Sale API transactions. It is available in the `sample-homecharge` and `sample-homecharge-server` folders.
 
 >>>>>>> Add a sentence to the main readme introducing the bikeshop app. Add a readme in the bikeshop directory explaining how to run, download, and use the application. Add the release apk to the repo.
 ## Contributing
