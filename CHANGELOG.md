@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## Version 1.3
+
+_2016-12-01
+
+* Supported in **Register 4.54 and above.**
+* Adds support for Web API
+
 ## Version 1.2
 
 _2016-11-2_
