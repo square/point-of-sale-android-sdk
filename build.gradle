@@ -41,7 +41,7 @@ ext {
   GROUP = 'com.squareup.sdk'
   VERSION_NAME = "1.3-SNAPSHOT"
   POM_PACKAGING = "pom"
-  POM_DESCRIPTION= "Square Register Android SDK"
+  POM_DESCRIPTION= "Square Point of Sale Android SDK"
 
   POM_URL="http://github.com/square/register-android-sdk/"
   POM_SCM_URL="http://github.com/square/register-android-sdk/"

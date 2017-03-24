@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 import android.content.pm.Signature;
 
 public final class TestData {
 
-  public static final byte[] REGISTER_SIGNATURE_BYTES = {
+  public static final byte[] POINT_OF_SALE_SIGNATURE_BYTES = {
       48, -126, 2, 75, 48, -126, 1, -76, -96, 3, 2, 1, 2, 2, 4, 75, -60, -20, 100, 48, 13, 6, 9, 42,
       -122, 72, -122, -9, 13, 1, 1, 5, 5, 0, 48, 106, 49, 11, 48, 9, 6, 3, 85, 4, 6, 19, 2, 85, 83,
       49, 11, 48, 9, 6, 3, 85, 4, 8, 19, 2, 77, 79, 49, 18, 48, 16, 6, 3, 85, 4, 7, 19, 9, 83, 116,
@@ -97,7 +97,7 @@ public final class TestData {
       -54, -60, 77, -60, 48, 93, 45
   };
 
-  public static final Signature REGISTER_SIGNATURE = new Signature(REGISTER_SIGNATURE_BYTES);
+  public static final Signature POINT_OF_SALE_SIGNATURE = new Signature(POINT_OF_SALE_SIGNATURE_BYTES);
 
   public static final Signature INVALID_SIGNATURE = new Signature(INVALID_SIGNATURE_BYTES);
 }

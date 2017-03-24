@@ -14,50 +14,51 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
 /**
- * Provides methods for interacting with the Square Register app, such as by generating
+ * Provides methods for interacting with the Square Point of Sale app, such as by generating
  * {@code Intent}s that initiate transactions.
  */
-public interface RegisterClient {
+public interface PosClient {
 
   /**
-   * Creates an {@code Intent} that can be used to initiate a Square Register
+   * Creates an {@code Intent} that can be used to initiate a Square Point of Sale
    * transaction. Provide the created {@code Intent} to the
    * {@link android.app.Activity#startActivityForResult(Intent, int)} to
    * initiate the transaction.
    *
-   * @throws android.content.ActivityNotFoundException if Square Register is not installed.
+   * @throws android.content.ActivityNotFoundException if Square Point of Sale is not installed.
    * @throws NullPointerException if chargeRequest is null.
-   * @see RegisterSdk
+   * @see PosSdk
    */
   @NonNull Intent createChargeIntent(@NonNull ChargeRequest chargeRequest);
 
   /**
-   * @return {@code true} if a version of Square Register that supports the Register API is installed,
+   * @return {@code true} if a version of Square Point of Sale that supports the Point of Sale API
+   * is installed,
    * {@code false} otherwise.
    */
-  boolean isRegisterInstalled();
+  boolean isPointOfSaleInstalled();
 
   /**
-   * Launches the Square Register application. This is equivalent to pressing the home button
-   * and opening the Register app. It is useful for handling errors that require the user to
-   * complete an action within Register, such as completing a transaction after receiving a
+   * Launches the Square Point of Sale application. This is equivalent to pressing the home button
+   * and opening the Point of Sale app. It is useful for handling errors that require the user to
+   * complete an action within Point of Sale, such as completing a transaction after receiving a
    * {@link ChargeRequest.ErrorCode#TRANSACTION_ALREADY_IN_PROGRESS} error.
    *
-   * @throws android.content.ActivityNotFoundException if Square Register is not installed.
+   * @throws android.content.ActivityNotFoundException if Square Point of Sale is not installed.
    */
-  void launchRegister();
+  void launchPointOfSale();
 
   /**
-   * Opens the Square Register install page in the Google Play Store. The Play Store
+   * Opens the Square Point of Sale install page in the Google Play Store. The Play Store
    * activity is started using the application context.
    */
-  void openRegisterPlayStoreListing();
+  void openPointOfSalePlayStoreListing();
 
   /**
    * Use this method to parse the data {@link Intent} passed in

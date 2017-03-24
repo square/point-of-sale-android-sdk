@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 import org.junit.Test;
 
-import static com.squareup.sdk.register.ChargeRequest.TenderType.CARD;
-import static com.squareup.sdk.register.ChargeRequest.TenderType.CARD_ON_FILE;
-import static com.squareup.sdk.register.ChargeRequest.TenderType.CASH;
-import static com.squareup.sdk.register.ChargeRequest.TenderType.OTHER;
-import static com.squareup.sdk.register.CurrencyCode.CAD;
-import static com.squareup.sdk.register.CurrencyCode.USD;
-import static com.squareup.sdk.register.RegisterApi.AUTO_RETURN_NO_TIMEOUT;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD_ON_FILE;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.CASH;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.OTHER;
+import static com.squareup.sdk.pos.CurrencyCode.CAD;
+import static com.squareup.sdk.pos.CurrencyCode.USD;
+import static com.squareup.sdk.pos.PosApi.AUTO_RETURN_NO_TIMEOUT;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
