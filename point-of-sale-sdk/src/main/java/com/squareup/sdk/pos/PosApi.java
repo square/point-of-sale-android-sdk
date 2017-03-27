@@ -23,7 +23,7 @@ package com.squareup.sdk.pos;
  */
 public final class PosApi {
 
-  private static final String NAMESPACE = "com.squareup.register.";
+  private static final String NAMESPACE = "com.squareup.pos.";
 
   public static final String INTENT_ACTION_CHARGE = NAMESPACE + "action.CHARGE";
 

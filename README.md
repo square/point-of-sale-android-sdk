@@ -15,8 +15,8 @@ The hellocharge app is available in the `sample-hellocharge` folder.
 Check out this repo:
 
 ```
-git clone https://github.com/square/register-android-sdk.git
-cd register-android-sdk
+git clone https://github.com/square/point-of-sale-android-sdk.git
+cd point-of-sale-android-sdk
 ```
 
 Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to your application's client id which is the same as your application id in the Square Developer Portal (`sq0idp-XXXXXXXXXXXXXXX`)

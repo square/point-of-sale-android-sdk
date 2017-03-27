@@ -44,8 +44,8 @@ import static com.squareup.sdk.pos.PosSdkHelper.nonNull;
 final class RealPosClient implements PosClient {
 
   private static final String SDK_VERSION =
-      "register-sdk-" + BuildConfig.LIBRARY_VERSION + "-" + BuildConfig.GIT_SHA;
-  private static final String API_VERSION = "v1.2";
+      "point-of-sale-sdk-" + BuildConfig.LIBRARY_VERSION + "-" + BuildConfig.GIT_SHA;
+  private static final String API_VERSION = "v2.0";
   private static final String POINT_OF_SALE_PACKAGE_NAME = "com.squareup";
   private static final Uri PLAY_STORE_WEB_URL =
       Uri.parse("https://play.google.com/store/apps/details?id=" + POINT_OF_SALE_PACKAGE_NAME);
