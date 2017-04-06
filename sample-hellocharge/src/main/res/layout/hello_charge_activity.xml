@@ -138,6 +138,17 @@
         />
 
         <CheckBox
+            android:id="@+id/card_on_file_checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:layout_marginBottom="@dimen/vertical_space"
+            android:text="@string/card_on_file_text"
+            android:checked="true"
+        />
+
+        <CheckBox
             android:id="@+id/other_tender_checkbox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

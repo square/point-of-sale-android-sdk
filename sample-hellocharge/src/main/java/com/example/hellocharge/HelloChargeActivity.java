@@ -54,6 +54,7 @@ public class HelloChargeActivity extends AppCompatActivity {
   private EditText noteEditText;
   private CheckBox cardCheckbox;
   private CheckBox cashCheckbox;
+  private CheckBox cardOnFileCheckbox;
   private CheckBox otherTenderCheckbox;
   private EditText locationIdEditText;
   private EditText customerIdEditText;
@@ -72,6 +73,7 @@ public class HelloChargeActivity extends AppCompatActivity {
     noteEditText = findView(R.id.note_edit_text);
     cardCheckbox = findView(R.id.card_tender_checkbox);
     cashCheckbox = findView(R.id.cash_tender_checkbox);
+    cardOnFileCheckbox = findView(R.id.card_on_file_checkbox);
     otherTenderCheckbox = findView(R.id.other_tender_checkbox);
     locationIdEditText = findView(R.id.location_id_edit_text);
     customerIdEditText = findView(R.id.customer_id_edit_text);
@@ -112,6 +114,9 @@ public class HelloChargeActivity extends AppCompatActivity {
     }
     if (cashCheckbox.isChecked()) {
       tenderTypes.add(ChargeRequest.TenderType.CASH);
+    }
+    if (cardOnFileCheckbox.isChecked()) {
+      tenderTypes.add(ChargeRequest.TenderType.CARD_ON_FILE);
     }
     if (otherTenderCheckbox.isChecked()) {
       tenderTypes.add(ChargeRequest.TenderType.OTHER);
