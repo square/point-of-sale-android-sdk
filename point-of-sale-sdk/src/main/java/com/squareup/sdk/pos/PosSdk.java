@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 /**
- * <p>The Register SDK lets you start the Square Register app to take transactions with the Square
+ * <p>The Point of Sale SDK lets you start the Square Point of Sale app to take transactions with the Square
  * hardware.
  *
  * <h1>Usage</h1>
@@ -28,7 +28,7 @@ import android.support.annotation.NonNull;
  * <h2>Starting a charge request</h2>
  *
  * <pre class="code"><code class="java">
- * RegisterClient registerClient = RegisterSdk.createClient(context, CLIENT_ID);
+ * PosClient posClient = PosSdk.createClient(context, CLIENT_ID);
  *
  * ChargeRequest request = new ChargeRequest.Builder(550, CurrencyCode.USD)
  *   .note("Super Burrito, no cilantro")
@@ -39,10 +39,10 @@ import android.support.annotation.NonNull;
  *   .build();
  *
  * try {
- *   Intent chargeIntent = registerClient.createChargeIntent(request);
+ *   Intent chargeIntent = posClient.createChargeIntent(request);
  *   activity.startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);
  * } catch (ActivityNotFoundException e) {
- *   registerClient.openRegisterPlayStoreListing();
+ *   posClient.openPointOfSalePlayStoreListing();
  * }
  * </code></pre>
  *
@@ -52,39 +52,39 @@ import android.support.annotation.NonNull;
  * {@literal @}Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
  *   if (requestCode == CHARGE_REQUEST_CODE) {
  *     if (data == null) {
- *       // This happens if Register was uninstalled or crashed while we're waiting for a result.
+ *       // This happens if Point of Sale was uninstalled or crashed while we're waiting for a result.
  *       return;
  *     }
  *     if (resultCode == Activity.RESULT_OK) {
- *       onTransactionSuccess(registerClient.parseChargeSuccess(data));
+ *       onTransactionSuccess(posClient.parseChargeSuccess(data));
  *     } else {
- *       onTransactionError(registerClient.parseChargeError(data));
+ *       onTransactionError(posClient.parseChargeError(data));
  *     }
  *   }
  * }
  * </code></pre>
  */
-public final class RegisterSdk {
+public final class PosSdk {
 
   /**
-   * Creates a new instance of {@link RegisterClient} that can then be used to create charge
+   * Creates a new instance of {@link PosClient} that can then be used to create charge
    * intents.
    *
    * @param context Any {@link Context} will work. It is safe to pass in an activity context, as
-   * the {@link RegisterClient} instance will only hold on to the result from {@link
+   * the {@link PosClient} instance will only hold on to the result from {@link
    * Context#getApplicationContext()}.
    * @param clientId Client ID provided by Square.
-   * @return a unique {@link RegisterClient} instance.
+   * @return a unique {@link PosClient} instance.
    * @throws NullPointerException if context or clientId are null.
    */
-  public static @NonNull RegisterClient createClient(@NonNull Context context,
+  public static @NonNull PosClient createClient(@NonNull Context context,
       @NonNull String clientId) {
-    context = RegisterSdkHelper.nonNull(context, "context").getApplicationContext();
-    RegisterSdkHelper.nonNull(clientId, "clientId");
-    return new RealRegisterClient(context, clientId);
+    context = PosSdkHelper.nonNull(context, "context").getApplicationContext();
+    PosSdkHelper.nonNull(clientId, "clientId");
+    return new RealPosClient(context, clientId);
   }
 
-  private RegisterSdk() {
+  private PosSdk() {
     throw new AssertionError();
   }
 }

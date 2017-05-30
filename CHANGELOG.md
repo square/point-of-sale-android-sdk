@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+## Version 2.0
+
+_2017-05-30_
+
+* Supported in **Point of Sale 4.64 and above.**
+  * Renamed "Register" to "Point of Sale".
+  * Point of Sale API v2.0 will only work with Point of Sale v4.64 and above.
+  * Point of Sale API v1.2 will continue to work with Point of Sale v4.52 and above (including 4.64).
+  * [Medium blog post](https://medium.com/square-corner-blog/squares-register-api-is-now-point-of-sale-api-a9956032c32a) announcement
+* Renamed the package from `com.squareup.sdk.register` to `com.squareup.sdk.pos`.
+* Changed class names of the form `Register*` to `Pos*`.
+* Changed method names of the form `*Register*` to `*PointofSale*`.
+
 ## Version 1.2
 
 _2016-11-2_

@@ -19,23 +19,22 @@ package com.example.owensbikes;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.support.v7.app.AlertDialog;
-import com.squareup.sdk.register.RegisterClient;
+import com.squareup.sdk.pos.PosClient;
 
 /**
  * Class for displaying user-facing dialogs.
  */
 public class DialogComposer {
 
-  private static final String REGISTER_PACKAGE = "com.squareup";
+  private static final String POINT_OF_SALE_PACKAGE = "com.squareup";
 
   private final MainActivity activity;
-  private final RegisterClient registerClient;
+  private final PosClient posClient;
 
-  DialogComposer(MainActivity activity, RegisterClient registerClient) {
+  DialogComposer(MainActivity activity, PosClient posClient) {
     this.activity = activity;
-    this.registerClient = registerClient;
+    this.posClient = posClient;
   }
 
   public void showErrorDialog(int titleResId, int messageResId) {
@@ -57,13 +56,13 @@ public class DialogComposer {
         .show();
   }
 
-  public void showRegisterUninstalledDialog() {
-    new AlertDialog.Builder(activity).setTitle(R.string.error_install_register)
-        .setMessage(activity.getString(R.string.error_install_register_message))
-        .setPositiveButton(activity.getString(R.string.install_register_confirm),
+  public void showPointOfSaleUninstalledDialog() {
+    new AlertDialog.Builder(activity).setTitle(R.string.error_install_point_of_sale)
+        .setMessage(activity.getString(R.string.error_install_point_of_sale_message))
+        .setPositiveButton(activity.getString(R.string.install_point_of_sale_confirm),
             new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialog, int which) {
-                registerClient.openRegisterPlayStoreListing();
+                posClient.openPointOfSalePlayStoreListing();
               }
             })
         .setNegativeButton(R.string.cancel, null)
@@ -73,12 +72,12 @@ public class DialogComposer {
   public void showTransactionInProgressDialog() {
     new AlertDialog.Builder(activity).setTitle(R.string.error_transaction_in_progress)
         .setMessage(R.string.error_transaction_in_progress_message)
-        .setPositiveButton(R.string.open_register, new DialogInterface.OnClickListener() {
+        .setPositiveButton(R.string.open_point_of_sale, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialog, int which) {
-            // Start Register as if opened from the Android launcher, which should open to
-            // the transaction in progress.
+            // Start Point of Sale as if opened from the Android launcher,
+            // which should open to the transaction in progress.
             PackageManager packageManager = activity.getPackageManager();
-            Intent intent = packageManager.getLaunchIntentForPackage(REGISTER_PACKAGE);
+            Intent intent = packageManager.getLaunchIntentForPackage(POINT_OF_SALE_PACKAGE);
             activity.startActivity(intent);
           }
         })
@@ -86,13 +85,13 @@ public class DialogComposer {
         .show();
   }
 
-  public void showUpdateRegisterDialog() {
-    new AlertDialog.Builder(activity).setTitle(R.string.update_register_title)
-        .setMessage(R.string.update_register_message)
-        .setPositiveButton(activity.getString(R.string.install_register_confirm),
+  public void showUpdatePointOfSaleDialog() {
+    new AlertDialog.Builder(activity).setTitle(R.string.update_point_of_sale_title)
+        .setMessage(R.string.update_point_of_sale_message)
+        .setPositiveButton(activity.getString(R.string.install_point_of_sale_confirm),
             new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialog, int which) {
-                registerClient.openRegisterPlayStoreListing();
+                posClient.openPointOfSalePlayStoreListing();
               }
             })
         .setNegativeButton(R.string.cancel, null)

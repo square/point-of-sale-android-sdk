@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -31,17 +30,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import com.squareup.sdk.register.ChargeRequest;
-import com.squareup.sdk.register.CurrencyCode;
-import com.squareup.sdk.register.RegisterClient;
-import com.squareup.sdk.register.RegisterSdk;
+import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.CurrencyCode;
+import com.squareup.sdk.pos.PosClient;
+import com.squareup.sdk.pos.PosSdk;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static android.content.Intent.ACTION_VIEW;
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
-import static com.squareup.sdk.register.RegisterApi.AUTO_RETURN_NO_TIMEOUT;
+import static com.squareup.sdk.pos.PosApi.AUTO_RETURN_NO_TIMEOUT;
 
 public class HelloChargeActivity extends AppCompatActivity {
 
@@ -61,7 +59,7 @@ public class HelloChargeActivity extends AppCompatActivity {
   private EditText autoReturnTimeoutEditText;
   private EditText requestMetadataEditText;
 
-  private RegisterClient registerClient;
+  private PosClient posClient;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -86,17 +84,17 @@ public class HelloChargeActivity extends AppCompatActivity {
       }
     });
 
-    registerClient = RegisterSdk.createClient(this, BuildConfig.CLIENT_ID);
+    posClient = PosSdk.createClient(this, BuildConfig.CLIENT_ID);
   }
 
   private void startTransaction() {
-    if (!registerClient.isRegisterInstalled()) {
-      new AlertDialog.Builder(this).setTitle(R.string.install_register_title)
-          .setMessage(getString(R.string.install_register_message))
-          .setPositiveButton(getString(R.string.install_register_confirm),
+    if (!posClient.isPointOfSaleInstalled()) {
+      new AlertDialog.Builder(this).setTitle(R.string.install_point_of_sale_title)
+          .setMessage(getString(R.string.install_point_of_sale_message))
+          .setPositiveButton(getString(R.string.install_point_of_sale_confirm),
               new DialogInterface.OnClickListener() {
                 @Override public void onClick(DialogInterface dialog, int which) {
-                  registerClient.openRegisterPlayStoreListing();
+                  posClient.openPointOfSalePlayStoreListing();
                 }
               })
           .setNegativeButton(android.R.string.cancel, null)
@@ -137,26 +135,26 @@ public class HelloChargeActivity extends AppCompatActivity {
             .restrictTendersTo(tenderTypes)
             .build();
     try {
-      Intent chargeIntent = registerClient.createChargeIntent(chargeRequest);
+      Intent chargeIntent = posClient.createChargeIntent(chargeRequest);
       startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);
     } catch (ActivityNotFoundException e) {
-      showSnackbar("Square Register was just uninstalled.");
+      showSnackbar("Square Point of Sale was just uninstalled.");
     }
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == CHARGE_REQUEST_CODE) {
       if (data == null) {
-        // This can happen if Square Register was uninstalled or crashed while we're waiting for a
+        // This can happen if Square Point of Sale was uninstalled or crashed while we're waiting for a
         // result.
-        showSnackbar("No Result from Square Register");
+        showSnackbar("No Result from Square Point of Sale");
         return;
       }
       if (resultCode == Activity.RESULT_OK) {
-        ChargeRequest.Success success = registerClient.parseChargeSuccess(data);
+        ChargeRequest.Success success = posClient.parseChargeSuccess(data);
         onTransactionSuccess(success);
       } else {
-        ChargeRequest.Error error = registerClient.parseChargeError(data);
+        ChargeRequest.Error error = posClient.parseChargeError(data);
         onTransactionError(error);
       }
     } else {

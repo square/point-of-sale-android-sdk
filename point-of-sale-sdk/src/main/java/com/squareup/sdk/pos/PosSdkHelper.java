@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 import java.util.Locale;
 
 /** Internal helper class. */
-class RegisterSdkHelper {
+class PosSdkHelper {
 
   static <T> T nonNull(T t, String name) {
     if (t == null) {
@@ -45,7 +45,7 @@ class RegisterSdkHelper {
     return hex.toString();
   }
 
-  private RegisterSdkHelper() {
+  private PosSdkHelper() {
     throw new AssertionError();
   }
 }

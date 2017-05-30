@@ -1,6 +1,6 @@
-# Register Android SDK
+# Point of Sale Android SDK
 
-The Register Android SDK lets you quickly build custom Android point-of-sale applications that take swipe, dip, or tap payments through Square hardware.
+The Point of Sale Android SDK lets you quickly build custom Android point-of-sale applications that take swipe, dip, or tap payments through Square hardware.
 
 [Get started](http://docs.connect.squareup.com/articles/register-api-android/)!
 
@@ -15,8 +15,8 @@ The hellocharge app is available in the `sample-hellocharge` folder.
 Check out this repo:
 
 ```
-git clone https://github.com/square/register-android-sdk.git
-cd register-android-sdk
+git clone https://github.com/square/point-of-sale-android-sdk.git
+cd point-of-sale-android-sdk
 ```
 
 Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to your application's client id which is the same as your application id in the Square Developer Portal (`sq0idp-XXXXXXXXXXXXXXX`)
@@ -51,7 +51,7 @@ The bikeshop is an example of a real point-of-sale application, available in the
 
 ## Home Charge
 
-Home Charge is a demo that uses an App Engine server and FireBase push messages to start Register API transactions. It is available in the `sample-homecharge` and `sample-homecharge-server` folders. 
+Home Charge is a demo that uses an App Engine server and FireBase push messages to start Point of Sale API transactions. It is available in the `sample-homecharge` and `sample-homecharge-server` folders.
 
 ## Contributing
 

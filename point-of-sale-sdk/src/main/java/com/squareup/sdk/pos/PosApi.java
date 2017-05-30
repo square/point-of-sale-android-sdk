@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.register;
+package com.squareup.sdk.pos;
 
 /**
- * This class replicates constants used by Square Register for parsing Register API
+ * This class replicates constants used by Square Point of Sale for parsing Point of Sale API
  * transaction requests. These constants are used directly by the SDK. You do not
  * need to use them in your code.
  */
-public final class RegisterApi {
+public final class PosApi {
 
-  private static final String NAMESPACE = "com.squareup.register.";
+  private static final String NAMESPACE = "com.squareup.pos.";
 
   public static final String INTENT_ACTION_CHARGE = NAMESPACE + "action.CHARGE";
 
   /**
    * API version number String extra. Uses semantic versioning.
-   * Should currently be set to "v1.2".
    */
   public static final String EXTRA_API_VERSION = NAMESPACE + "API_VERSION";
 
@@ -37,7 +36,7 @@ public final class RegisterApi {
 
   public static final String EXTRA_SDK_VERSION = NAMESPACE + "SDK_VERSION";
 
-  public static final String EXTRA_REGISTER_CLIENT_ID = NAMESPACE + "CLIENT_ID";
+  public static final String EXTRA_POINT_OF_SALE_CLIENT_ID = NAMESPACE + "CLIENT_ID";
 
   public static final String EXTRA_CURRENCY_CODE = NAMESPACE + "CURRENCY_CODE";
 
@@ -119,7 +118,7 @@ public final class RegisterApi {
 
   public static final String ERROR_INVALID_CUSTOMER_ID = NAMESPACE + "ERROR_INVALID_CUSTOMER_ID";
 
-  private RegisterApi() {
+  private PosApi() {
     throw new AssertionError();
   }
 }
