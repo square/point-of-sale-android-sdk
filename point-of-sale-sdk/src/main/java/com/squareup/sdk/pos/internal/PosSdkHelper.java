@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.squareup.sdk.pos;
+package com.squareup.sdk.pos.internal;
 
 import java.util.Locale;
 
 /** Internal helper class. */
-class PosSdkHelper {
+public class PosSdkHelper {
 
-  static <T> T nonNull(T t, String name) {
+  public static <T> T nonNull(T t, String name) {
     if (t == null) {
       throw new NullPointerException(name + " must not be null");
     }
     return t;
   }
 
-  static String bytesToHexString(byte[] bytes) {
+  public static String bytesToHexString(byte[] bytes) {
     // Capacity should be (bytes.length * 3 - 1), but this avoids negative case.
     StringBuilder hex = new StringBuilder(bytes.length * 3);
     int len = bytes.length;

@@ -30,7 +30,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.TransactionRequest;
 import com.squareup.sdk.pos.CurrencyCode;
 import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
@@ -106,18 +106,18 @@ public class HelloChargeActivity extends AppCompatActivity {
     int amount = isBlank(amountString) ? 0 : Integer.valueOf(amountString);
     String currencyCode = currencyCodeEditText.getText().toString();
     String note = noteEditText.getText().toString();
-    Set<ChargeRequest.TenderType> tenderTypes = EnumSet.noneOf(ChargeRequest.TenderType.class);
+    Set<TransactionRequest.TenderType> tenderTypes = EnumSet.noneOf(TransactionRequest.TenderType.class);
     if (cardCheckbox.isChecked()) {
-      tenderTypes.add(ChargeRequest.TenderType.CARD);
+      tenderTypes.add(TransactionRequest.TenderType.CARD);
     }
     if (cashCheckbox.isChecked()) {
-      tenderTypes.add(ChargeRequest.TenderType.CASH);
+      tenderTypes.add(TransactionRequest.TenderType.CASH);
     }
     if (cardOnFileCheckbox.isChecked()) {
-      tenderTypes.add(ChargeRequest.TenderType.CARD_ON_FILE);
+      tenderTypes.add(TransactionRequest.TenderType.CARD_ON_FILE);
     }
     if (otherTenderCheckbox.isChecked()) {
-      tenderTypes.add(ChargeRequest.TenderType.OTHER);
+      tenderTypes.add(TransactionRequest.TenderType.OTHER);
     }
     String locationId = locationIdEditText.getText().toString();
     String customerId = customerIdEditText.getText().toString();
@@ -126,8 +126,8 @@ public class HelloChargeActivity extends AppCompatActivity {
 
     String requestMetadata = requestMetadataEditText.getText().toString();
 
-    ChargeRequest chargeRequest =
-        new ChargeRequest.Builder(amount, CurrencyCode.valueOf(currencyCode)).note(note)
+    TransactionRequest transactionRequest =
+        new TransactionRequest.Builder(amount, CurrencyCode.valueOf(currencyCode)).note(note)
             .enforceBusinessLocation(locationId)
             .customerId(customerId)
             .autoReturn(timeout, TimeUnit.MILLISECONDS)
@@ -135,7 +135,7 @@ public class HelloChargeActivity extends AppCompatActivity {
             .restrictTendersTo(tenderTypes)
             .build();
     try {
-      Intent chargeIntent = posClient.createChargeIntent(chargeRequest);
+      Intent chargeIntent = posClient.createTransactionIntent(transactionRequest);
       startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);
     } catch (ActivityNotFoundException e) {
       showSnackbar("Square Point of Sale was just uninstalled.");
@@ -151,10 +151,10 @@ public class HelloChargeActivity extends AppCompatActivity {
         return;
       }
       if (resultCode == Activity.RESULT_OK) {
-        ChargeRequest.Success success = posClient.parseChargeSuccess(data);
+        TransactionRequest.Success success = posClient.parseTransactionSuccess(data);
         onTransactionSuccess(success);
       } else {
-        ChargeRequest.Error error = posClient.parseChargeError(data);
+        TransactionRequest.Error error = posClient.parseTransactionError(data);
         onTransactionError(error);
       }
     } else {
@@ -162,19 +162,19 @@ public class HelloChargeActivity extends AppCompatActivity {
     }
   }
 
-  private void onTransactionSuccess(ChargeRequest.Success successResult) {
+  private void onTransactionSuccess(TransactionRequest.Success successResult) {
     CharSequence message = Html.fromHtml("<b><font color='#00aa00'>Success</font></b><br><br>"
         + "<b>Client RealTransaction Id</b><br>"
-        + successResult.clientTransactionId
+        + successResult.transaction.clientId()
         + "<br><br><b>Server RealTransaction Id</b><br>"
-        + successResult.serverTransactionId
+        + successResult.transaction.serverId()
         + "<br><br><b>Request Metadata</b><br>"
         + successResult.requestMetadata);
     showResult(message);
     Log.d(TAG, message.toString());
   }
 
-  private void onTransactionError(ChargeRequest.Error errorResult) {
+  private void onTransactionError(TransactionRequest.Error errorResult) {
     CharSequence message = Html.fromHtml("<b><font color='#aa0000'>Error</font></b><br><br>"
         + "<b>Error Key</b><br>"
         + errorResult.code

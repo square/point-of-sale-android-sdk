@@ -1,4 +1,3 @@
-<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -19,10 +18,3 @@
 <resources>
   <dimen name="bike_image_modifier_margin">35dp</dimen>
 </resources>
-||||||| merged common ancestors
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <dimen name="bike_image_modifier_margin">35dp</dimen>
-</resources>
->>>>>>> Add sample bikeshop app.

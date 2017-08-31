@@ -68,11 +68,9 @@ public final class PosApi {
 
   public static final int NOTE_MAX_LENGTH = 500;
 
-  public static final String RESULT_CLIENT_TRANSACTION_ID = NAMESPACE + "CLIENT_TRANSACTION_ID";
-
-  public static final String RESULT_SERVER_TRANSACTION_ID = NAMESPACE + "SERVER_TRANSACTION_ID";
-
   public static final String RESULT_REQUEST_METADATA = EXTRA_REQUEST_METADATA;
+
+  public static final String RESULT_TRANSACTION = NAMESPACE + "TRANSACTION";
 
   public static final String RESULT_ERROR_CODE = NAMESPACE + "ERROR_CODE";
 

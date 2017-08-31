@@ -18,6 +18,7 @@ package com.squareup.sdk.pos;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import com.squareup.sdk.pos.internal.PosSdkHelper;
 
 /**
  * <p>The Point of Sale SDK lets you start the Square Point of Sale app to take transactions with the Square
@@ -30,17 +31,17 @@ import android.support.annotation.NonNull;
  * <pre class="code"><code class="java">
  * PosClient posClient = PosSdk.createClient(context, CLIENT_ID);
  *
- * ChargeRequest request = new ChargeRequest.Builder(550, CurrencyCode.USD)
+ * TransactionRequest request = new TransactionRequest.Builder(550, CurrencyCode.USD)
  *   .note("Super Burrito, no cilantro")
  *   .enforceBusinessLocation(locationId)
  *   .autoReturn(4, TimeUnit.SECONDS)
  *   .requestMetadata("#329")
- *   .restrictTenderTypesTo(ChargeRequest.TenderType.CARD)
+ *   .restrictTenderTypesTo(TransactionRequest.TenderType.CARD)
  *   .build();
  *
  * try {
- *   Intent chargeIntent = posClient.createChargeIntent(request);
- *   activity.startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);
+ *   Intent transactionIntent = posClient.createTransactionIntent(request);
+ *   activity.startActivityForResult(transactionIntent, CHARGE_REQUEST_CODE);
  * } catch (ActivityNotFoundException e) {
  *   posClient.openPointOfSalePlayStoreListing();
  * }
@@ -56,9 +57,9 @@ import android.support.annotation.NonNull;
  *       return;
  *     }
  *     if (resultCode == Activity.RESULT_OK) {
- *       onTransactionSuccess(posClient.parseChargeSuccess(data));
+ *       onTransactionSuccess(posClient.parseTransactionSuccess(data));
  *     } else {
- *       onTransactionError(posClient.parseChargeError(data));
+ *       onTransactionError(posClient.parseTransactionError(data));
  *     }
  *   }
  * }
@@ -67,7 +68,7 @@ import android.support.annotation.NonNull;
 public final class PosSdk {
 
   /**
-   * Creates a new instance of {@link PosClient} that can then be used to create charge
+   * Creates a new instance of {@link PosClient} that can then be used to create transaction
    * intents.
    *
    * @param context Any {@link Context} will work. It is safe to pass in an activity context, as

@@ -1,5 +1,9 @@
 Change Log
 ==========
+## Version 3.0
+
+* Added new Transaction response object in
+* Renamed Charge -> Transaction
 
 ## Version 2.0
 

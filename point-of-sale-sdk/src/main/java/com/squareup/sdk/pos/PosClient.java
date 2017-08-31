@@ -32,10 +32,10 @@ public interface PosClient {
    * initiate the transaction.
    *
    * @throws android.content.ActivityNotFoundException if Square Point of Sale is not installed.
-   * @throws NullPointerException if chargeRequest is null.
+   * @throws NullPointerException if transactionRequest is null.
    * @see PosSdk
    */
-  @NonNull Intent createChargeIntent(@NonNull ChargeRequest chargeRequest);
+  @NonNull Intent createTransactionIntent(@NonNull TransactionRequest transactionRequest);
 
   /**
    * @return {@code true} if a version of Square Point of Sale that supports the Point of Sale API
@@ -48,7 +48,7 @@ public interface PosClient {
    * Launches the Square Point of Sale application. This is equivalent to pressing the home button
    * and opening the Point of Sale app. It is useful for handling errors that require the user to
    * complete an action within Point of Sale, such as completing a transaction after receiving a
-   * {@link ChargeRequest.ErrorCode#TRANSACTION_ALREADY_IN_PROGRESS} error.
+   * {@link TransactionRequest.ErrorCode#TRANSACTION_ALREADY_IN_PROGRESS} error.
    *
    * @throws android.content.ActivityNotFoundException if Square Point of Sale is not installed.
    */
@@ -65,12 +65,12 @@ public interface PosClient {
    * {@link android.app.Activity#onActivityResult(int, int, Intent)} when {@code resultCode}
    * is equal to {@link android.app.Activity#RESULT_OK} (successful transaction).
    */
-  @NonNull ChargeRequest.Success parseChargeSuccess(@NonNull Intent data);
+  @NonNull TransactionRequest.Success parseTransactionSuccess(@NonNull Intent data);
 
   /**
    * Use this method to parse the data {@link Intent} passed in
    * {@link android.app.Activity#onActivityResult(int, int, Intent)} when {@code resultCode}
    * is equal to {@link android.app.Activity#RESULT_CANCELED} (canceled transaction).
    */
-  @NonNull ChargeRequest.Error parseChargeError(@NonNull Intent data);
+  @NonNull TransactionRequest.Error parseTransactionError(@NonNull Intent data);
 }

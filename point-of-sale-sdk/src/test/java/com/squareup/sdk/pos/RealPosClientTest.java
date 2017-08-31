@@ -148,8 +148,8 @@ public class RealPosClientTest {
   }
 
   @Test public void intentCreatedWithRequestParams() {
-    ChargeRequest request = new ChargeRequest.Builder(1_00, CurrencyCode.USD).restrictTendersTo(
-        ChargeRequest.TenderType.CARD)
+    TransactionRequest request = new TransactionRequest.Builder(1_00, CurrencyCode.USD).restrictTendersTo(
+        TransactionRequest.TenderType.CARD)
         .autoReturn(4, SECONDS)
         .enforceBusinessLocation("location")
         .customerId("customerId")
@@ -157,13 +157,13 @@ public class RealPosClientTest {
         .note("note")
         .build();
 
-    Intent intent = client.createChargeIntent(request);
+    Intent intent = client.createTransactionIntent(request);
 
     assertThat(intent.getIntExtra(EXTRA_TOTAL_AMOUNT, -1)).isEqualTo(1_00);
     assertThat(intent.getStringExtra(EXTRA_CURRENCY_CODE)).isEqualTo("USD");
     assertThat(intent.getStringExtra(EXTRA_POINT_OF_SALE_CLIENT_ID)).isEqualTo(CLIENT_ID);
     assertThat(intent.getStringExtra(EXTRA_NOTE)).isEqualTo("note");
-    assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v2.0");
+    assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v3.0");
     assertThat(intent.getStringExtra(EXTRA_REQUEST_METADATA)).isEqualTo("metadata");
     assertThat(intent.getStringExtra(EXTRA_LOCATION_ID)).isEqualTo("location");
     assertThat(intent.getStringExtra(EXTRA_CUSTOMER_ID)).isEqualTo("customerId");
@@ -174,9 +174,9 @@ public class RealPosClientTest {
   }
 
   @Test public void fieldsSetAsExpectedForDefaultRequest() {
-    ChargeRequest request = new ChargeRequest.Builder(1_00, CurrencyCode.USD).build();
+    TransactionRequest request = new TransactionRequest.Builder(1_00, CurrencyCode.USD).build();
 
-    Intent intent = client.createChargeIntent(request);
+    Intent intent = client.createTransactionIntent(request);
 
     assertThat(intent.hasExtra(EXTRA_POINT_OF_SALE_CLIENT_ID)).isTrue();
     assertThat(intent.hasExtra(EXTRA_TOTAL_AMOUNT)).isTrue();
@@ -197,7 +197,7 @@ public class RealPosClientTest {
     installApp("com.squareup.beta", 3, POINT_OF_SALE_SIGNATURE);
 
     Intent intent =
-        client.createChargeIntent(new ChargeRequest.Builder(1_00, CurrencyCode.USD).build());
+        client.createTransactionIntent(new TransactionRequest.Builder(1_00, CurrencyCode.USD).build());
 
     assertThat(intent.getPackage()).isEqualTo("com.squareup.beta");
   }
@@ -205,14 +205,14 @@ public class RealPosClientTest {
   @Test(expected = ActivityNotFoundException.class)
   public void createIntentWithNoPointOfSaleThrows() {
     chargeActivities.clear();
-    client.createChargeIntent(new ChargeRequest.Builder(1_00, CurrencyCode.USD).build());
+    client.createTransactionIntent(new TransactionRequest.Builder(1_00, CurrencyCode.USD).build());
   }
 
   @Test(expected = ActivityNotFoundException.class)
   public void createIntentWithInvalidPointOfSaleThrows() {
     chargeActivities.clear();
     installApp("com.squareup", 2, INVALID_SIGNATURE);
-    client.createChargeIntent(new ChargeRequest.Builder(1_00, CurrencyCode.USD).build());
+    client.createTransactionIntent(new TransactionRequest.Builder(1_00, CurrencyCode.USD).build());
   }
 
   @Test(expected = ActivityNotFoundException.class)

@@ -25,11 +25,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
-import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.TransactionRequest;
 import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
 
-import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD;
 import static com.squareup.sdk.pos.CurrencyCode.USD;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -46,12 +46,12 @@ public class ChargeActivity extends AppCompatActivity {
   }
 
   public void startTransaction(int dollarAmount, String note) {
-    ChargeRequest request = new ChargeRequest.Builder(dollarAmount * 1_00, USD).note(note)
+    TransactionRequest request = new TransactionRequest.Builder(dollarAmount * 1_00, USD).note(note)
         .autoReturn(3_200, MILLISECONDS)
         .restrictTendersTo(CARD)
         .build();
     try {
-      Intent intent = posClient.createChargeIntent(request);
+      Intent intent = posClient.createTransactionIntent(request);
       startActivityForResult(intent, CHARGE_REQUEST_CODE);
     } catch (ActivityNotFoundException e) {
       showDialog("Error", "Square POS is not installed", null);
@@ -76,14 +76,13 @@ public class ChargeActivity extends AppCompatActivity {
       }
 
       if (resultCode == Activity.RESULT_OK) {
-        ChargeRequest.Success success = posClient.parseChargeSuccess(data);
-        String message = "Client transaction id: " + success.clientTransactionId;
+        TransactionRequest.Success success = posClient.parseTransactionSuccess(data);
+        String message = "Client transaction id: " + success.transaction.clientId();
         Toast.makeText(this, "Success, " + message, Toast.LENGTH_LONG).show();
       } else {
-        ChargeRequest.Error error = posClient.parseChargeError(data);
+        TransactionRequest.Error error = posClient.parseTransactionError(data);
         showDialog("Error: " + error.code, error.debugDescription, null);
       }
     }
   }
 }
-

@@ -36,3 +36,5 @@
   <dimen name="bike_item_list_portrait_height">260dp</dimen>
   <bool name="isTablet">false</bool>
 </resources>
+
+

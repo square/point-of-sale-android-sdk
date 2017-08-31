@@ -50,6 +50,8 @@ dependencies {
   compile project(':point-of-sale-sdk')
 }
 
+
+
 void addClientIdField(def buildType) {
   if (file('./bikeshop.properties').exists()) {
     def props = new Properties()
@@ -60,4 +62,3 @@ void addClientIdField(def buildType) {
         'see bikeshop.properties.example')
   }
 }
-

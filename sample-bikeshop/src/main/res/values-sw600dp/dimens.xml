@@ -1,4 +1,3 @@
-<<<<<<< c2a2f174bfcac5045546c940a322c6c4550918b3
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2016 Square, Inc.
@@ -23,14 +22,3 @@
   <dimen name="total_row_height">64dp</dimen>
   <dimen name="checkout_button_min_height">64dp</dimen>
 </resources>
-||||||| merged common ancestors
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <bool name="isTablet">true</bool>
-  <dimen name="logo_padding">25dp</dimen>
-  <dimen name="list_row_height">55dp</dimen>
-  <dimen name="total_row_height">64dp</dimen>
-  <dimen name="checkout_button_min_height">64dp</dimen>
-</resources>
->>>>>>> Add sample bikeshop app.

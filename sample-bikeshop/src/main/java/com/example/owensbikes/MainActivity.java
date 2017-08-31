@@ -25,7 +25,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.TransactionRequest;
 import com.squareup.sdk.pos.CurrencyCode;
 import com.squareup.sdk.pos.PosApi;
 import com.squareup.sdk.pos.PosClient;
@@ -36,8 +36,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD;
-import static com.squareup.sdk.pos.ChargeRequest.TenderType.CASH;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.CASH;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -115,20 +115,20 @@ public class MainActivity extends AppCompatActivity {
   public void checkout() {
     int amount = itemManager.getTotal();
     String note = itemManager.getNote();
-    Set<ChargeRequest.TenderType> tenderTypes = EnumSet.of(CARD, CASH);
+    Set<TransactionRequest.TenderType> tenderTypes = EnumSet.of(CARD, CASH);
     // Order number is an integer stored in a SharedPreference as an example of
     // requestMetadata usage.
     long orderNumber = orderInfoPrefs.getLong(ORDER_NUMBER, FIRST_ORDER_NUMBER) + 1;
     orderInfoPrefs.edit().putLong(ORDER_NUMBER, orderNumber).apply();
     String requestMetadata = String.valueOf(orderNumber);
 
-    ChargeRequest.Builder chargeRequest = new ChargeRequest.Builder(amount, CurrencyCode.USD) //
+    TransactionRequest.Builder chargeRequest = new TransactionRequest.Builder(amount, CurrencyCode.USD) //
         .note(note) //
         .autoReturn(PosApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS, TimeUnit.MILLISECONDS) //
         .requestMetadata(requestMetadata) //
         .restrictTendersTo(tenderTypes);
     try {
-      Intent chargeIntent = posClient.createChargeIntent(chargeRequest.build());
+      Intent chargeIntent = posClient.createTransactionIntent(chargeRequest.build());
       startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);
     } catch (ActivityNotFoundException e) {
       dialogComposer.showPointOfSaleUninstalledDialog();

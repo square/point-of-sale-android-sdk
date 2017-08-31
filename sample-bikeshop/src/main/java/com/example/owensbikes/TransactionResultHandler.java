@@ -19,7 +19,7 @@ package com.example.owensbikes;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import com.squareup.sdk.pos.ChargeRequest;
+import com.squareup.sdk.pos.TransactionRequest;
 import com.squareup.sdk.pos.PosClient;
 
 public class TransactionResultHandler {
@@ -40,16 +40,16 @@ public class TransactionResultHandler {
   }
 
   public void onSuccess(Intent data) {
-    ChargeRequest.Success success = posClient.parseChargeSuccess(data);
-    TransactionSuccessActivity.start(activity, success.requestMetadata);
+    TransactionRequest.Success success = posClient.parseTransactionSuccess(data);
+    TransactionSuccessActivity.start(activity, success);
   }
 
   public void onError(Intent data) {
-    ChargeRequest.Error error = posClient.parseChargeError(data);
+    TransactionRequest.Error error = posClient.parseTransactionError(data);
     showErrorDialog(error);
   }
 
-  public void showErrorDialog(ChargeRequest.Error errorResult) {
+  public void showErrorDialog(TransactionRequest.Error errorResult) {
     Log.e(String.valueOf(errorResult.code), errorResult.debugDescription);
     switch (errorResult.code) {
       case DISABLED:
