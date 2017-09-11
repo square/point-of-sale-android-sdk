@@ -1,0 +1,64 @@
+/*
+ * Copyright (C) 2016 Square, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion 25
+  buildToolsVersion "25.0.2"
+
+  defaultConfig {
+    applicationId "com.example.owensbikes"
+    minSdkVersion 17
+    targetSdkVersion 25
+    versionCode 1
+    versionName "1.0"
+  }
+
+  buildTypes {
+      debug {
+        project.addClientIdField(buildTypes.debug)
+      }
+      release {
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        project.addClientIdField(buildTypes.release)
+      }
+    }
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:appcompat-v7:25.3.0'
+  compile 'com.android.support:recyclerview-v7:25.3.0'
+  compile 'com.android.support:leanback-v17:25.3.0'
+  compile 'com.google.code.gson:gson:2.7'
+  compile project(':point-of-sale-sdk')
+}
+
+
+
+void addClientIdField(def buildType) {
+  if (file('./bikeshop.properties').exists()) {
+    def props = new Properties()
+    props.load(new FileInputStream(file('bikeshop.properties')))
+    buildType.buildConfigField "String", "CLIENT_ID", props['clientId']
+  } else {
+    throw new GradleException('Please create bikeshop.properties, ' +
+        'see bikeshop.properties.example')
+  }
+}

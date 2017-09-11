@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "121288479916",
+    "firebase_url": "https://homecharge-demo.firebaseio.com",
+    "project_id": "homecharge-demo",
+    "storage_bucket": "homecharge-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121288479916:android:5adc1f0ca323b7ca",
+        "android_client_info": {
+          "package_name": "com.example.homecharge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121288479916-21qe12a4g6t8i4ohb76a23s8urubc55q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh-qbs8gC_15MclNqe1Dr8Du8-PpyfN_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

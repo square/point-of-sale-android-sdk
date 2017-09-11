@@ -1,2 +1,5 @@
-include ':register-sdk'
+include ':point-of-sale-sdk'
 include ':sample-hellocharge'
+include ':sample-bikeshop'
+include ':sample-homecharge'
+include ':sample-homecharge-server'

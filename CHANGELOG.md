@@ -1,9 +1,31 @@
 Change Log
 ==========
 
+## Version 2.0
+
+_2017-05-30_
+
+* Supported in **Point of Sale 4.64 and above.**
+  * Renamed "Register" to "Point of Sale".
+  * Point of Sale API v2.0 will only work with Point of Sale v4.64 and above.
+  * Point of Sale API v1.2 will continue to work with Point of Sale v4.52 and above (including 4.64).
+  * [Medium blog post](https://medium.com/square-corner-blog/squares-register-api-is-now-point-of-sale-api-a9956032c32a) announcement
+* Renamed the package from `com.squareup.sdk.register` to `com.squareup.sdk.pos`.
+* Changed class names of the form `Register*` to `Pos*`.
+* Changed method names of the form `*Register*` to `*PointofSale*`.
+
+## Version 1.2
+
+_2016-11-2_
+
+* Supported in **Register 4.52 and above.**
+  * Prior to v4.52, Square Register will return an `UNSUPPORTED_API_VERSION` error.
+  * Prior to v4.48, Square Register will return an `INVALID_REQUEST` error
+* Deprecated the `UNAUTHORIZED_CLIENT_ID` error type. OAuth is no longer required for Register API for Android.
+
 ## Version 1.1
 
-_Not released yet._
+_2016-09-21_
 
 * Supported in **Register 4.48 and above.**
   * Prior to v4.48, Square Register will return an `INVALID_REQUEST` error.
@@ -14,7 +36,7 @@ split tender if a card has insufficient balance.
   * Deprecated the `GIFT_CARDS_NOT_SUPPORTED` error type.
 * New `CARD_ON_FILE` tender type to allow charging a previously-stored card instrument.
 * Support for linking customers to transactions
-  * see `ChargeRequest.Builder.customerId()`.
+  * See `ChargeRequest.Builder.customerId()`.
   * New `CUSTOMER_MANAGEMENT_NOT_SUPPORTED` error type returned if the merchant account does not
 support Customer Management.
   * New `ERROR_INVALID_CUSTOMER_ID` error type.
