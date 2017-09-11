@@ -1,3 +1,19 @@
+<!--
+  ~ Copyright (C) 2016 Square, Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <resources>
   <string name="app_name">HelloCharge</string>
   <string name="auto_return_timeout_hint">Auto Return Timeout (optional, in millis)</string>
@@ -5,14 +21,14 @@
   <string name="cash_text">Cash</string>
   <string name="currency_code_default">USD</string>
   <string name="currency_code_hint">Currency Code</string>
-  <string name="install_register_confirm">Open Play Store</string>
-  <string name="install_register_message">Please download Square Register from the Play Store.</string>
-  <string name="install_register_title">Square Register is not installed</string>
+  <string name="customer_id_hint">Customer ID (optional)</string>
+  <string name="install_point_of_sale_confirm">Open Play Store</string>
+  <string name="install_point_of_sale_message">Please download Square Point of Sale from the Play Store.</string>
+  <string name="install_point_of_sale_title">Square Point of Sale is not installed</string>
   <string name="location_id_hint">Location ID (optional)</string>
   <string name="miscellaneous_header">Miscellaneous</string>
   <string name="note_default">Build with Square</string>
   <string name="note_hint">Note (optional)</string>
-  <string name="oauth_button_text">Authorize via OAuth</string>
   <string name="other_tender_text">Other Tenders</string>
   <string name="tender_header">Tender Types</string>
   <string name="transaction_amount_default">100</string>
@@ -20,5 +36,6 @@
   <string name="transaction_details_header">Transaction Details</string>
   <string name="request_metadata_default">Very Meta.</string>
   <string name="request_metadata_hint">Request Metadata</string>
-  <string name="result_title">Register API Result</string>
+  <string name="result_title">Point of Sale API Result</string>
+  <string name="card_on_file_text">Card on File</string>
 </resources>

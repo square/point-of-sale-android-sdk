@@ -1,6 +1,6 @@
-# Register Android SDK
+# Point of Sale Android SDK
 
-The Register Android SDK lets you quickly build custom Android point-of-sale applications that take swipe, dip, or tap payments through Square hardware.
+The Point of Sale Android SDK lets you quickly build custom Android point-of-sale applications that take swipe, dip, or tap payments through Square hardware.
 
 [Get started](http://docs.connect.squareup.com/articles/register-api-android/)!
 
@@ -8,21 +8,21 @@ The Register Android SDK lets you quickly build custom Android point-of-sale app
 
 Here's [how to get help](https://docs.connect.squareup.com/articles/faq/#implementationquestions).
 
-## Building the Sample App
+## Building the Hellocharge Sample App
 
-A sample app is available in the `sample-hellocharge` folder.
+The hellocharge app is available in the `sample-hellocharge` folder.
 
 Check out this repo:
 
 ```
-git clone git@github.com:square/register-android-sdk.git
-cd register-android-sdk
+git clone https://github.com/square/point-of-sale-android-sdk.git
+cd point-of-sale-android-sdk
 ```
 
-Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to [your client id](https://docs.connect.squareup.com/articles/register-api-android/#registerapisetup):
+Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to your application's client id which is the same as your application id in the Square Developer Portal (`sq0idp-XXXXXXXXXXXXXXX`). Do *NOT* use a sandbox `clientId`, as those do not work for the Point of Sale API.
 
 ```
-echo clientId=\"YourClientId\" > sample-hellocharge/hellocharge.properties
+echo clientId=\"[put your clientId here]\" > sample-hellocharge/hellocharge.properties
 ```
 
 Build the SDK and the sample app:
@@ -44,6 +44,14 @@ Install the sample app:
 ```
 
 ![hellocharge_demo.gif](sample-hellocharge/assets/hellocharge_demo.gif)
+
+## Bikeshop Sample App
+
+The bikeshop is an example of a real point-of-sale application, available in the `sample-bikeshop` folder. To build this sample app, follow the same instructions as above, substituting "hellocharge" for "bikeshop".
+
+## Home Charge
+
+Home Charge is a demo that uses an App Engine server and FireBase push messages to start Point of Sale API transactions. It is available in the `sample-homecharge` and `sample-homecharge-server` folders.
 
 ## Contributing
 

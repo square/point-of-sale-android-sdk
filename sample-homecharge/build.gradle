@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  defaultConfig {
+    applicationId "com.example.homecharge"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.compileSdkVersion
+
+    versionCode 1
+    versionName "1.0"
+  }
+  buildTypes {
+    debug {
+      project.addClientIdField(buildTypes.debug)
+    }
+    release {
+      project.addClientIdField(buildTypes.release)
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  compile project(':point-of-sale-sdk')
+  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:appcompat-v7:25.3.0'
+  compile 'com.google.firebase:firebase-core:10.0.1'
+  compile 'com.google.firebase:firebase-messaging:10.0.1'
+}
+apply plugin: 'com.google.gms.google-services'
+
+
+void addClientIdField(def buildType) {
+  if (file('homecharge.properties').exists()) {
+    def props = new Properties()
+    props.load(new FileInputStream(file('homecharge.properties')))
+    buildType.buildConfigField "String", "SQUARE_CLIENT_ID", props['clientId']
+  } else {
+    throw new GradleException('Please create homecharge.properties in sample-homecharge/, ' +
+        'see homecharge.properties.example')
+  }
+}
