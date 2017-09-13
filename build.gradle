@@ -39,7 +39,7 @@ ext {
   buildToolsVersion = '25.0.2'
   javaVersion = JavaVersion.VERSION_1_7
   GROUP = 'com.squareup.sdk'
-  VERSION_NAME = "3.0-SQUARE"
+  VERSION_NAME = "3.0-SQUARE-1"
   POM_PACKAGING = "pom"
   POM_DESCRIPTION= "Square Point of Sale Android SDK"
 
