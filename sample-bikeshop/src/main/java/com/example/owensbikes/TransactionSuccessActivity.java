@@ -22,6 +22,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import com.squareup.sdk.pos.TransactionRequest;
+import com.squareup.sdk.pos.transaction.Tender;
+import com.squareup.sdk.pos.transaction.Transaction;
 
 /**
  * Activity for displaying the result of a successful transaction. It receives the order number
@@ -30,9 +33,19 @@ import android.widget.TextView;
 public class TransactionSuccessActivity extends AppCompatActivity {
 
   private static final String ORDER_NUMBER = "ORDER_NUMBER";
+  private static final String CARD_INFO = "CARD_INFO";
 
-  public static void start(Context context, String orderNumber) {
+  public static void start(Context context, TransactionRequest.Success transactionResult) {
     Intent intent = new Intent(context, TransactionSuccessActivity.class);
+    String orderNumber = transactionResult.requestMetadata;
+    Transaction transaction = transactionResult.transaction;
+    for (Tender tender : transaction.tenders()) {
+      if (tender.cardDetails() != null) {
+        String cardBrand = tender.cardDetails().card().cardBrand().name();
+        String cardNumber = tender.cardDetails().card().last4();
+        intent.putExtra(CARD_INFO, cardBrand + " " + cardNumber);
+      }
+    }
     intent.putExtra(ORDER_NUMBER, orderNumber);
     context.startActivity(intent);
   }
@@ -40,13 +53,23 @@ public class TransactionSuccessActivity extends AppCompatActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.order_complete);
-    TextView orderNumberMessage = (TextView) findViewById(R.id.order_complete_subtitle);
+    TextView orderCompleteMessageView = (TextView) findViewById(R.id.order_complete_subtitle);
     View customizeNewBike = findViewById(R.id.customize_new_bike);
 
     Intent intent = getIntent();
     String orderNumber = intent.getStringExtra(ORDER_NUMBER);
-    orderNumberMessage.setText(getString(R.string.order_info, orderNumber));
+    String cardInfo = intent.getStringExtra(CARD_INFO);
 
+    String orderNumberMessage = getString(R.string.order_info, orderNumber);
+    String orderCompleteMessage;
+    if (cardInfo != null) {
+      orderCompleteMessage =
+          getString(R.string.order_complete_card_message, cardInfo) + " " + orderNumberMessage;
+    } else {
+      orderCompleteMessage = orderNumberMessage;
+    }
+
+    orderCompleteMessageView.setText(orderCompleteMessage);
     customizeNewBike.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         finish();

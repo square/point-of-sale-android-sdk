@@ -4,6 +4,9 @@ build
 local.properties
 reports
 hellocharge.properties
+bikeshop.properties
+homecharge.properties
+google-services.json
 
 # Maven
 target

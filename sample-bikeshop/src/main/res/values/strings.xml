@@ -51,6 +51,7 @@
   <string name="ok">OK</string>
   <string name="open_point_of_sale">Open Point of Sale</string>
   <string name="order_complete">ORDER COMPLETE</string>
+  <string name="order_complete_card_message">%1$s has been charged successfully.</string>
   <string name="order_info">Order No. %1$s has been sent to the warehouse for production.</string>
   <string name="plus">+</string>
   <string name="remove">Remove</string>

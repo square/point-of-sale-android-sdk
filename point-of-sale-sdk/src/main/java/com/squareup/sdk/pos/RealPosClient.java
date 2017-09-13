@@ -26,6 +26,8 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import com.squareup.sdk.pos.internal.PosSdkHelper;
+import com.squareup.sdk.pos.transaction.Transaction;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
@@ -39,13 +41,13 @@ import java.util.List;
 
 import static android.content.Intent.ACTION_VIEW;
 import static android.content.pm.PackageManager.GET_SIGNATURES;
-import static com.squareup.sdk.pos.PosSdkHelper.nonNull;
+import static com.squareup.sdk.pos.internal.PosSdkHelper.nonNull;
 
 final class RealPosClient implements PosClient {
 
   private static final String SDK_VERSION =
       "point-of-sale-sdk-" + BuildConfig.LIBRARY_VERSION + "-" + BuildConfig.GIT_SHA;
-  private static final String API_VERSION = "v2.0";
+  private static final String API_VERSION = "v3.0";
   private static final String POINT_OF_SALE_PACKAGE_NAME = "com.squareup";
   private static final Uri PLAY_STORE_WEB_URL =
       Uri.parse("https://play.google.com/store/apps/details?id=" + POINT_OF_SALE_PACKAGE_NAME);
@@ -64,11 +66,12 @@ final class RealPosClient implements PosClient {
     packageManager = context.getPackageManager();
   }
 
-  @NonNull @Override public Intent createChargeIntent(@NonNull ChargeRequest chargeRequest) {
-    nonNull(chargeRequest, "chargeRequest");
+  @NonNull @Override //
+  public Intent createTransactionIntent(@NonNull TransactionRequest transactionRequest) {
+    nonNull(transactionRequest, "chargeRequest");
     List<ResolveInfo> activities = queryChargeActivities();
     PackageInfo pointOfSalePackage = findPointOfSaleWithHighestVersion(activities);
-    return createPinnedChargeIntent(chargeRequest, pointOfSalePackage);
+    return createPinnedChargeIntent(transactionRequest, pointOfSalePackage);
   }
 
   @Override public boolean isPointOfSaleInstalled() {
@@ -85,7 +88,8 @@ final class RealPosClient implements PosClient {
   @Override public void launchPointOfSale() {
     List<ResolveInfo> activities = queryChargeActivities();
     PackageInfo pointOfSalePackage = findPointOfSaleWithHighestVersion(activities);
-    Intent pointOfSaleIntent = packageManager.getLaunchIntentForPackage(pointOfSalePackage.packageName);
+    Intent pointOfSaleIntent =
+        packageManager.getLaunchIntentForPackage(pointOfSalePackage.packageName);
     context.startActivity(pointOfSaleIntent);
   }
 
@@ -98,17 +102,18 @@ final class RealPosClient implements PosClient {
     context.startActivity(playStoreIntent);
   }
 
-  @NonNull @Override public ChargeRequest.Success parseChargeSuccess(@NonNull Intent data) {
+  @NonNull @Override
+  public TransactionRequest.Success parseTransactionSuccess(@NonNull Intent data) {
     nonNull(data, "data");
-    return new ChargeRequest.Success(data.getStringExtra(PosApi.RESULT_CLIENT_TRANSACTION_ID),
-        data.getStringExtra(PosApi.RESULT_SERVER_TRANSACTION_ID),
+    return new TransactionRequest.Success(
+        (Transaction) data.getParcelableExtra(PosApi.RESULT_TRANSACTION),
         data.getStringExtra(PosApi.RESULT_REQUEST_METADATA));
   }
 
-  @NonNull @Override public ChargeRequest.Error parseChargeError(@NonNull Intent data) {
+  @NonNull @Override public TransactionRequest.Error parseTransactionError(@NonNull Intent data) {
     nonNull(data, "data");
-    return new ChargeRequest.Error(
-        ChargeRequest.ErrorCode.parse(data.getStringExtra(PosApi.RESULT_ERROR_CODE)),
+    return new TransactionRequest.Error(
+        TransactionRequest.ErrorCode.parse(data.getStringExtra(PosApi.RESULT_ERROR_CODE)),
         data.getStringExtra(PosApi.RESULT_ERROR_DESCRIPTION),
         data.getStringExtra(PosApi.RESULT_REQUEST_METADATA));
   }
@@ -142,32 +147,32 @@ final class RealPosClient implements PosClient {
     return pointOfSalePackage;
   }
 
-  private Intent createPinnedChargeIntent(ChargeRequest chargeRequest,
+  private Intent createPinnedChargeIntent(TransactionRequest transactionRequest,
       PackageInfo pointOfSalePackage) {
     Intent intent = new Intent(PosApi.INTENT_ACTION_CHARGE);
     intent.putExtra(PosApi.EXTRA_POINT_OF_SALE_CLIENT_ID, clientId);
-    intent.putExtra(PosApi.EXTRA_TOTAL_AMOUNT, chargeRequest.totalAmount);
-    intent.putExtra(PosApi.EXTRA_NOTE, chargeRequest.note);
+    intent.putExtra(PosApi.EXTRA_TOTAL_AMOUNT, transactionRequest.totalAmount);
+    intent.putExtra(PosApi.EXTRA_NOTE, transactionRequest.note);
     intent.putExtra(PosApi.EXTRA_API_VERSION, API_VERSION);
     intent.putExtra(PosApi.EXTRA_SDK_VERSION, SDK_VERSION);
-    intent.putExtra(PosApi.EXTRA_CURRENCY_CODE, chargeRequest.currencyCode.name());
-    intent.putExtra(PosApi.EXTRA_REQUEST_METADATA, chargeRequest.requestMetadata);
-    if (chargeRequest.customerId != null && chargeRequest.customerId.length() > 0) {
-      intent.putExtra(PosApi.EXTRA_CUSTOMER_ID, chargeRequest.customerId);
+    intent.putExtra(PosApi.EXTRA_CURRENCY_CODE, transactionRequest.currencyCode.name());
+    intent.putExtra(PosApi.EXTRA_REQUEST_METADATA, transactionRequest.requestMetadata);
+    if (transactionRequest.customerId != null && transactionRequest.customerId.length() > 0) {
+      intent.putExtra(PosApi.EXTRA_CUSTOMER_ID, transactionRequest.customerId);
     }
 
     ArrayList<String> tenderTypeExtra = new ArrayList<>();
-    for (ChargeRequest.TenderType tenderType : chargeRequest.tenderTypes) {
+    for (TransactionRequest.TenderType tenderType : transactionRequest.tenderTypes) {
       tenderTypeExtra.add(tenderType.apiExtraName);
     }
 
     intent.putExtra(PosApi.EXTRA_TENDER_TYPES, tenderTypeExtra);
 
-    if (chargeRequest.locationId != null && chargeRequest.locationId.length() > 0) {
-      intent.putExtra(PosApi.EXTRA_LOCATION_ID, chargeRequest.locationId);
+    if (transactionRequest.locationId != null && transactionRequest.locationId.length() > 0) {
+      intent.putExtra(PosApi.EXTRA_LOCATION_ID, transactionRequest.locationId);
     }
-    if (chargeRequest.autoReturnMillis > PosApi.AUTO_RETURN_NO_TIMEOUT) {
-      intent.putExtra(PosApi.EXTRA_AUTO_RETURN_TIMEOUT_MS, chargeRequest.autoReturnMillis);
+    if (transactionRequest.autoReturnMillis > PosApi.AUTO_RETURN_NO_TIMEOUT) {
+      intent.putExtra(PosApi.EXTRA_AUTO_RETURN_TIMEOUT_MS, transactionRequest.autoReturnMillis);
     }
     intent.setPackage(pointOfSalePackage.packageName);
     return intent;

@@ -18,6 +18,7 @@ package com.squareup.sdk.pos;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import com.squareup.sdk.pos.transaction.Transaction;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -30,18 +31,18 @@ import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_ON_FILE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CASH;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_OTHER;
-import static com.squareup.sdk.pos.PosSdkHelper.nonNull;
+import static com.squareup.sdk.pos.internal.PosSdkHelper.nonNull;
 import static java.util.Collections.unmodifiableSet;
 
 /**
  * Represents the details of a transaction to initiate with the Point of Sale API.
- * After building a {@code ChargeRequest} instance with {@link Builder#Builder(int, CurrencyCode)},
- * pass it to the {@link PosClient#createChargeIntent(ChargeRequest)} method to initiate
+ * After building a {@code TransactionRequest} instance with {@link Builder#Builder(int, CurrencyCode)},
+ * pass it to the {@link PosClient#createTransactionIntent(TransactionRequest)} method to initiate
  * the transaction.
  *
  * @see PosSdk code sample
  */
-public final class ChargeRequest {
+public final class TransactionRequest {
 
   /** @see Builder#Builder(int, CurrencyCode) */
   public final int totalAmount;
@@ -67,7 +68,7 @@ public final class ChargeRequest {
   /** @see Builder#customerId(String) */
   @Nullable public final String customerId;
 
-  ChargeRequest(Builder builder) {
+  TransactionRequest(Builder builder) {
     this.tenderTypes = unmodifiableSet(
         builder.tenderTypes.isEmpty() ? EnumSet.noneOf(TenderType.class)
             : EnumSet.copyOf(builder.tenderTypes));
@@ -101,10 +102,10 @@ public final class ChargeRequest {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ChargeRequest)) {
+    if (!(o instanceof TransactionRequest)) {
       return false;
     }
-    ChargeRequest that = (ChargeRequest) o;
+    TransactionRequest that = (TransactionRequest) o;
     if (totalAmount != that.totalAmount) {
       return false;
     }
@@ -145,7 +146,7 @@ public final class ChargeRequest {
     return result;
   }
 
-  /** A flexible builder to create a {@link ChargeRequest}. */
+  /** A flexible builder to create a {@link TransactionRequest}. */
   public static final class Builder {
 
     final Set<TenderType> tenderTypes;
@@ -188,7 +189,7 @@ public final class ChargeRequest {
      * @throws NullPointerException if tenderTypes is null
      * @throws IllegalArgumentException is tenderTypes is empty
      */
-    public @NonNull ChargeRequest.Builder restrictTendersTo(
+    public @NonNull TransactionRequest.Builder restrictTendersTo(
         @NonNull Collection<TenderType> tenderTypes) {
       nonNull(tenderTypes, "tenderTypes");
       if (tenderTypes.isEmpty()) {
@@ -200,7 +201,7 @@ public final class ChargeRequest {
     }
 
     /** @see #restrictTendersTo(Collection) */
-    public @NonNull ChargeRequest.Builder restrictTendersTo(@NonNull TenderType... tenderTypes) {
+    public @NonNull TransactionRequest.Builder restrictTendersTo(@NonNull TenderType... tenderTypes) {
       nonNull(tenderTypes, "tenderTypes");
       if (tenderTypes.length == 0) {
         throw new IllegalArgumentException("Please restrict to at least one TenderType.");
@@ -222,7 +223,7 @@ public final class ChargeRequest {
      * @return This builder to allow chaining of builder method calls.
      * @throws IllegalArgumentException if the note is longer than 500 characters.
      */
-    public @NonNull ChargeRequest.Builder note(@Nullable String note) {
+    public @NonNull TransactionRequest.Builder note(@Nullable String note) {
       if (note != null && note.length() > PosApi.NOTE_MAX_LENGTH) {
         throw new IllegalArgumentException(
             "note character length must be less than " + PosApi.NOTE_MAX_LENGTH);
@@ -245,7 +246,7 @@ public final class ChargeRequest {
      * PosApi#AUTO_RETURN_TIMEOUT_MIN_MILLIS} and
      * {@link PosApi#AUTO_RETURN_TIMEOUT_MAX_MILLIS}.
      */
-    public @NonNull ChargeRequest.Builder autoReturn(long timeout, TimeUnit unit) {
+    public @NonNull TransactionRequest.Builder autoReturn(long timeout, TimeUnit unit) {
       long autoReturnMillis;
       if (timeout != PosApi.AUTO_RETURN_NO_TIMEOUT) {
         autoReturnMillis = unit.toMillis(timeout);
@@ -276,7 +277,7 @@ public final class ChargeRequest {
      * in to Square Point of Sale.
      * @return This builder to allow chaining of builder method calls.
      */
-    public @NonNull ChargeRequest.Builder enforceBusinessLocation(@Nullable String locationId) {
+    public @NonNull TransactionRequest.Builder enforceBusinessLocation(@Nullable String locationId) {
       this.locationId = locationId;
       return this;
     }
@@ -289,7 +290,7 @@ public final class ChargeRequest {
      * @param requestMetadata The request metadata, or null.
      * @return This builder to allow chaining of builder method calls.
      */
-    public @NonNull ChargeRequest.Builder requestMetadata(@Nullable String requestMetadata) {
+    public @NonNull TransactionRequest.Builder requestMetadata(@Nullable String requestMetadata) {
       this.requestMetadata = requestMetadata;
       return this;
     }
@@ -302,16 +303,16 @@ public final class ChargeRequest {
      * customer information</a>.
      * @return This builder to allow chaining of builder method calls.
      */
-    public @NonNull ChargeRequest.Builder customerId(@Nullable String customerId) {
+    public @NonNull TransactionRequest.Builder customerId(@Nullable String customerId) {
       this.customerId = customerId;
       return this;
     }
 
     /**
-     * Constructs a {@link ChargeRequest} from the current state of this builder.
+     * Constructs a {@link TransactionRequest} from the current state of this builder.
      */
-    public @NonNull ChargeRequest build() {
-      return new ChargeRequest(this);
+    public @NonNull TransactionRequest build() {
+      return new TransactionRequest(this);
     }
   }
 
@@ -322,35 +323,20 @@ public final class ChargeRequest {
   public static class Success {
 
     /**
-     * The device-generated ID of the transaction.
-     *
-     * Transaction objects returned by the Connect API's ListTransactions endpoint
-     * include this value in the {@code client_id} field when applicable. You
-     * cannot currently filter results by the value of this field, however you
-     * can match against it to obtain a transaction's full details when
-     * {@link #serverTransactionId} is null.
-     */
-    @NonNull public final String clientTransactionId;
-
-    /**
-     * The server-generated ID of the transaction, if available. This value is
-     * {@code null} if the created transaction had not yet been assigned an ID
-     * by Square servers before Square Point of Sale returned to your app. This happens
-     * most commonly for cash payments and payments processed in Square Point of Sale's
-     * offline mode.
-     */
-    @Nullable public final String serverTransactionId;
+     * Represents the result of a transaction processed using the Square Point of Sale API.
+     * See {@link Transaction}
+     * */
+    @NonNull public final Transaction transaction;
 
     /**
      * This value matches the value you provided to the {@link Builder#requestMetadata(String)}
-     * method when constructing the {@link ChargeRequest}, if any.
+     * method when constructing the {@link TransactionRequest}, if any.
      */
     @Nullable public final String requestMetadata;
 
-    public Success(@NonNull String clientTransactionId, @Nullable String serverTransactionId,
+    public Success(Transaction transaction,
         @Nullable String requestMetadata) {
-      this.clientTransactionId = clientTransactionId;
-      this.serverTransactionId = serverTransactionId;
+      this.transaction = transaction;
       this.requestMetadata = requestMetadata;
     }
   }
@@ -378,7 +364,7 @@ public final class ChargeRequest {
 
     /**
      * This value matches the value you provided to the {@link Builder#requestMetadata(String)}
-     * method when constructing the {@link ChargeRequest}, if any.
+     * method when constructing the {@link TransactionRequest}, if any.
      */
     @Nullable public final String requestMetadata;
 
