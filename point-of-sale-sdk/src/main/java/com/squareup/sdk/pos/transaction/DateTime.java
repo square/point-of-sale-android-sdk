@@ -1,50 +1,46 @@
 package com.squareup.sdk.pos.transaction;
 
-import android.os.Parcel;
-import com.ryanharter.auto.value.parcel.TypeAdapter;
+import android.os.Parcelable;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.squareup.sdk.pos.internal.PosSdkHelper.nonNull;
-
-/** The date and time at which the transaction was completed. */
-public final class DateTime {
+@AutoValue
+public abstract class DateTime implements Parcelable {
   private static final DateFormat ISO_8601 =
       new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 
-  private final String dateString;
+  public abstract String iso8601DateString();
 
-  public DateTime(String dateString) {
-    this.dateString = nonNull(dateString, "dateString");
+  public static DateTime create(String iso8601DateString) {
     try {
       // Fail fast as a sanity check.
-      parse();
+      parse(iso8601DateString);
     } catch (ParseException pe) {
       throw new IllegalArgumentException(pe);
     }
+    return new AutoValue_DateTime(iso8601DateString);
   }
 
-  public DateTime(Date date) {
-    this.dateString = ISO_8601.format(date);
-  }
-
-  public String asIso8601String() {
-    return dateString;
+  public static DateTime create(Date date) {
+    return create(ISO_8601.format(date));
   }
 
   public Date asJavaDate() {
     try {
-      return parse();
+      return parse(iso8601DateString());
     } catch (ParseException ise) {
       throw new IllegalStateException("this should never happen");
     }
   }
 
   // Cribbed from Times.parseIso8601Date(String).
-  private Date parse() throws ParseException {
+  private static Date parse(String dateString) throws ParseException {
     // Add zeroed zone to UTC dates.
     String temp = dateString.replace("Z", "-0000");
 
@@ -58,39 +54,7 @@ public final class DateTime {
     return ISO_8601.parse(temp);
   }
 
-  // TODO RA-21232: make equals timezone-agnostic
-  @Override public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    DateTime dateTime = (DateTime) o;
-
-    if (!dateString.equals(dateTime.dateString)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  @Override public int hashCode() {
-    return dateString.hashCode();
-  }
-
-  @Override public String toString() {
-    return dateString;
-  }
-
-  public static class DateTimeTypeAdapter implements TypeAdapter<DateTime> {
-    @Override public DateTime fromParcel(Parcel in) {
-      return new DateTime(in.readString());
-    }
-
-    @Override public void toParcel(DateTime value, Parcel dest) {
-      dest.writeString(value.dateString);
-    }
+  public static TypeAdapter<DateTime> typeAdapter(Gson gson) {
+    return new AutoValue_DateTime.GsonTypeAdapter(gson);
   }
 }
