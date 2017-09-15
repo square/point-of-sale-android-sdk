@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
-import com.ryanharter.auto.value.parcel.ParcelAdapter;
 
 /**
  * Represents a payment method used in a transaction.
@@ -34,7 +33,6 @@ public abstract class Tender implements Parcelable {
   /**
    * The date and time when the tender was created, as determined by the client device.
    */
-  @ParcelAdapter(DateTime.DateTimeTypeAdapter.class) //
   public abstract DateTime createdAt();
 
   /**

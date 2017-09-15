@@ -54,7 +54,6 @@ public abstract class Transaction implements Parcelable {
   /**
    * The date and time when the transaction was completed as determined by the client device.
    */
-  @ParcelAdapter(DateTime.DateTimeTypeAdapter.class) //
   public abstract DateTime createdAt();
 
   /**
