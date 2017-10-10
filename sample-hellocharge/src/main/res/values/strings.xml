@@ -16,7 +16,7 @@
 
 <resources>
   <string name="app_name">HelloCharge</string>
-  <string name="auto_return_timeout_hint">Auto Return Timeout (optional, in millis)</string>
+  <string name="auto_return_hint">Auto Return</string>
   <string name="card_text">Card</string>
   <string name="cash_text">Cash</string>
   <string name="currency_code_default">USD</string>

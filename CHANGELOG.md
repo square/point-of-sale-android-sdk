@@ -2,8 +2,11 @@ Change Log
 ==========
 ## Version 3.0
 
-* Added new Transaction response object in
-* Renamed Charge -> Transaction
+* Added new Transaction object to a ChargeRequest.Success containing details about
+  a successful transaction.
+* Renamed all Charge -> Transaction
+* Auto return is now a boolean parameter. If enabled, POS will auto-return to the application
+  after 2.0 seconds.
 
 ## Version 2.0
 

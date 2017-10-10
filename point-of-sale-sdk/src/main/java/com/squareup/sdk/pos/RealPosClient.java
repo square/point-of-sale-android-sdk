@@ -171,9 +171,7 @@ final class RealPosClient implements PosClient {
     if (transactionRequest.locationId != null && transactionRequest.locationId.length() > 0) {
       intent.putExtra(PosApi.EXTRA_LOCATION_ID, transactionRequest.locationId);
     }
-    if (transactionRequest.autoReturnMillis > PosApi.AUTO_RETURN_NO_TIMEOUT) {
-      intent.putExtra(PosApi.EXTRA_AUTO_RETURN_TIMEOUT_MS, transactionRequest.autoReturnMillis);
-    }
+    intent.putExtra(PosApi.EXTRA_AUTO_RETURN, transactionRequest.autoReturn);
     intent.setPackage(pointOfSalePackage.packageName);
     return intent;
   }

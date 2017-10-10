@@ -25,7 +25,6 @@ import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_ON_FILE;
@@ -36,9 +35,9 @@ import static java.util.Collections.unmodifiableSet;
 
 /**
  * Represents the details of a transaction to initiate with the Point of Sale API.
- * After building a {@code TransactionRequest} instance with {@link Builder#Builder(int, CurrencyCode)},
- * pass it to the {@link PosClient#createTransactionIntent(TransactionRequest)} method to initiate
- * the transaction.
+ * After building a {@code TransactionRequest} instance with
+ * {@link Builder#Builder(int, CurrencyCode)}, pass it to the
+ * {@link PosClient#createTransactionIntent(TransactionRequest)} method to initiate the transaction.
  *
  * @see PosSdk code sample
  */
@@ -56,8 +55,8 @@ public final class TransactionRequest {
   /** @see Builder#note(String) */
   @Nullable public final String note;
 
-  /** @see Builder#autoReturn(long, TimeUnit) */
-  public final long autoReturnMillis;
+  /** @see Builder#autoReturn(boolean) */
+  public final boolean autoReturn;
 
   /** @see Builder#enforceBusinessLocation(String) */
   @Nullable public final String locationId;
@@ -75,7 +74,7 @@ public final class TransactionRequest {
     this.totalAmount = builder.totalAmount;
     this.currencyCode = builder.currencyCode;
     this.note = builder.note;
-    this.autoReturnMillis = builder.autoReturnMillis;
+    this.autoReturn = builder.autoReturn;
     this.locationId = builder.locationId;
     this.requestMetadata = builder.requestMetadata;
     this.customerId = builder.customerId;
@@ -92,7 +91,7 @@ public final class TransactionRequest {
   public @NonNull Builder newBuilder(int totalAmount, CurrencyCode currencyCode) {
     return new Builder(totalAmount, currencyCode).restrictTendersTo(tenderTypes)
         .note(note)
-        .autoReturn(autoReturnMillis, TimeUnit.MILLISECONDS)
+        .autoReturn(autoReturn)
         .enforceBusinessLocation(locationId)
         .requestMetadata(requestMetadata)
         .customerId(customerId);
@@ -109,7 +108,7 @@ public final class TransactionRequest {
     if (totalAmount != that.totalAmount) {
       return false;
     }
-    if (autoReturnMillis != that.autoReturnMillis) {
+    if (autoReturn != that.autoReturn) {
       return false;
     }
     if (!tenderTypes.equals(that.tenderTypes)) {
@@ -139,7 +138,7 @@ public final class TransactionRequest {
     result = 31 * result + totalAmount;
     result = 31 * result + currencyCode.hashCode();
     result = 31 * result + (note != null ? note.hashCode() : 0);
-    result = 31 * result + (int) (autoReturnMillis ^ (autoReturnMillis >>> 32));
+    result = 31 * result + (autoReturn ? 1 : 0);
     result = 31 * result + (locationId != null ? locationId.hashCode() : 0);
     result = 31 * result + (requestMetadata != null ? requestMetadata.hashCode() : 0);
     result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
@@ -153,7 +152,7 @@ public final class TransactionRequest {
     final int totalAmount;
     @NonNull final CurrencyCode currencyCode;
     @Nullable String note;
-    long autoReturnMillis;
+    boolean autoReturn;
     @Nullable String locationId;
     @Nullable String requestMetadata;
     @Nullable String customerId;
@@ -176,7 +175,6 @@ public final class TransactionRequest {
       this.totalAmount = totalAmount;
       this.currencyCode = nonNull(currencyCode, "currencyCode");
       tenderTypes = EnumSet.allOf(TenderType.class);
-      autoReturnMillis = PosApi.AUTO_RETURN_NO_TIMEOUT;
     }
 
     /**
@@ -201,7 +199,8 @@ public final class TransactionRequest {
     }
 
     /** @see #restrictTendersTo(Collection) */
-    public @NonNull TransactionRequest.Builder restrictTendersTo(@NonNull TenderType... tenderTypes) {
+    public @NonNull TransactionRequest.Builder restrictTendersTo(
+        @NonNull TenderType... tenderTypes) {
       nonNull(tenderTypes, "tenderTypes");
       if (tenderTypes.length == 0) {
         throw new IllegalArgumentException("Please restrict to at least one TenderType.");
@@ -233,36 +232,11 @@ public final class TransactionRequest {
     }
 
     /**
-     * <p>After a transaction completes, Square Point of Sale automatically returns
-     * to your app after the timeout you provide to this method.
-     *
-     * @param timeout The timeout to set, in the provided unit, or {@link
-     * PosApi#AUTO_RETURN_NO_TIMEOUT}. If you specify a timeout, it must be
-     * between 3.2 seconds and 10 seconds.
-     * @param unit the {@link TimeUnit} for the passed in timeout value. May be null if timeout is
-     * {@link PosApi#AUTO_RETURN_NO_TIMEOUT}
-     * @return This builder to allow chaining of builder method calls.
-     * @throws IllegalArgumentException if timeout is not between {@link
-     * PosApi#AUTO_RETURN_TIMEOUT_MIN_MILLIS} and
-     * {@link PosApi#AUTO_RETURN_TIMEOUT_MAX_MILLIS}.
+     * If the autoReturn parameter is set to true, Square Point of Sale will automatically
+     * return to your application after 2.0 seconds on completion of a transaction.
      */
-    public @NonNull TransactionRequest.Builder autoReturn(long timeout, TimeUnit unit) {
-      long autoReturnMillis;
-      if (timeout != PosApi.AUTO_RETURN_NO_TIMEOUT) {
-        autoReturnMillis = unit.toMillis(timeout);
-        nonNull(unit, "unit");
-        if (autoReturnMillis < PosApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS) {
-          throw new IllegalArgumentException(
-              "timeout should be at least " + PosApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS);
-        }
-        if (autoReturnMillis > PosApi.AUTO_RETURN_TIMEOUT_MAX_MILLIS) {
-          throw new IllegalArgumentException(
-              "timeout should be less than " + PosApi.AUTO_RETURN_TIMEOUT_MAX_MILLIS);
-        }
-      } else {
-        autoReturnMillis = PosApi.AUTO_RETURN_NO_TIMEOUT;
-      }
-      this.autoReturnMillis = autoReturnMillis;
+    public @NonNull TransactionRequest.Builder autoReturn(boolean enableAutoReturn) {
+      this.autoReturn = enableAutoReturn;
       return this;
     }
 
@@ -277,7 +251,8 @@ public final class TransactionRequest {
      * in to Square Point of Sale.
      * @return This builder to allow chaining of builder method calls.
      */
-    public @NonNull TransactionRequest.Builder enforceBusinessLocation(@Nullable String locationId) {
+    public @NonNull TransactionRequest.Builder enforceBusinessLocation(
+        @Nullable String locationId) {
       this.locationId = locationId;
       return this;
     }
@@ -325,7 +300,7 @@ public final class TransactionRequest {
     /**
      * Represents the result of a transaction processed using the Square Point of Sale API.
      * See {@link Transaction}
-     * */
+     */
     @NonNull public final Transaction transaction;
 
     /**
@@ -334,8 +309,7 @@ public final class TransactionRequest {
      */
     @Nullable public final String requestMetadata;
 
-    public Success(Transaction transaction,
-        @Nullable String requestMetadata) {
+    public Success(Transaction transaction, @Nullable String requestMetadata) {
       this.transaction = transaction;
       this.requestMetadata = requestMetadata;
     }

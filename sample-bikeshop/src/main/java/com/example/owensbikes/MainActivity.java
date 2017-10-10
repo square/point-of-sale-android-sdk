@@ -27,13 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.sdk.pos.TransactionRequest;
 import com.squareup.sdk.pos.CurrencyCode;
-import com.squareup.sdk.pos.PosApi;
 import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD;
@@ -68,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
     transactionResultHandler = new TransactionResultHandler(this, posClient, dialogComposer);
     dataLoader = BikeApplication.from(this).getDataLoader();
     boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-    boolean isLandscape =
-        getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    boolean isLandscape = getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
     boolean twoLists = isTablet ^ isLandscape;
 
     AdapterController adapterController =
@@ -122,11 +119,12 @@ public class MainActivity extends AppCompatActivity {
     orderInfoPrefs.edit().putLong(ORDER_NUMBER, orderNumber).apply();
     String requestMetadata = String.valueOf(orderNumber);
 
-    TransactionRequest.Builder chargeRequest = new TransactionRequest.Builder(amount, CurrencyCode.USD) //
-        .note(note) //
-        .autoReturn(PosApi.AUTO_RETURN_TIMEOUT_MIN_MILLIS, TimeUnit.MILLISECONDS) //
-        .requestMetadata(requestMetadata) //
-        .restrictTendersTo(tenderTypes);
+    TransactionRequest.Builder chargeRequest =
+        new TransactionRequest.Builder(amount, CurrencyCode.USD) //
+            .note(note) //
+            .autoReturn(true) //
+            .requestMetadata(requestMetadata) //
+            .restrictTendersTo(tenderTypes);
     try {
       Intent chargeIntent = posClient.createTransactionIntent(chargeRequest.build());
       startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);

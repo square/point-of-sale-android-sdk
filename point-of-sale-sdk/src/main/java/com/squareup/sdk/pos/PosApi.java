@@ -56,15 +56,9 @@ public final class PosApi {
 
   public static final String EXTRA_TENDER_CARD_ON_FILE = NAMESPACE + "TENDER_CARD_ON_FILE";
 
-  public static final String EXTRA_AUTO_RETURN_TIMEOUT_MS = NAMESPACE + "AUTO_RETURN_TIMEOUT_MS";
+  public static final String EXTRA_AUTO_RETURN = NAMESPACE + "AUTO_RETURN";
 
   public static final String EXTRA_CUSTOMER_ID = NAMESPACE + "CUSTOMER_ID";
-
-  public static final long AUTO_RETURN_NO_TIMEOUT = 0L;
-
-  public static final long AUTO_RETURN_TIMEOUT_MIN_MILLIS = 3_200L;
-
-  public static final long AUTO_RETURN_TIMEOUT_MAX_MILLIS = 10_000L;
 
   public static final int NOTE_MAX_LENGTH = 500;
 
