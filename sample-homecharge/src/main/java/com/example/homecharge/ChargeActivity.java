@@ -31,7 +31,6 @@ import com.squareup.sdk.pos.PosSdk;
 
 import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD;
 import static com.squareup.sdk.pos.CurrencyCode.USD;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class ChargeActivity extends AppCompatActivity {
 
@@ -47,7 +46,7 @@ public class ChargeActivity extends AppCompatActivity {
 
   public void startTransaction(int dollarAmount, String note) {
     TransactionRequest request = new TransactionRequest.Builder(dollarAmount * 1_00, USD).note(note)
-        .autoReturn(3_200, MILLISECONDS)
+        .autoReturn(true)
         .restrictTendersTo(CARD)
         .build();
     try {

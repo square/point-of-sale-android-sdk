@@ -36,10 +36,8 @@ import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
-import static com.squareup.sdk.pos.PosApi.AUTO_RETURN_NO_TIMEOUT;
 
 public class HelloChargeActivity extends AppCompatActivity {
 
@@ -54,9 +52,9 @@ public class HelloChargeActivity extends AppCompatActivity {
   private CheckBox cashCheckbox;
   private CheckBox cardOnFileCheckbox;
   private CheckBox otherTenderCheckbox;
+  private CheckBox autoReturnCheckbox;
   private EditText locationIdEditText;
   private EditText customerIdEditText;
-  private EditText autoReturnTimeoutEditText;
   private EditText requestMetadataEditText;
 
   private PosClient posClient;
@@ -75,7 +73,7 @@ public class HelloChargeActivity extends AppCompatActivity {
     otherTenderCheckbox = findView(R.id.other_tender_checkbox);
     locationIdEditText = findView(R.id.location_id_edit_text);
     customerIdEditText = findView(R.id.customer_id_edit_text);
-    autoReturnTimeoutEditText = findView(R.id.auto_return_timeout_edit_text);
+    autoReturnCheckbox = findView(R.id.auto_return_checkbox);
     requestMetadataEditText = findView(R.id.request_metadata_edit_text);
 
     findView(R.id.start_transaction_button).setOnClickListener(new View.OnClickListener() {
@@ -121,8 +119,7 @@ public class HelloChargeActivity extends AppCompatActivity {
     }
     String locationId = locationIdEditText.getText().toString();
     String customerId = customerIdEditText.getText().toString();
-    String timeoutString = autoReturnTimeoutEditText.getText().toString();
-    long timeout = isBlank(timeoutString) ? AUTO_RETURN_NO_TIMEOUT : Integer.valueOf(timeoutString);
+    boolean shouldAutoReturn = autoReturnCheckbox.isChecked();
 
     String requestMetadata = requestMetadataEditText.getText().toString();
 
@@ -130,7 +127,7 @@ public class HelloChargeActivity extends AppCompatActivity {
         new TransactionRequest.Builder(amount, CurrencyCode.valueOf(currencyCode)).note(note)
             .enforceBusinessLocation(locationId)
             .customerId(customerId)
-            .autoReturn(timeout, TimeUnit.MILLISECONDS)
+            .autoReturn(shouldAutoReturn)
             .requestMetadata(requestMetadata)
             .restrictTendersTo(tenderTypes)
             .build();
