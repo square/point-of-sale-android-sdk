@@ -222,11 +222,11 @@
       >
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/request_metadata_edit_text"
+            android:id="@+id/state_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/request_metadata_hint"
-            android:text="@string/request_metadata_default"
+            android:hint="@string/state_hint"
+            android:text="@string/state_default"
         />
 
       </android.support.design.widget.TextInputLayout>

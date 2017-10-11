@@ -7,6 +7,7 @@ Change Log
 * Renamed all Charge -> Transaction
 * Auto return is now a boolean parameter. If enabled, POS will auto-return to the application
   after 2.0 seconds.
+* Renamed the "requestMetadata" parameter to "state".
 
 ## Version 2.0
 

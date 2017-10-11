@@ -107,7 +107,7 @@ final class RealPosClient implements PosClient {
     nonNull(data, "data");
     return new TransactionRequest.Success(
         (Transaction) data.getParcelableExtra(PosApi.RESULT_TRANSACTION),
-        data.getStringExtra(PosApi.RESULT_REQUEST_METADATA));
+        data.getStringExtra(PosApi.RESULT_STATE));
   }
 
   @NonNull @Override public TransactionRequest.Error parseTransactionError(@NonNull Intent data) {
@@ -115,7 +115,7 @@ final class RealPosClient implements PosClient {
     return new TransactionRequest.Error(
         TransactionRequest.ErrorCode.parse(data.getStringExtra(PosApi.RESULT_ERROR_CODE)),
         data.getStringExtra(PosApi.RESULT_ERROR_DESCRIPTION),
-        data.getStringExtra(PosApi.RESULT_REQUEST_METADATA));
+        data.getStringExtra(PosApi.RESULT_STATE));
   }
 
   private List<ResolveInfo> queryChargeActivities() {
@@ -156,7 +156,7 @@ final class RealPosClient implements PosClient {
     intent.putExtra(PosApi.EXTRA_API_VERSION, API_VERSION);
     intent.putExtra(PosApi.EXTRA_SDK_VERSION, SDK_VERSION);
     intent.putExtra(PosApi.EXTRA_CURRENCY_CODE, transactionRequest.currencyCode.name());
-    intent.putExtra(PosApi.EXTRA_REQUEST_METADATA, transactionRequest.requestMetadata);
+    intent.putExtra(PosApi.EXTRA_REQUEST_STATE, transactionRequest.state);
     if (transactionRequest.customerId != null && transactionRequest.customerId.length() > 0) {
       intent.putExtra(PosApi.EXTRA_CUSTOMER_ID, transactionRequest.customerId);
     }

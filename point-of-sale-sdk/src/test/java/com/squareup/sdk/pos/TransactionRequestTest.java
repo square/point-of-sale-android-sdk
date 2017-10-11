@@ -73,10 +73,10 @@ public class TransactionRequestTest {
     assertThat(request.locationId).isEqualTo("location");
   }
 
-  @Test public void requestHasMetadata() {
+  @Test public void requestHasState() {
     TransactionRequest request =
-        new TransactionRequest.Builder(1_00, USD).requestMetadata("metadata").build();
-    assertThat(request.requestMetadata).isEqualTo("metadata");
+        new TransactionRequest.Builder(1_00, USD).state("state").build();
+    assertThat(request.state).isEqualTo("state");
   }
 
   @Test public void requestHasCustomerId() {
@@ -88,7 +88,7 @@ public class TransactionRequestTest {
     TransactionRequest request = new TransactionRequest.Builder(1_00, USD).restrictTendersTo(CARD)
         .autoReturn(false)
         .enforceBusinessLocation("location")
-        .requestMetadata("metadata")
+        .state("state")
         .customerId("customerId")
         .note("note")
         .build();
@@ -96,7 +96,7 @@ public class TransactionRequestTest {
         .restrictTendersTo(CASH)
         .autoReturn(true)
         .enforceBusinessLocation("location2")
-        .requestMetadata("metadata2")
+        .state("state2")
         .customerId("customerId2")
         .note("note2")
         .build();
@@ -105,7 +105,7 @@ public class TransactionRequestTest {
     assertThat(updatedRequest.tenderTypes).containsExactly(CASH);
     assertThat(updatedRequest.autoReturn).isTrue();
     assertThat(updatedRequest.locationId).isEqualTo("location2");
-    assertThat(updatedRequest.requestMetadata).isEqualTo("metadata2");
+    assertThat(updatedRequest.state).isEqualTo("state2");
     assertThat(updatedRequest.customerId).isEqualTo("customerId2");
     assertThat(updatedRequest.note).isEqualTo("note2");
   }
@@ -114,7 +114,7 @@ public class TransactionRequestTest {
     TransactionRequest request = new TransactionRequest.Builder(1_00, USD).restrictTendersTo(CARD)
         .autoReturn(true)
         .enforceBusinessLocation("location")
-        .requestMetadata("metadata")
+        .state("state")
         .customerId("customerId")
         .note("note")
         .build();
@@ -124,7 +124,7 @@ public class TransactionRequestTest {
     assertThat(updatedRequest.tenderTypes).containsExactly(CARD);
     assertThat(updatedRequest.autoReturn).isTrue();
     assertThat(updatedRequest.locationId).isEqualTo("location");
-    assertThat(updatedRequest.requestMetadata).isEqualTo("metadata");
+    assertThat(updatedRequest.state).isEqualTo("state");
     assertThat(updatedRequest.customerId).isEqualTo("customerId");
     assertThat(updatedRequest.note).isEqualTo("note");
   }

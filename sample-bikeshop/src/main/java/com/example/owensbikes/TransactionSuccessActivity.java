@@ -37,7 +37,7 @@ public class TransactionSuccessActivity extends AppCompatActivity {
 
   public static void start(Context context, TransactionRequest.Success transactionResult) {
     Intent intent = new Intent(context, TransactionSuccessActivity.class);
-    String orderNumber = transactionResult.requestMetadata;
+    String orderNumber = transactionResult.state;
     Transaction transaction = transactionResult.transaction;
     for (Tender tender : transaction.tenders()) {
       if (tender.cardDetails() != null) {

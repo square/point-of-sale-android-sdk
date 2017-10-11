@@ -61,8 +61,8 @@ public final class TransactionRequest {
   /** @see Builder#enforceBusinessLocation(String) */
   @Nullable public final String locationId;
 
-  /** @see Builder#requestMetadata */
-  @Nullable public final String requestMetadata;
+  /** @see Builder#state */
+  @Nullable public final String state;
 
   /** @see Builder#customerId(String) */
   @Nullable public final String customerId;
@@ -76,7 +76,7 @@ public final class TransactionRequest {
     this.note = builder.note;
     this.autoReturn = builder.autoReturn;
     this.locationId = builder.locationId;
-    this.requestMetadata = builder.requestMetadata;
+    this.state = builder.state;
     this.customerId = builder.customerId;
   }
 
@@ -93,7 +93,7 @@ public final class TransactionRequest {
         .note(note)
         .autoReturn(autoReturn)
         .enforceBusinessLocation(locationId)
-        .requestMetadata(requestMetadata)
+        .state(state)
         .customerId(customerId);
   }
 
@@ -123,8 +123,8 @@ public final class TransactionRequest {
     if (locationId != null ? !locationId.equals(that.locationId) : that.locationId != null) {
       return false;
     }
-    if (requestMetadata != null ? !requestMetadata.equals(that.requestMetadata)
-        : that.requestMetadata != null) {
+    if (state != null ? !state.equals(that.state)
+        : that.state != null) {
       return false;
     }
     if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) {
@@ -140,7 +140,7 @@ public final class TransactionRequest {
     result = 31 * result + (note != null ? note.hashCode() : 0);
     result = 31 * result + (autoReturn ? 1 : 0);
     result = 31 * result + (locationId != null ? locationId.hashCode() : 0);
-    result = 31 * result + (requestMetadata != null ? requestMetadata.hashCode() : 0);
+    result = 31 * result + (state != null ? state.hashCode() : 0);
     result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
     return result;
   }
@@ -154,7 +154,7 @@ public final class TransactionRequest {
     @Nullable String note;
     boolean autoReturn;
     @Nullable String locationId;
-    @Nullable String requestMetadata;
+    @Nullable String state;
     @Nullable String customerId;
 
     /**
@@ -258,15 +258,15 @@ public final class TransactionRequest {
     }
 
     /**
-     * Optional request metadata that Square Point of Sale will return in its response, as
-     * {@link Success#requestMetadata} or {@link Error#requestMetadata}. This metadata is currently
-     * not sent to Square servers.
+     * Optional state data that Square Point of Sale will return in its response, as
+     * {@link Success#state} or {@link Error#state}. This data is not sent to Square
+     * servers.
      *
-     * @param requestMetadata The request metadata, or null.
+     * @param state The state, or null.
      * @return This builder to allow chaining of builder method calls.
      */
-    public @NonNull TransactionRequest.Builder requestMetadata(@Nullable String requestMetadata) {
-      this.requestMetadata = requestMetadata;
+    public @NonNull TransactionRequest.Builder state(@Nullable String state) {
+      this.state = state;
       return this;
     }
 
@@ -304,14 +304,14 @@ public final class TransactionRequest {
     @NonNull public final Transaction transaction;
 
     /**
-     * This value matches the value you provided to the {@link Builder#requestMetadata(String)}
+     * This value matches the value you provided to the {@link Builder#state(String)}
      * method when constructing the {@link TransactionRequest}, if any.
      */
-    @Nullable public final String requestMetadata;
+    @Nullable public final String state;
 
-    public Success(Transaction transaction, @Nullable String requestMetadata) {
+    public Success(Transaction transaction, @Nullable String state) {
       this.transaction = transaction;
-      this.requestMetadata = requestMetadata;
+      this.state = state;
     }
   }
 
@@ -337,16 +337,16 @@ public final class TransactionRequest {
     @NonNull public final String debugDescription;
 
     /**
-     * This value matches the value you provided to the {@link Builder#requestMetadata(String)}
+     * This value matches the value you provided to the {@link Builder#state(String)}
      * method when constructing the {@link TransactionRequest}, if any.
      */
-    @Nullable public final String requestMetadata;
+    @Nullable public final String state;
 
     public Error(@NonNull ErrorCode code, @NonNull String debugDescription,
-        @Nullable String requestMetadata) {
+        @Nullable String state) {
       this.code = code;
       this.debugDescription = debugDescription;
-      this.requestMetadata = requestMetadata;
+      this.state = state;
     }
   }
 
@@ -399,7 +399,7 @@ public final class TransactionRequest {
 
     /**
      * Square Point of Sale did not return a transaction result. In only this case, any value that
-     * you provided in {@link Builder#requestMetadata(String)} will not be returned.
+     * you provided in {@link Builder#state(String)} will not be returned.
      */
     NO_RESULT(PosApi.ERROR_NO_RESULT),
 
