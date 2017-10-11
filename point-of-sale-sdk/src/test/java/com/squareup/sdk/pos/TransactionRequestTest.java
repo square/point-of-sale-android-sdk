@@ -24,9 +24,6 @@ import static com.squareup.sdk.pos.TransactionRequest.TenderType.CASH;
 import static com.squareup.sdk.pos.TransactionRequest.TenderType.OTHER;
 import static com.squareup.sdk.pos.CurrencyCode.CAD;
 import static com.squareup.sdk.pos.CurrencyCode.USD;
-import static com.squareup.sdk.pos.PosApi.AUTO_RETURN_NO_TIMEOUT;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TransactionRequestTest {
@@ -47,7 +44,7 @@ public class TransactionRequestTest {
 
   @Test public void requestHasNoTimeoutByDefault() {
     TransactionRequest request = new TransactionRequest.Builder(1_00, USD).build();
-    assertThat(request.autoReturnMillis).isEqualTo(AUTO_RETURN_NO_TIMEOUT);
+    assertThat(request.autoReturn).isFalse();
   }
 
   @Test public void requestHasAmountAndCurrency() {
@@ -65,25 +62,9 @@ public class TransactionRequestTest {
     assertThat(request.note).isEqualTo("Some Note");
   }
 
-  @Test(expected = IllegalArgumentException.class) public void autoReturnTooHighThrows() {
-    new TransactionRequest.Builder(1_00, USD).autoReturn(10_001, MILLISECONDS);
-  }
-
-  @Test(expected = IllegalArgumentException.class) public void autoReturnTooLowThrows() {
-    new TransactionRequest.Builder(1_00, USD).autoReturn(3_199L, MILLISECONDS);
-  }
-
-  @Test(expected = NullPointerException.class) public void autoReturnNullUnitThrows() {
-    new TransactionRequest.Builder(1_00, USD).autoReturn(3_500L, null);
-  }
-
-  @Test public void noAutoReturnTimeoutNullUnitPasses() {
-    new TransactionRequest.Builder(1_00, USD).autoReturn(AUTO_RETURN_NO_TIMEOUT, null);
-  }
-
   @Test public void requestHasAutoReturn() {
-    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).autoReturn(4, SECONDS).build();
-    assertThat(request.autoReturnMillis).isEqualTo(4_000);
+    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).autoReturn(true).build();
+    assertThat(request.autoReturn).isTrue();
   }
 
   @Test public void requestHasEnforcedBusinessLocation() {
@@ -105,7 +86,7 @@ public class TransactionRequestTest {
 
   @Test public void copyKeepingAmount() {
     TransactionRequest request = new TransactionRequest.Builder(1_00, USD).restrictTendersTo(CARD)
-        .autoReturn(4, SECONDS)
+        .autoReturn(false)
         .enforceBusinessLocation("location")
         .requestMetadata("metadata")
         .customerId("customerId")
@@ -113,7 +94,7 @@ public class TransactionRequestTest {
         .build();
     TransactionRequest updatedRequest = request.newBuilder()
         .restrictTendersTo(CASH)
-        .autoReturn(5, SECONDS)
+        .autoReturn(true)
         .enforceBusinessLocation("location2")
         .requestMetadata("metadata2")
         .customerId("customerId2")
@@ -122,7 +103,7 @@ public class TransactionRequestTest {
     assertThat(updatedRequest.totalAmount).isEqualTo(1_00);
     assertThat(updatedRequest.currencyCode).isEqualTo(USD);
     assertThat(updatedRequest.tenderTypes).containsExactly(CASH);
-    assertThat(updatedRequest.autoReturnMillis).isEqualTo(5_000);
+    assertThat(updatedRequest.autoReturn).isTrue();
     assertThat(updatedRequest.locationId).isEqualTo("location2");
     assertThat(updatedRequest.requestMetadata).isEqualTo("metadata2");
     assertThat(updatedRequest.customerId).isEqualTo("customerId2");
@@ -131,7 +112,7 @@ public class TransactionRequestTest {
 
   @Test public void copyUpdatingAmount() {
     TransactionRequest request = new TransactionRequest.Builder(1_00, USD).restrictTendersTo(CARD)
-        .autoReturn(4, SECONDS)
+        .autoReturn(true)
         .enforceBusinessLocation("location")
         .requestMetadata("metadata")
         .customerId("customerId")
@@ -141,7 +122,7 @@ public class TransactionRequestTest {
     assertThat(updatedRequest.totalAmount).isEqualTo(2_00);
     assertThat(updatedRequest.currencyCode).isEqualTo(CAD);
     assertThat(updatedRequest.tenderTypes).containsExactly(CARD);
-    assertThat(updatedRequest.autoReturnMillis).isEqualTo(4_000);
+    assertThat(updatedRequest.autoReturn).isTrue();
     assertThat(updatedRequest.locationId).isEqualTo("location");
     assertThat(updatedRequest.requestMetadata).isEqualTo("metadata");
     assertThat(updatedRequest.customerId).isEqualTo("customerId");
