@@ -35,7 +35,7 @@ import com.squareup.sdk.pos.internal.PosSdkHelper;
  *   .note("Super Burrito, no cilantro")
  *   .enforceBusinessLocation(locationId)
  *   .autoReturn(4, TimeUnit.SECONDS)
- *   .requestMetadata("#329")
+ *   .state("#329")
  *   .restrictTenderTypesTo(TransactionRequest.TenderType.CARD)
  *   .build();
  *

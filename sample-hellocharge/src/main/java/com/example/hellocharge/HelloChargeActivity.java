@@ -55,7 +55,7 @@ public class HelloChargeActivity extends AppCompatActivity {
   private CheckBox autoReturnCheckbox;
   private EditText locationIdEditText;
   private EditText customerIdEditText;
-  private EditText requestMetadataEditText;
+  private EditText stateEditText;
 
   private PosClient posClient;
 
@@ -74,7 +74,7 @@ public class HelloChargeActivity extends AppCompatActivity {
     locationIdEditText = findView(R.id.location_id_edit_text);
     customerIdEditText = findView(R.id.customer_id_edit_text);
     autoReturnCheckbox = findView(R.id.auto_return_checkbox);
-    requestMetadataEditText = findView(R.id.request_metadata_edit_text);
+    stateEditText = findView(R.id.state_edit_text);
 
     findView(R.id.start_transaction_button).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -121,14 +121,14 @@ public class HelloChargeActivity extends AppCompatActivity {
     String customerId = customerIdEditText.getText().toString();
     boolean shouldAutoReturn = autoReturnCheckbox.isChecked();
 
-    String requestMetadata = requestMetadataEditText.getText().toString();
+    String state = stateEditText.getText().toString();
 
     TransactionRequest transactionRequest =
         new TransactionRequest.Builder(amount, CurrencyCode.valueOf(currencyCode)).note(note)
             .enforceBusinessLocation(locationId)
             .customerId(customerId)
             .autoReturn(shouldAutoReturn)
-            .requestMetadata(requestMetadata)
+            .state(state)
             .restrictTendersTo(tenderTypes)
             .build();
     try {
@@ -166,7 +166,7 @@ public class HelloChargeActivity extends AppCompatActivity {
         + "<br><br><b>Server RealTransaction Id</b><br>"
         + successResult.transaction.serverId()
         + "<br><br><b>Request Metadata</b><br>"
-        + successResult.requestMetadata);
+        + successResult.state);
     showResult(message);
     Log.d(TAG, message.toString());
   }
@@ -178,7 +178,7 @@ public class HelloChargeActivity extends AppCompatActivity {
         + "<br><br><b>Error Description</b><br>"
         + errorResult.debugDescription
         + "<br><br><b>Request Metadata</b><br>"
-        + errorResult.requestMetadata);
+        + errorResult.state);
     showResult(message);
     Log.d(TAG, message.toString());
   }

@@ -37,13 +37,13 @@ import org.robolectric.RobolectricTestRunner;
 import static android.content.Intent.ACTION_VIEW;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.squareup.sdk.pos.PosApi.EXTRA_API_VERSION;
-import static com.squareup.sdk.pos.PosApi.EXTRA_AUTO_RETURN_TIMEOUT_MS;
+import static com.squareup.sdk.pos.PosApi.EXTRA_AUTO_RETURN;
 import static com.squareup.sdk.pos.PosApi.EXTRA_CURRENCY_CODE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_CUSTOMER_ID;
 import static com.squareup.sdk.pos.PosApi.EXTRA_LOCATION_ID;
 import static com.squareup.sdk.pos.PosApi.EXTRA_NOTE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_POINT_OF_SALE_CLIENT_ID;
-import static com.squareup.sdk.pos.PosApi.EXTRA_REQUEST_METADATA;
+import static com.squareup.sdk.pos.PosApi.EXTRA_REQUEST_STATE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_SDK_VERSION;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_TYPES;
@@ -150,10 +150,10 @@ public class RealPosClientTest {
   @Test public void intentCreatedWithRequestParams() {
     TransactionRequest request = new TransactionRequest.Builder(1_00, CurrencyCode.USD).restrictTendersTo(
         TransactionRequest.TenderType.CARD)
-        .autoReturn(4, SECONDS)
+        .autoReturn(true)
         .enforceBusinessLocation("location")
         .customerId("customerId")
-        .requestMetadata("metadata")
+        .state("state")
         .note("note")
         .build();
 
@@ -164,12 +164,12 @@ public class RealPosClientTest {
     assertThat(intent.getStringExtra(EXTRA_POINT_OF_SALE_CLIENT_ID)).isEqualTo(CLIENT_ID);
     assertThat(intent.getStringExtra(EXTRA_NOTE)).isEqualTo("note");
     assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v3.0");
-    assertThat(intent.getStringExtra(EXTRA_REQUEST_METADATA)).isEqualTo("metadata");
+    assertThat(intent.getStringExtra(EXTRA_REQUEST_STATE)).isEqualTo("state");
     assertThat(intent.getStringExtra(EXTRA_LOCATION_ID)).isEqualTo("location");
     assertThat(intent.getStringExtra(EXTRA_CUSTOMER_ID)).isEqualTo("customerId");
     assertThat(intent.getStringArrayListExtra(EXTRA_TENDER_TYPES)).containsExactly(
         EXTRA_TENDER_CARD);
-    assertThat(intent.getLongExtra(EXTRA_AUTO_RETURN_TIMEOUT_MS, -1)).isEqualTo(4_000);
+    assertThat(intent.getBooleanExtra(EXTRA_AUTO_RETURN, false)).isTrue();
     assertThat(intent.getPackage()).isEqualTo("com.squareup");
   }
 
@@ -183,12 +183,12 @@ public class RealPosClientTest {
     assertThat(intent.hasExtra(EXTRA_API_VERSION)).isTrue();
     assertThat(intent.hasExtra(EXTRA_SDK_VERSION)).isTrue();
     assertThat(intent.hasExtra(EXTRA_CURRENCY_CODE)).isTrue();
-    assertThat(intent.hasExtra(EXTRA_REQUEST_METADATA)).isTrue();
+    assertThat(intent.hasExtra(EXTRA_REQUEST_STATE)).isTrue();
     assertThat(intent.hasExtra(EXTRA_TENDER_TYPES)).isTrue();
 
     assertThat(intent.hasExtra(EXTRA_CUSTOMER_ID)).isFalse();
     assertThat(intent.hasExtra(EXTRA_LOCATION_ID)).isFalse();
-    assertThat(intent.hasExtra(EXTRA_AUTO_RETURN_TIMEOUT_MS)).isFalse();
+    assertThat(intent.getBooleanExtra(EXTRA_AUTO_RETURN, false)).isFalse();
   }
 
   @Test public void pinsToHighestVersionNumber() {

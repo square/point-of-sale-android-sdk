@@ -32,7 +32,7 @@ public final class PosApi {
    */
   public static final String EXTRA_API_VERSION = NAMESPACE + "API_VERSION";
 
-  public static final String EXTRA_REQUEST_METADATA = NAMESPACE + "REQUEST_METADATA";
+  public static final String EXTRA_REQUEST_STATE = NAMESPACE + "STATE";
 
   public static final String EXTRA_SDK_VERSION = NAMESPACE + "SDK_VERSION";
 
@@ -62,7 +62,7 @@ public final class PosApi {
 
   public static final int NOTE_MAX_LENGTH = 500;
 
-  public static final String RESULT_REQUEST_METADATA = EXTRA_REQUEST_METADATA;
+  public static final String RESULT_STATE = EXTRA_REQUEST_STATE;
 
   public static final String RESULT_TRANSACTION = NAMESPACE + "TRANSACTION";
 

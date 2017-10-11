@@ -114,16 +114,16 @@ public class MainActivity extends AppCompatActivity {
     String note = itemManager.getNote();
     Set<TransactionRequest.TenderType> tenderTypes = EnumSet.of(CARD, CASH);
     // Order number is an integer stored in a SharedPreference as an example of
-    // requestMetadata usage.
+    // state usage.
     long orderNumber = orderInfoPrefs.getLong(ORDER_NUMBER, FIRST_ORDER_NUMBER) + 1;
     orderInfoPrefs.edit().putLong(ORDER_NUMBER, orderNumber).apply();
-    String requestMetadata = String.valueOf(orderNumber);
+    String state = String.valueOf(orderNumber);
 
     TransactionRequest.Builder chargeRequest =
         new TransactionRequest.Builder(amount, CurrencyCode.USD) //
             .note(note) //
             .autoReturn(true) //
-            .requestMetadata(requestMetadata) //
+            .state(state) //
             .restrictTendersTo(tenderTypes);
     try {
       Intent chargeIntent = posClient.createTransactionIntent(chargeRequest.build());

@@ -34,8 +34,8 @@
   <string name="transaction_amount_default">100</string>
   <string name="transaction_amount_hint">Transaction Amount (cents)</string>
   <string name="transaction_details_header">Transaction Details</string>
-  <string name="request_metadata_default">Very Meta.</string>
-  <string name="request_metadata_hint">Request Metadata</string>
+  <string name="state_default">Some state.</string>
+  <string name="state_hint">State</string>
   <string name="result_title">Point of Sale API Result</string>
   <string name="card_on_file_text">Card on File</string>
 </resources>
