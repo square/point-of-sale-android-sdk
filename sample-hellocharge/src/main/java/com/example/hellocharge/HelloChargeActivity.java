@@ -49,6 +49,8 @@ public class HelloChargeActivity extends AppCompatActivity {
   private EditText currencyCodeEditText;
   private EditText noteEditText;
   private CheckBox cardCheckbox;
+  private CheckBox keyedInCardCheckbox;
+  private CheckBox giftCardCheckbox;
   private CheckBox cashCheckbox;
   private CheckBox cardOnFileCheckbox;
   private CheckBox otherTenderCheckbox;
@@ -67,7 +69,9 @@ public class HelloChargeActivity extends AppCompatActivity {
     transactionAmountEditText = findView(R.id.transaction_amount_edit_text);
     currencyCodeEditText = findView(R.id.currency_code_edit_text);
     noteEditText = findView(R.id.note_edit_text);
-    cardCheckbox = findView(R.id.card_tender_checkbox);
+    cardCheckbox = findView(R.id.card_from_reader_tender_checkbox);
+    keyedInCardCheckbox = findView(R.id.keyed_in_card_tender_checkbox);
+    giftCardCheckbox = findView(R.id.gift_card_tender_checkbox);
     cashCheckbox = findView(R.id.cash_tender_checkbox);
     cardOnFileCheckbox = findView(R.id.card_on_file_checkbox);
     otherTenderCheckbox = findView(R.id.other_tender_checkbox);
@@ -106,7 +110,13 @@ public class HelloChargeActivity extends AppCompatActivity {
     String note = noteEditText.getText().toString();
     Set<TransactionRequest.TenderType> tenderTypes = EnumSet.noneOf(TransactionRequest.TenderType.class);
     if (cardCheckbox.isChecked()) {
-      tenderTypes.add(TransactionRequest.TenderType.CARD);
+      tenderTypes.add(TransactionRequest.TenderType.CARD_FROM_READER);
+    }
+    if (keyedInCardCheckbox.isChecked()) {
+      tenderTypes.add(TransactionRequest.TenderType.KEYED_IN_CARD);
+    }
+    if (giftCardCheckbox.isChecked()) {
+      tenderTypes.add(TransactionRequest.TenderType.SQUARE_GIFT_CARD);
     }
     if (cashCheckbox.isChecked()) {
       tenderTypes.add(TransactionRequest.TenderType.CASH);

@@ -45,13 +45,12 @@ import static com.squareup.sdk.pos.PosApi.EXTRA_NOTE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_POINT_OF_SALE_CLIENT_ID;
 import static com.squareup.sdk.pos.PosApi.EXTRA_REQUEST_STATE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_SDK_VERSION;
-import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_FROM_READER;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_TYPES;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TOTAL_AMOUNT;
 import static com.squareup.sdk.pos.PosApi.INTENT_ACTION_CHARGE;
 import static com.squareup.sdk.pos.TestData.INVALID_SIGNATURE;
 import static com.squareup.sdk.pos.TestData.POINT_OF_SALE_SIGNATURE;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
@@ -149,7 +148,7 @@ public class RealPosClientTest {
 
   @Test public void intentCreatedWithRequestParams() {
     TransactionRequest request = new TransactionRequest.Builder(1_00, CurrencyCode.USD).restrictTendersTo(
-        TransactionRequest.TenderType.CARD)
+        TransactionRequest.TenderType.CARD_FROM_READER)
         .autoReturn(true)
         .enforceBusinessLocation("location")
         .customerId("customerId")
@@ -168,7 +167,7 @@ public class RealPosClientTest {
     assertThat(intent.getStringExtra(EXTRA_LOCATION_ID)).isEqualTo("location");
     assertThat(intent.getStringExtra(EXTRA_CUSTOMER_ID)).isEqualTo("customerId");
     assertThat(intent.getStringArrayListExtra(EXTRA_TENDER_TYPES)).containsExactly(
-        EXTRA_TENDER_CARD);
+        EXTRA_TENDER_CARD_FROM_READER);
     assertThat(intent.getBooleanExtra(EXTRA_AUTO_RETURN, false)).isTrue();
     assertThat(intent.getPackage()).isEqualTo("com.squareup");
   }

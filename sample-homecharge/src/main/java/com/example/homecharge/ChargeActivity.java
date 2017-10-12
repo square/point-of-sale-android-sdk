@@ -29,8 +29,8 @@ import com.squareup.sdk.pos.TransactionRequest;
 import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
 
-import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD;
 import static com.squareup.sdk.pos.CurrencyCode.USD;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD_FROM_READER;
 
 public class ChargeActivity extends AppCompatActivity {
 
@@ -47,7 +47,7 @@ public class ChargeActivity extends AppCompatActivity {
   public void startTransaction(int dollarAmount, String note) {
     TransactionRequest request = new TransactionRequest.Builder(dollarAmount * 1_00, USD).note(note)
         .autoReturn(true)
-        .restrictTendersTo(CARD)
+        .restrictTendersTo(CARD_FROM_READER)
         .build();
     try {
       Intent intent = posClient.createTransactionIntent(request);
