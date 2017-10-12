@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD_FROM_READER;
 import static com.squareup.sdk.pos.TransactionRequest.TenderType.CASH;
 
 public class MainActivity extends AppCompatActivity {
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
   public void checkout() {
     int amount = itemManager.getTotal();
     String note = itemManager.getNote();
-    Set<TransactionRequest.TenderType> tenderTypes = EnumSet.of(CARD, CASH);
+    Set<TransactionRequest.TenderType> tenderTypes = EnumSet.of(CARD_FROM_READER, CASH);
     // Order number is an integer stored in a SharedPreference as an example of
     // state usage.
     long orderNumber = orderInfoPrefs.getLong(ORDER_NUMBER, FIRST_ORDER_NUMBER) + 1;

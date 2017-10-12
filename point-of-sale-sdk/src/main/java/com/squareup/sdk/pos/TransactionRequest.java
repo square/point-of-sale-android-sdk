@@ -26,9 +26,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_FROM_READER;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_ON_FILE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CASH;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_GIFT_CARD;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_KEYED_IN_CARD;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_OTHER;
 import static com.squareup.sdk.pos.internal.PosSdkHelper.nonNull;
 import static java.util.Collections.unmodifiableSet;
@@ -468,14 +470,17 @@ public final class TransactionRequest {
    */
   public enum TenderType {
 
-    /**
-     * Allow Magstripe cards, Chip Cards, Keyed-In Cards, Contactless (NFC) Payments, Square
-     * Prepaid Gift Cards.
-     */
-    CARD(EXTRA_TENDER_CARD),
+    /**Allow Magstripe cards, Chip Cards, and Contactless (NFC) transactions.*/
+    CARD_FROM_READER(EXTRA_TENDER_CARD_FROM_READER),
 
     /** Allow Card On File transactions. */
     CARD_ON_FILE(EXTRA_TENDER_CARD_ON_FILE),
+
+    /** Allow Square Gift Card transaction. */
+    SQUARE_GIFT_CARD(EXTRA_TENDER_GIFT_CARD),
+
+    /** Allow Card transactions without the card present. */
+    KEYED_IN_CARD(EXTRA_TENDER_KEYED_IN_CARD),
 
     /** Allow Cash transactions. Useful to keep all payment records in one place. */
     CASH(EXTRA_TENDER_CASH),
