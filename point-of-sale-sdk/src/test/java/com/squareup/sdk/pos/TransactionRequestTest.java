@@ -71,6 +71,11 @@ public class TransactionRequestTest {
     assertThat(request.autoReturn).isTrue();
   }
 
+  @Test public void requestHasSkipReceipt() {
+    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).skipReceipt(true).build();
+    assertThat(request.skipReceipt).isTrue();
+  }
+
   @Test public void requestHasEnforcedBusinessLocation() {
     TransactionRequest request =
         new TransactionRequest.Builder(1_00, USD).enforceBusinessLocation("location").build();

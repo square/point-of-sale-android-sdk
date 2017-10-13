@@ -69,6 +69,9 @@ public final class TransactionRequest {
   /** @see Builder#customerId(String) */
   @Nullable public final String customerId;
 
+  /** @see Builder#skipReceipt(boolean) */
+  public final boolean skipReceipt;
+
   TransactionRequest(Builder builder) {
     this.tenderTypes = unmodifiableSet(
         builder.tenderTypes.isEmpty() ? EnumSet.noneOf(TenderType.class)
@@ -80,6 +83,7 @@ public final class TransactionRequest {
     this.locationId = builder.locationId;
     this.state = builder.state;
     this.customerId = builder.customerId;
+    this.skipReceipt = builder.skipReceipt;
   }
 
   /** Creates a new {@link Builder} copied from {@link this} transaction. */
@@ -132,6 +136,9 @@ public final class TransactionRequest {
     if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) {
       return false;
     }
+    if (skipReceipt != that.skipReceipt) {
+      return false;
+    }
     return true;
   }
 
@@ -144,6 +151,7 @@ public final class TransactionRequest {
     result = 31 * result + (locationId != null ? locationId.hashCode() : 0);
     result = 31 * result + (state != null ? state.hashCode() : 0);
     result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
+    result = 31 * result + (skipReceipt ? 1 : 0);
     return result;
   }
 
@@ -154,10 +162,11 @@ public final class TransactionRequest {
     final int totalAmount;
     @NonNull final CurrencyCode currencyCode;
     @Nullable String note;
-    boolean autoReturn;
     @Nullable String locationId;
     @Nullable String state;
     @Nullable String customerId;
+    boolean autoReturn;
+    boolean skipReceipt;
 
     /**
      * @param totalAmount Amount to charge. Point of Sale might add taxes and / or a tip on top,
@@ -282,6 +291,15 @@ public final class TransactionRequest {
      */
     public @NonNull TransactionRequest.Builder customerId(@Nullable String customerId) {
       this.customerId = customerId;
+      return this;
+    }
+
+    /**
+     * Do not present the receipt screen to the buyer. If the buyer has previously linked their
+     * payment method to their email address, he or she will still receive an email receipt.
+     */
+    public TransactionRequest.Builder skipReceipt(boolean enabled) {
+      this.skipReceipt = enabled;
       return this;
     }
 

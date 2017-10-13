@@ -157,6 +157,8 @@ final class RealPosClient implements PosClient {
     intent.putExtra(PosApi.EXTRA_SDK_VERSION, SDK_VERSION);
     intent.putExtra(PosApi.EXTRA_CURRENCY_CODE, transactionRequest.currencyCode.name());
     intent.putExtra(PosApi.EXTRA_REQUEST_STATE, transactionRequest.state);
+    intent.putExtra(PosApi.EXTRA_AUTO_RETURN, transactionRequest.autoReturn);
+    intent.putExtra(PosApi.EXTRA_SKIP_RECEIPT, transactionRequest.skipReceipt);
     if (transactionRequest.customerId != null && transactionRequest.customerId.length() > 0) {
       intent.putExtra(PosApi.EXTRA_CUSTOMER_ID, transactionRequest.customerId);
     }
@@ -165,13 +167,12 @@ final class RealPosClient implements PosClient {
     for (TransactionRequest.TenderType tenderType : transactionRequest.tenderTypes) {
       tenderTypeExtra.add(tenderType.apiExtraName);
     }
-
     intent.putExtra(PosApi.EXTRA_TENDER_TYPES, tenderTypeExtra);
 
     if (transactionRequest.locationId != null && transactionRequest.locationId.length() > 0) {
       intent.putExtra(PosApi.EXTRA_LOCATION_ID, transactionRequest.locationId);
     }
-    intent.putExtra(PosApi.EXTRA_AUTO_RETURN, transactionRequest.autoReturn);
+
     intent.setPackage(pointOfSalePackage.packageName);
     return intent;
   }
