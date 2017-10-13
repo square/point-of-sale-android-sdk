@@ -48,7 +48,11 @@ public final class PosApi {
 
   public static final String EXTRA_TENDER_TYPES = NAMESPACE + "TENDER_TYPES";
 
-  public static final String EXTRA_TENDER_CARD = NAMESPACE + "TENDER_CARD";
+  public static final String EXTRA_TENDER_CARD_FROM_READER = NAMESPACE + "TENDER_CARD_FROM_READER";
+
+  public static final String EXTRA_TENDER_KEYED_IN_CARD = NAMESPACE + "TENDER_KEYED_IN_CARD";
+
+  public static final String EXTRA_TENDER_GIFT_CARD = NAMESPACE + "TENDER_GIFT_CARD";
 
   public static final String EXTRA_TENDER_CASH = NAMESPACE + "TENDER_CASH";
 

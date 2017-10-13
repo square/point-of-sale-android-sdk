@@ -18,9 +18,11 @@ package com.squareup.sdk.pos;
 
 import org.junit.Test;
 
-import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD_FROM_READER;
 import static com.squareup.sdk.pos.TransactionRequest.TenderType.CARD_ON_FILE;
 import static com.squareup.sdk.pos.TransactionRequest.TenderType.CASH;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.SQUARE_GIFT_CARD;
+import static com.squareup.sdk.pos.TransactionRequest.TenderType.KEYED_IN_CARD;
 import static com.squareup.sdk.pos.TransactionRequest.TenderType.OTHER;
 import static com.squareup.sdk.pos.CurrencyCode.CAD;
 import static com.squareup.sdk.pos.CurrencyCode.USD;
@@ -39,7 +41,8 @@ public class TransactionRequestTest {
 
   @Test public void requestHasAllTenderTypesByDefault() {
     TransactionRequest request = new TransactionRequest.Builder(1_00, USD).build();
-    assertThat(request.tenderTypes).containsOnly(CARD, CARD_ON_FILE, CASH, OTHER);
+    assertThat(request.tenderTypes).containsOnly(CARD_FROM_READER, SQUARE_GIFT_CARD, KEYED_IN_CARD,
+        CARD_ON_FILE, CASH, OTHER);
   }
 
   @Test public void requestHasNoTimeoutByDefault() {
@@ -58,7 +61,8 @@ public class TransactionRequestTest {
   }
 
   @Test public void requestHasNote() {
-    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).note("Some Note").build();
+    TransactionRequest request =
+        new TransactionRequest.Builder(1_00, USD).note("Some Note").build();
     assertThat(request.note).isEqualTo("Some Note");
   }
 
@@ -74,18 +78,19 @@ public class TransactionRequestTest {
   }
 
   @Test public void requestHasState() {
-    TransactionRequest request =
-        new TransactionRequest.Builder(1_00, USD).state("state").build();
+    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).state("state").build();
     assertThat(request.state).isEqualTo("state");
   }
 
   @Test public void requestHasCustomerId() {
-    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).customerId("customerId").build();
+    TransactionRequest request =
+        new TransactionRequest.Builder(1_00, USD).customerId("customerId").build();
     assertThat(request.customerId).isEqualTo("customerId");
   }
 
   @Test public void copyKeepingAmount() {
-    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).restrictTendersTo(CARD)
+    TransactionRequest request = new TransactionRequest.Builder(1_00, USD)
+        .restrictTendersTo(CARD_FROM_READER)
         .autoReturn(false)
         .enforceBusinessLocation("location")
         .state("state")
@@ -111,7 +116,8 @@ public class TransactionRequestTest {
   }
 
   @Test public void copyUpdatingAmount() {
-    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).restrictTendersTo(CARD)
+    TransactionRequest request = new TransactionRequest.Builder(1_00, USD)
+        .restrictTendersTo(CARD_FROM_READER)
         .autoReturn(true)
         .enforceBusinessLocation("location")
         .state("state")
@@ -121,7 +127,7 @@ public class TransactionRequestTest {
     TransactionRequest updatedRequest = request.newBuilder(2_00, CAD).build();
     assertThat(updatedRequest.totalAmount).isEqualTo(2_00);
     assertThat(updatedRequest.currencyCode).isEqualTo(CAD);
-    assertThat(updatedRequest.tenderTypes).containsExactly(CARD);
+    assertThat(updatedRequest.tenderTypes).containsExactly(CARD_FROM_READER);
     assertThat(updatedRequest.autoReturn).isTrue();
     assertThat(updatedRequest.locationId).isEqualTo("location");
     assertThat(updatedRequest.state).isEqualTo("state");

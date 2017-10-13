@@ -17,14 +17,16 @@
 <resources>
   <string name="app_name">HelloCharge</string>
   <string name="auto_return_hint">Auto Return</string>
-  <string name="card_text">Card</string>
+  <string name="card_from_reader_text">Card From Reader</string>
   <string name="cash_text">Cash</string>
   <string name="currency_code_default">USD</string>
   <string name="currency_code_hint">Currency Code</string>
   <string name="customer_id_hint">Customer ID (optional)</string>
+  <string name="gift_card_text">Gift Card</string>
   <string name="install_point_of_sale_confirm">Open Play Store</string>
   <string name="install_point_of_sale_message">Please download Square Point of Sale from the Play Store.</string>
   <string name="install_point_of_sale_title">Square Point of Sale is not installed</string>
+  <string name="keyed_in_card_text">Keyed-In Card</string>
   <string name="location_id_hint">Location ID (optional)</string>
   <string name="miscellaneous_header">Miscellaneous</string>
   <string name="note_default">Build with Square</string>

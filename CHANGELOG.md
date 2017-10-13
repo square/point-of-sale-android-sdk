@@ -8,6 +8,7 @@ Change Log
 * Auto return is now a boolean parameter. If enabled, POS will auto-return to the application
   after 2.0 seconds.
 * Renamed the "requestMetadata" parameter to "state".
+* Replaced the CARD tender type with CARD_FROM_READER, KEYED_IN_CARD, and GIFT_CARD.
 
 ## Version 2.0
 

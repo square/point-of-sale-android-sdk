@@ -126,13 +126,35 @@
       >
 
         <CheckBox
-            android:id="@+id/card_tender_checkbox"
+            android:id="@+id/card_from_reader_tender_checkbox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginTop="@dimen/vertical_space"
             android:layout_marginBottom="@dimen/vertical_space"
-            android:text="@string/card_text"
+            android:text="@string/card_from_reader_text"
+            android:checked="true"
+        />
+
+        <CheckBox
+            android:id="@+id/keyed_in_card_tender_checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:layout_marginBottom="@dimen/vertical_space"
+            android:text="@string/keyed_in_card_text"
+            android:checked="true"
+        />
+
+        <CheckBox
+            android:id="@+id/gift_card_tender_checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:layout_marginBottom="@dimen/vertical_space"
+            android:text="@string/gift_card_text"
             android:checked="true"
         />
 
