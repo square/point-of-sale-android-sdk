@@ -36,6 +36,7 @@ import org.robolectric.RobolectricTestRunner;
 
 import static android.content.Intent.ACTION_VIEW;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.squareup.sdk.pos.PosApi.EXTRA_ALLOW_SPLIT_TENDER;
 import static com.squareup.sdk.pos.PosApi.EXTRA_API_VERSION;
 import static com.squareup.sdk.pos.PosApi.EXTRA_AUTO_RETURN;
 import static com.squareup.sdk.pos.PosApi.EXTRA_CURRENCY_CODE;
@@ -150,6 +151,7 @@ public class RealPosClientTest {
     TransactionRequest request = new TransactionRequest.Builder(1_00, CurrencyCode.USD).restrictTendersTo(
         TransactionRequest.TenderType.CARD_FROM_READER)
         .autoReturn(true)
+        .allowSplitTender(true)
         .enforceBusinessLocation("location")
         .customerId("customerId")
         .state("state")
@@ -169,6 +171,7 @@ public class RealPosClientTest {
     assertThat(intent.getStringArrayListExtra(EXTRA_TENDER_TYPES)).containsExactly(
         EXTRA_TENDER_CARD_FROM_READER);
     assertThat(intent.getBooleanExtra(EXTRA_AUTO_RETURN, false)).isTrue();
+    assertThat(intent.getBooleanExtra(EXTRA_ALLOW_SPLIT_TENDER, false)).isTrue();
     assertThat(intent.getPackage()).isEqualTo("com.squareup");
   }
 
@@ -188,6 +191,7 @@ public class RealPosClientTest {
     assertThat(intent.hasExtra(EXTRA_CUSTOMER_ID)).isFalse();
     assertThat(intent.hasExtra(EXTRA_LOCATION_ID)).isFalse();
     assertThat(intent.getBooleanExtra(EXTRA_AUTO_RETURN, false)).isFalse();
+    assertThat(intent.getBooleanExtra(EXTRA_ALLOW_SPLIT_TENDER, false)).isFalse();
   }
 
   @Test public void pinsToHighestVersionNumber() {

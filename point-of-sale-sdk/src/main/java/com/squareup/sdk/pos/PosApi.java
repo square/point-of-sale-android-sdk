@@ -66,6 +66,8 @@ public final class PosApi {
 
   public static final String EXTRA_SKIP_RECEIPT = NAMESPACE + "SKIP_RECEIPT";
 
+  public static final String EXTRA_ALLOW_SPLIT_TENDER = NAMESPACE + "ALLOW_SPLIT_TENDER";
+
   public static final int NOTE_MAX_LENGTH = 500;
 
   public static final String RESULT_STATE = EXTRA_REQUEST_STATE;

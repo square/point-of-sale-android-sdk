@@ -159,6 +159,7 @@ final class RealPosClient implements PosClient {
     intent.putExtra(PosApi.EXTRA_REQUEST_STATE, transactionRequest.state);
     intent.putExtra(PosApi.EXTRA_AUTO_RETURN, transactionRequest.autoReturn);
     intent.putExtra(PosApi.EXTRA_SKIP_RECEIPT, transactionRequest.skipReceipt);
+    intent.putExtra(PosApi.EXTRA_ALLOW_SPLIT_TENDER, transactionRequest.allowSplitTender);
     if (transactionRequest.customerId != null && transactionRequest.customerId.length() > 0) {
       intent.putExtra(PosApi.EXTRA_CUSTOMER_ID, transactionRequest.customerId);
     }
