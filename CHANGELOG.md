@@ -9,6 +9,8 @@ Change Log
   after 2.0 seconds.
 * Renamed the "requestMetadata" parameter to "state".
 * Replaced the CARD tender type with CARD_FROM_READER, KEYED_IN_CARD, and GIFT_CARD.
+* Added an optional "skipReceipt" which allows configuring whether or not to skip the receipt screen
+  on a per-transaction basis.
 
 ## Version 2.0
 
