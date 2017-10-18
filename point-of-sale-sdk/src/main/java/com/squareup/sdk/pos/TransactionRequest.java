@@ -72,6 +72,9 @@ public final class TransactionRequest {
   /** @see Builder#skipReceipt(boolean) */
   public final boolean skipReceipt;
 
+  /** @see Builder#allowSplitTender(boolean) */
+  public final boolean allowSplitTender;
+
   TransactionRequest(Builder builder) {
     this.tenderTypes = unmodifiableSet(
         builder.tenderTypes.isEmpty() ? EnumSet.noneOf(TenderType.class)
@@ -84,6 +87,7 @@ public final class TransactionRequest {
     this.state = builder.state;
     this.customerId = builder.customerId;
     this.skipReceipt = builder.skipReceipt;
+    this.allowSplitTender = builder.allowSplitTender;
   }
 
   /** Creates a new {@link Builder} copied from {@link this} transaction. */
@@ -95,9 +99,12 @@ public final class TransactionRequest {
    * Creates a new {@link Builder} copied from {@link this} transaction, with a different amount.
    */
   public @NonNull Builder newBuilder(int totalAmount, CurrencyCode currencyCode) {
-    return new Builder(totalAmount, currencyCode).restrictTendersTo(tenderTypes)
+    return new Builder(totalAmount, currencyCode) //
+        .restrictTendersTo(tenderTypes)
         .note(note)
         .autoReturn(autoReturn)
+        .skipReceipt(skipReceipt)
+        .allowSplitTender(allowSplitTender)
         .enforceBusinessLocation(locationId)
         .state(state)
         .customerId(customerId);
@@ -129,14 +136,16 @@ public final class TransactionRequest {
     if (locationId != null ? !locationId.equals(that.locationId) : that.locationId != null) {
       return false;
     }
-    if (state != null ? !state.equals(that.state)
-        : that.state != null) {
+    if (state != null ? !state.equals(that.state) : that.state != null) {
       return false;
     }
     if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) {
       return false;
     }
     if (skipReceipt != that.skipReceipt) {
+      return false;
+    }
+    if (allowSplitTender != that.allowSplitTender) {
       return false;
     }
     return true;
@@ -152,6 +161,7 @@ public final class TransactionRequest {
     result = 31 * result + (state != null ? state.hashCode() : 0);
     result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
     result = 31 * result + (skipReceipt ? 1 : 0);
+    result = 31 * result + (allowSplitTender ? 1 : 0);
     return result;
   }
 
@@ -167,6 +177,7 @@ public final class TransactionRequest {
     @Nullable String customerId;
     boolean autoReturn;
     boolean skipReceipt;
+    boolean allowSplitTender;
 
     /**
      * @param totalAmount Amount to charge. Point of Sale might add taxes and / or a tip on top,
@@ -295,11 +306,19 @@ public final class TransactionRequest {
     }
 
     /**
-     * Do not present the receipt screen to the buyer. If the buyer has previously linked their
+     * Do not show the receipt screen to the buyer. If the buyer has previously linked their
      * payment method to their email address, he or she will still receive an email receipt.
      */
     public TransactionRequest.Builder skipReceipt(boolean enabled) {
       this.skipReceipt = enabled;
+      return this;
+    }
+
+    /**
+     * Enable the split tender payment flow, which is disabled by default.
+     */
+    public TransactionRequest.Builder allowSplitTender(boolean allowSplitTender) {
+      this.allowSplitTender = allowSplitTender;
       return this;
     }
 
@@ -488,7 +507,7 @@ public final class TransactionRequest {
    */
   public enum TenderType {
 
-    /**Allow Magstripe cards, Chip Cards, and Contactless (NFC) transactions. */
+    /** Allow Magstripe cards, Chip Cards, and Contactless (NFC) transactions. */
     CARD_FROM_READER(EXTRA_TENDER_CARD_FROM_READER),
 
     /** Allow Card On File transactions. */

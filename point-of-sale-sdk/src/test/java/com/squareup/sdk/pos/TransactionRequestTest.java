@@ -76,6 +76,11 @@ public class TransactionRequestTest {
     assertThat(request.skipReceipt).isTrue();
   }
 
+  @Test public void requestHasAllowSplitTender() {
+    TransactionRequest request = new TransactionRequest.Builder(1_00, USD).allowSplitTender(true).build();
+    assertThat(request.allowSplitTender).isTrue();
+  }
+
   @Test public void requestHasEnforcedBusinessLocation() {
     TransactionRequest request =
         new TransactionRequest.Builder(1_00, USD).enforceBusinessLocation("location").build();
