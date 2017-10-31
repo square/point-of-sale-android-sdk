@@ -38,18 +38,15 @@ import static java.util.Collections.unmodifiableSet;
 /**
  * Represents the details of a transaction to initiate with the Point of Sale API.
  * After building a {@code TransactionRequest} instance with
- * {@link Builder#Builder(int, CurrencyCode)}, pass it to the
+ * {@link Builder#Builder(int)}, pass it to the
  * {@link PosClient#createTransactionIntent(TransactionRequest)} method to initiate the transaction.
  *
  * @see PosSdk code sample
  */
 public final class TransactionRequest {
 
-  /** @see Builder#Builder(int, CurrencyCode) */
+  /** @see Builder#Builder(int) */
   public final int totalAmount;
-
-  /** @see Builder#Builder(int, CurrencyCode) */
-  @NonNull public final CurrencyCode currencyCode;
 
   /** @see Builder#restrictTendersTo(Collection) */
   @NonNull public final Set<TenderType> tenderTypes;
@@ -80,7 +77,6 @@ public final class TransactionRequest {
         builder.tenderTypes.isEmpty() ? EnumSet.noneOf(TenderType.class)
             : EnumSet.copyOf(builder.tenderTypes));
     this.totalAmount = builder.totalAmount;
-    this.currencyCode = builder.currencyCode;
     this.note = builder.note;
     this.autoReturn = builder.autoReturn;
     this.locationId = builder.locationId;
@@ -92,14 +88,14 @@ public final class TransactionRequest {
 
   /** Creates a new {@link Builder} copied from {@link this} transaction. */
   public @NonNull Builder newBuilder() {
-    return newBuilder(totalAmount, currencyCode);
+    return newBuilder(totalAmount);
   }
 
   /**
    * Creates a new {@link Builder} copied from {@link this} transaction, with a different amount.
    */
-  public @NonNull Builder newBuilder(int totalAmount, CurrencyCode currencyCode) {
-    return new Builder(totalAmount, currencyCode) //
+  public @NonNull Builder newBuilder(int totalAmount) {
+    return new Builder(totalAmount) //
         .restrictTendersTo(tenderTypes)
         .note(note)
         .autoReturn(autoReturn)
@@ -127,9 +123,6 @@ public final class TransactionRequest {
     if (!tenderTypes.equals(that.tenderTypes)) {
       return false;
     }
-    if (currencyCode != that.currencyCode) {
-      return false;
-    }
     if (note != null ? !note.equals(that.note) : that.note != null) {
       return false;
     }
@@ -154,7 +147,6 @@ public final class TransactionRequest {
   @Override public int hashCode() {
     int result = tenderTypes.hashCode();
     result = 31 * result + totalAmount;
-    result = 31 * result + currencyCode.hashCode();
     result = 31 * result + (note != null ? note.hashCode() : 0);
     result = 31 * result + (autoReturn ? 1 : 0);
     result = 31 * result + (locationId != null ? locationId.hashCode() : 0);
@@ -170,7 +162,6 @@ public final class TransactionRequest {
 
     final Set<TenderType> tenderTypes;
     final int totalAmount;
-    @NonNull final CurrencyCode currencyCode;
     @Nullable String note;
     @Nullable String locationId;
     @Nullable String state;
@@ -184,18 +175,13 @@ public final class TransactionRequest {
      * depending on the user account configuration. Smallest divisible unit of currency for a given
      * locale, scaled by the default number of decimal places for the currency.
      * For example, totalAmount = 100 in USD means $1.00.
-     * @param currencyCode {@link CurrencyCode} representing ISO-4217 currency codes. Square
-     * Point of Sale will ensure that the passed in currency code matches the currency of the user
-     * logged in to Point of Sale.
      * @throws IllegalArgumentException if totalAmount is negative.
-     * @throws NullPointerException if currencyCode is null.
      */
-    public Builder(int totalAmount, @NonNull CurrencyCode currencyCode) {
+    public Builder(int totalAmount) {
       if (totalAmount < 0) {
         throw new IllegalArgumentException("totalAmount must be non-negative");
       }
       this.totalAmount = totalAmount;
-      this.currencyCode = nonNull(currencyCode, "currencyCode");
       tenderTypes = EnumSet.allOf(TenderType.class);
     }
 

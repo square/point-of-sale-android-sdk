@@ -10,8 +10,8 @@ import com.google.gson.TypeAdapter;
  */
 @AutoValue //
 public abstract class Money implements Parcelable {
-  public static Money create(long amount, CurrencyCode currencyCode) {
-    return new AutoValue_Money(amount, currencyCode);
+  public static Money create(long amount, CurrencyCode currency) {
+    return new AutoValue_Money(amount, currency);
   }
 
   /**
@@ -27,7 +27,7 @@ public abstract class Money implements Parcelable {
    *
    * For example, the currency code for US dollars is USD.
    */
-  public abstract CurrencyCode currencyCode();
+  public abstract CurrencyCode currency();
 
   public enum CurrencyCode {
     AED, AFN, ALL, AMD, ANG, AOA, ARS, AUD, AWG, AZN, BAM, BBD, BDT, BGN, BHD, BIF, BMD, BND, //

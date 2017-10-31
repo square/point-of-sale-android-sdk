@@ -38,8 +38,6 @@ public final class PosApi {
 
   public static final String EXTRA_POINT_OF_SALE_CLIENT_ID = NAMESPACE + "CLIENT_ID";
 
-  public static final String EXTRA_CURRENCY_CODE = NAMESPACE + "CURRENCY_CODE";
-
   public static final String EXTRA_TOTAL_AMOUNT = NAMESPACE + "TOTAL_AMOUNT";
 
   public static final String EXTRA_NOTE = NAMESPACE + "NOTE";

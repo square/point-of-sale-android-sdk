@@ -26,7 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.sdk.pos.TransactionRequest;
-import com.squareup.sdk.pos.CurrencyCode;
 import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
 import java.util.EnumSet;
@@ -119,12 +118,11 @@ public class MainActivity extends AppCompatActivity {
     orderInfoPrefs.edit().putLong(ORDER_NUMBER, orderNumber).apply();
     String state = String.valueOf(orderNumber);
 
-    TransactionRequest.Builder chargeRequest =
-        new TransactionRequest.Builder(amount, CurrencyCode.USD) //
-            .note(note) //
-            .autoReturn(true) //
-            .state(state) //
-            .restrictTendersTo(tenderTypes);
+    TransactionRequest.Builder chargeRequest = new TransactionRequest.Builder(amount) //
+        .note(note) //
+        .autoReturn(true) //
+        .state(state) //
+        .restrictTendersTo(tenderTypes);
     try {
       Intent chargeIntent = posClient.createTransactionIntent(chargeRequest.build());
       startActivityForResult(chargeIntent, CHARGE_REQUEST_CODE);

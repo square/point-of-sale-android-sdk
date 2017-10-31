@@ -31,7 +31,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import com.squareup.sdk.pos.TransactionRequest;
-import com.squareup.sdk.pos.CurrencyCode;
 import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
 import java.util.EnumSet;
@@ -134,7 +133,8 @@ public class HelloChargeActivity extends AppCompatActivity {
     String state = stateEditText.getText().toString();
 
     TransactionRequest transactionRequest =
-        new TransactionRequest.Builder(amount, CurrencyCode.valueOf(currencyCode)).note(note)
+        new TransactionRequest.Builder(amount) //
+            .note(note)
             .enforceBusinessLocation(locationId)
             .customerId(customerId)
             .autoReturn(shouldAutoReturn)

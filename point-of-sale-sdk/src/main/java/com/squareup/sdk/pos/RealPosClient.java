@@ -155,7 +155,6 @@ final class RealPosClient implements PosClient {
     intent.putExtra(PosApi.EXTRA_NOTE, transactionRequest.note);
     intent.putExtra(PosApi.EXTRA_API_VERSION, API_VERSION);
     intent.putExtra(PosApi.EXTRA_SDK_VERSION, SDK_VERSION);
-    intent.putExtra(PosApi.EXTRA_CURRENCY_CODE, transactionRequest.currencyCode.name());
     intent.putExtra(PosApi.EXTRA_REQUEST_STATE, transactionRequest.state);
     intent.putExtra(PosApi.EXTRA_AUTO_RETURN, transactionRequest.autoReturn);
     intent.putExtra(PosApi.EXTRA_SKIP_RECEIPT, transactionRequest.skipReceipt);

@@ -39,7 +39,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.squareup.sdk.pos.PosApi.EXTRA_ALLOW_SPLIT_TENDER;
 import static com.squareup.sdk.pos.PosApi.EXTRA_API_VERSION;
 import static com.squareup.sdk.pos.PosApi.EXTRA_AUTO_RETURN;
-import static com.squareup.sdk.pos.PosApi.EXTRA_CURRENCY_CODE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_CUSTOMER_ID;
 import static com.squareup.sdk.pos.PosApi.EXTRA_LOCATION_ID;
 import static com.squareup.sdk.pos.PosApi.EXTRA_NOTE;
@@ -148,8 +147,8 @@ public class RealPosClientTest {
   }
 
   @Test public void intentCreatedWithRequestParams() {
-    TransactionRequest request = new TransactionRequest.Builder(1_00, CurrencyCode.USD).restrictTendersTo(
-        TransactionRequest.TenderType.CARD_FROM_READER)
+    TransactionRequest request = new TransactionRequest.Builder(1_00) //
+        .restrictTendersTo(TransactionRequest.TenderType.CARD_FROM_READER)
         .autoReturn(true)
         .allowSplitTender(true)
         .enforceBusinessLocation("location")
@@ -161,7 +160,6 @@ public class RealPosClientTest {
     Intent intent = client.createTransactionIntent(request);
 
     assertThat(intent.getIntExtra(EXTRA_TOTAL_AMOUNT, -1)).isEqualTo(1_00);
-    assertThat(intent.getStringExtra(EXTRA_CURRENCY_CODE)).isEqualTo("USD");
     assertThat(intent.getStringExtra(EXTRA_POINT_OF_SALE_CLIENT_ID)).isEqualTo(CLIENT_ID);
     assertThat(intent.getStringExtra(EXTRA_NOTE)).isEqualTo("note");
     assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v3.0");
@@ -176,7 +174,7 @@ public class RealPosClientTest {
   }
 
   @Test public void fieldsSetAsExpectedForDefaultRequest() {
-    TransactionRequest request = new TransactionRequest.Builder(1_00, CurrencyCode.USD).build();
+    TransactionRequest request = new TransactionRequest.Builder(1_00).build();
 
     Intent intent = client.createTransactionIntent(request);
 
@@ -184,7 +182,6 @@ public class RealPosClientTest {
     assertThat(intent.hasExtra(EXTRA_TOTAL_AMOUNT)).isTrue();
     assertThat(intent.hasExtra(EXTRA_API_VERSION)).isTrue();
     assertThat(intent.hasExtra(EXTRA_SDK_VERSION)).isTrue();
-    assertThat(intent.hasExtra(EXTRA_CURRENCY_CODE)).isTrue();
     assertThat(intent.hasExtra(EXTRA_REQUEST_STATE)).isTrue();
     assertThat(intent.hasExtra(EXTRA_TENDER_TYPES)).isTrue();
 
@@ -199,8 +196,7 @@ public class RealPosClientTest {
     installApp("com.squareup", 2, POINT_OF_SALE_SIGNATURE);
     installApp("com.squareup.beta", 3, POINT_OF_SALE_SIGNATURE);
 
-    Intent intent =
-        client.createTransactionIntent(new TransactionRequest.Builder(1_00, CurrencyCode.USD).build());
+    Intent intent = client.createTransactionIntent(new TransactionRequest.Builder(1_00).build());
 
     assertThat(intent.getPackage()).isEqualTo("com.squareup.beta");
   }
@@ -208,14 +204,14 @@ public class RealPosClientTest {
   @Test(expected = ActivityNotFoundException.class)
   public void createIntentWithNoPointOfSaleThrows() {
     chargeActivities.clear();
-    client.createTransactionIntent(new TransactionRequest.Builder(1_00, CurrencyCode.USD).build());
+    client.createTransactionIntent(new TransactionRequest.Builder(1_00).build());
   }
 
   @Test(expected = ActivityNotFoundException.class)
   public void createIntentWithInvalidPointOfSaleThrows() {
     chargeActivities.clear();
     installApp("com.squareup", 2, INVALID_SIGNATURE);
-    client.createTransactionIntent(new TransactionRequest.Builder(1_00, CurrencyCode.USD).build());
+    client.createTransactionIntent(new TransactionRequest.Builder(1_00).build());
   }
 
   @Test(expected = ActivityNotFoundException.class)
