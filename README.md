@@ -49,10 +49,6 @@ Install the sample app:
 
 The bikeshop is an example of a real point-of-sale application, available in the `sample-bikeshop` folder. To build this sample app, follow the same instructions as above, substituting "hellocharge" for "bikeshop".
 
-## Home Charge
-
-Home Charge is a demo that uses an App Engine server and FireBase push messages to start Point of Sale API transactions. It is available in the `sample-homecharge` and `sample-homecharge-server` folders.
-
 ## Contributing
 
 Contributions are welcome! Please read our [contributing guidelines](.github/CONTRIBUTING.md).
