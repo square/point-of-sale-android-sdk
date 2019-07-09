@@ -17,9 +17,9 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-  compile project(':point-of-sale-sdk')
-  compile "com.android.support:appcompat-v7:25.3.0"
-  compile "com.android.support:design:25.3.0"
+  implementation project(':point-of-sale-sdk')
+  implementation "com.android.support:appcompat-v7:28.0.0"
+  implementation "com.android.support:design:28.0.0"
 }
 
 android {
