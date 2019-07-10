@@ -24,7 +24,6 @@ dependencies {
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
 
   compileOptions {
     sourceCompatibility rootProject.ext.javaVersion
