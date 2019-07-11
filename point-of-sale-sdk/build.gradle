@@ -33,7 +33,6 @@ dependencies {
 android {
   resourcePrefix 'point_of_sale_sdk_'
   compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
   defaultConfig {
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion

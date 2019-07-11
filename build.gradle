@@ -38,7 +38,6 @@ ext {
   minSdkVersion = 17
   compileSdkVersion = 28
   targetSdkVersion = compileSdkVersion
-  buildToolsVersion = '28.0.3'
   javaVersion = JavaVersion.VERSION_1_7
   GROUP = 'com.squareup.sdk'
   VERSION_NAME = "2.0"
