@@ -6,7 +6,7 @@ The Point of Sale Android SDK lets you quickly build custom Android point-of-sal
 
 ## Need help?
 
-Here's [how to get help](https://docs.connect.squareup.com/articles/faq/#implementationquestions).
+Here's [how to get help](https://developer.squareup.com/forums/).
 
 ## Building the Hellocharge Sample App
 
@@ -22,19 +22,25 @@ cd point-of-sale-android-sdk
 Create a `hellocharge.properties` file in the `sample-hellocharge` folder, with a `clientId` key set to your application's client id which is the same as your application id in the Square Developer Portal (`sq0idp-XXXXXXXXXXXXXXX`). Do *NOT* use a sandbox `clientId`, as those do not work for the Point of Sale API.
 
 ```
-echo clientId=\"[put your clientId here]\" > sample-hellocharge/hellocharge.properties
+echo clientId=\"put your production clientId here\" > sample-hellocharge/hellocharge.properties
+```
+
+And also create a `bikeshop.properties` file in the `sample-bikeshop` folder, with a `clientId` key set to your application's client id which is the same as your application id in the Square Developer Portal (`sq0idp-XXXXXXXXXXXXXXX`). Do *NOT* use a sandbox `clientId`, as those do not work for the Point of Sale API.
+
+```
+echo clientId=\"put your production clientId here\" > sample-bikeshop/bikeshop.properties
 ```
 
 Build the SDK and the sample app:
 
 ```
-./gradlew build
+./gradlew sample-hellocharge:build
 ```
 
 Add the [SHA1 fingerprint](https://docs.connect.squareup.com/articles/android-app-fingerprint/) of the sample app to your application dashboard:
 
 ```
-keytool -list -printcert -jarfile ./sample-hellocharge/build/outputs/apk/sample-hellocharge-debug.apk
+keytool -printcert -jarfile ./sample-hellocharge/build/outputs/apk/debug/sample-hellocharge-debug.apk
 ```
 
 Install the sample app:
