@@ -28,15 +28,15 @@ subprojects {
       jcenter()
     }
     dependencies {
-      classpath 'com.android.tools.build:gradle:3.4.2'
-      classpath 'com.google.gms:google-services:3.0.0'
+      classpath 'com.android.tools.build:gradle:4.2.2'
+      classpath 'com.google.gms:google-services:4.3.10'
     }
   }
 }
 
 ext {
   minSdkVersion = 17
-  compileSdkVersion = 28
+  compileSdkVersion = 30
   targetSdkVersion = compileSdkVersion
   javaVersion = JavaVersion.VERSION_1_7
   GROUP = 'com.squareup.sdk'
