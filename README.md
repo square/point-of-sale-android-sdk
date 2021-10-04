@@ -34,7 +34,7 @@ echo clientId=\"put your production clientId here\" > sample-bikeshop/bikeshop.p
 Build the SDK and the sample app:
 
 ```
-./gradlew sample-hellocharge:build
+./gradlew :sample-hellocharge:build
 ```
 
 Add the [SHA1 fingerprint](https://docs.connect.squareup.com/articles/android-app-fingerprint/) of the sample app to your application dashboard:

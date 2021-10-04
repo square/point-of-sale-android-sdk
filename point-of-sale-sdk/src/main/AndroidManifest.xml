@@ -18,4 +18,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.squareup.sdk.pos"
     >
+  <queries>
+    <intent>
+      <action android:name="com.squareup.pos.action.CHARGE" />
+    </intent>
+  </queries>
 </manifest>
