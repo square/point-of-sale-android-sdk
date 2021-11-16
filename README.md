@@ -51,12 +51,12 @@ Install the sample app:
 
 ![hellocharge_demo.gif](sample-hellocharge/assets/hellocharge_demo.gif)
 
-## Feedback
-Leave a feedback for this sample app [here](https://delighted.com/t/DT6msOcY)!
-
 ## Bikeshop Sample App
 
 The bikeshop is an example of a real point-of-sale application, available in the `sample-bikeshop` folder. To build this sample app, follow the same instructions as above, substituting "hellocharge" for "bikeshop".
+
+## Feedback
+Rate the sample apps [here](https://delighted.com/t/Z1xmKSqy)!
 
 ## Contributing
 
