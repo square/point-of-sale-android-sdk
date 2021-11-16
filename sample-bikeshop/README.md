@@ -15,4 +15,3 @@ See the gif below for a demonstration of customizing a bike and checking out usi
 ## Download the Application Release
 
 Download the release version of the bikeshop app by downloading [sample-bikeshop-release.apk](sample-bikeshop-release.apk) from this directory and installing it on your device. 
-
