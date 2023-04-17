@@ -22,6 +22,7 @@ import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD;
 import static com.squareup.sdk.pos.ChargeRequest.TenderType.CARD_ON_FILE;
 import static com.squareup.sdk.pos.ChargeRequest.TenderType.CASH;
 import static com.squareup.sdk.pos.ChargeRequest.TenderType.OTHER;
+import static com.squareup.sdk.pos.ChargeRequest.TenderType.PAYPAY;
 import static com.squareup.sdk.pos.CurrencyCode.CAD;
 import static com.squareup.sdk.pos.CurrencyCode.USD;
 import static com.squareup.sdk.pos.PosApi.AUTO_RETURN_NO_TIMEOUT;
@@ -42,7 +43,7 @@ public class ChargeRequestTest {
 
   @Test public void requestHasAllTenderTypesByDefault() {
     ChargeRequest request = new ChargeRequest.Builder(1_00, USD).build();
-    assertThat(request.tenderTypes).containsOnly(CARD, CARD_ON_FILE, CASH, OTHER);
+    assertThat(request.tenderTypes).containsOnly(CARD, CARD_ON_FILE, CASH, PAYPAY, OTHER);
   }
 
   @Test public void requestHasNoTimeoutByDefault() {
