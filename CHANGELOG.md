@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+## Version 2.1
+
+_2023-05-16_
+
+* Supported in **Point of Sale 6.18 and above.**
+  * Point of Sale API v2.1 will only work with Point of Sale v6.18 and above.
+* Migrated old Android support library artifacts to Androidx.
+* New `PAYPAY` tender type to allow PayPay payments for Japanese sellers. 
+
 ## Version 2.0
 
 _2017-05-30_

@@ -17,7 +17,7 @@
 package com.squareup.sdk.pos;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * <p>The Point of Sale SDK lets you start the Square Point of Sale app to take transactions with the Square

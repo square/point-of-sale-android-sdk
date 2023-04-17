@@ -16,8 +16,8 @@
 
 package com.squareup.sdk.pos;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -30,6 +30,7 @@ import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_ON_FILE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CASH;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_OTHER;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_PAYPAY;
 import static com.squareup.sdk.pos.PosSdkHelper.nonNull;
 import static java.util.Collections.unmodifiableSet;
 
@@ -524,7 +525,10 @@ public final class ChargeRequest {
      * Allow Check, Third-Party Gift Cards, and Other Tender transactions. Useful to keep all
      * payment records in one place.
      */
-    OTHER(EXTRA_TENDER_OTHER);
+    OTHER(EXTRA_TENDER_OTHER),
+
+    /** Allow PayPay payments for Japanese sellers. */
+    PAYPAY(EXTRA_TENDER_PAYPAY);
 
     String apiExtraName;
 

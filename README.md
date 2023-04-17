@@ -2,7 +2,7 @@
 
 The Point of Sale Android SDK lets you quickly build custom Android point-of-sale applications that take swipe, dip, or tap payments through Square hardware.
 
-[Get started](http://docs.connect.squareup.com/articles/register-api-android/)!
+[Get started](https://developer.squareup.com/docs/pos-api/build-on-android)!
 
 ## Need help?
 
@@ -37,7 +37,7 @@ Build the SDK and the sample app:
 ./gradlew :sample-hellocharge:build
 ```
 
-Add the [SHA1 fingerprint](https://docs.connect.squareup.com/articles/android-app-fingerprint/) of the sample app to your application dashboard:
+Add the [SHA1 fingerprint](https://developer.squareup.com/docs/pos-api/cookbook/find-your-android-fingerprint) of the sample app to your application dashboard:
 
 ```
 keytool -printcert -jarfile ./sample-hellocharge/build/outputs/apk/debug/sample-hellocharge-debug.apk

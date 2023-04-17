@@ -54,6 +54,8 @@ public final class PosApi {
 
   public static final String EXTRA_TENDER_OTHER = NAMESPACE + "TENDER_OTHER";
 
+  public static final String EXTRA_TENDER_PAYPAY = NAMESPACE + "TENDER_PAYPAY";
+
   public static final String EXTRA_TENDER_CARD_ON_FILE = NAMESPACE + "TENDER_CARD_ON_FILE";
 
   public static final String EXTRA_AUTO_RETURN_TIMEOUT_MS = NAMESPACE + "AUTO_RETURN_TIMEOUT_MS";
