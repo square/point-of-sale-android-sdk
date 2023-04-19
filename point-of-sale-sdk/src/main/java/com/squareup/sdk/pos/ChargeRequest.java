@@ -30,6 +30,7 @@ import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CARD_ON_FILE;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_CASH;
 import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_OTHER;
+import static com.squareup.sdk.pos.PosApi.EXTRA_TENDER_PAYPAY;
 import static com.squareup.sdk.pos.PosSdkHelper.nonNull;
 import static java.util.Collections.unmodifiableSet;
 
@@ -517,13 +518,13 @@ public final class ChargeRequest {
     /** Allow Card On File transactions. */
     CARD_ON_FILE(EXTRA_TENDER_CARD_ON_FILE),
 
-    /** Allow Cash transactions. Useful to keep all payment records in one place. */
+    /** Allow Cash transactions. */
     CASH(EXTRA_TENDER_CASH),
 
-    /**
-     * Allow Check, Third-Party Gift Cards, and Other Tender transactions. Useful to keep all
-     * payment records in one place.
-     */
+    /** Allow PayPay transactions. */
+    PAYPAY(EXTRA_TENDER_PAYPAY),
+
+    /** Allow Check, Third-Party Gift Cards, and Other Tender transactions. */
     OTHER(EXTRA_TENDER_OTHER);
 
     String apiExtraName;

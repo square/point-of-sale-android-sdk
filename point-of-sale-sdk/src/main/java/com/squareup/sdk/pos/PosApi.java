@@ -52,6 +52,8 @@ public final class PosApi {
 
   public static final String EXTRA_TENDER_CASH = NAMESPACE + "TENDER_CASH";
 
+  public static final String EXTRA_TENDER_PAYPAY = NAMESPACE + "TENDER_PAYPAY";
+
   public static final String EXTRA_TENDER_OTHER = NAMESPACE + "TENDER_OTHER";
 
   public static final String EXTRA_TENDER_CARD_ON_FILE = NAMESPACE + "TENDER_CARD_ON_FILE";
