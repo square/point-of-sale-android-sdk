@@ -16,9 +16,9 @@
 
 package com.example.owensbikes;
 
-import android.app.Activity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 /**
@@ -45,9 +45,9 @@ public interface AdapterController {
   class SingleList implements AdapterController {
 
     private BikeItemAdapter bikeItemAdapter;
-    private Activity activity;
+    private AppCompatActivity activity;
 
-    SingleList(Activity activity) {
+    SingleList(AppCompatActivity activity) {
       this.activity = activity;
     }
 
@@ -91,9 +91,9 @@ public interface AdapterController {
 
     private BikeItemAdapter modifierAdapter;
     private BikeItemAdapter accessoryAdapter;
-    private Activity activity;
+    private AppCompatActivity activity;
 
-    TwoLists(Activity activity) {
+    TwoLists(AppCompatActivity activity) {
       this.activity = activity;
     }
 

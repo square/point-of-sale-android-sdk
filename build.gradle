@@ -14,33 +14,13 @@
  * limitations under the License.
  */
 
-subprojects {
-
-  repositories {
-    google()
-    mavenCentral()
-  }
-
-  buildscript {
-    repositories {
-      google()
-      mavenCentral()
-      jcenter()
-    }
-    dependencies {
-      classpath 'com.android.tools.build:gradle:4.2.2'
-      classpath 'com.google.gms:google-services:4.3.10'
-    }
-  }
-}
-
 ext {
-  minSdkVersion = 17
-  compileSdkVersion = 30
-  targetSdkVersion = compileSdkVersion
-  javaVersion = JavaVersion.VERSION_1_7
+  minSdkVersion = 24
+  compileSdkVersion = 33
+  targetSdkVersion = 32
+  javaVersion = JavaVersion.VERSION_1_8
   GROUP = 'com.squareup.sdk'
-  VERSION_NAME = "2.0"
+  VERSION_NAME = "2.1"
   POM_PACKAGING = "pom"
   POM_DESCRIPTION= "Square Point of Sale Android SDK"
 
@@ -55,4 +35,18 @@ ext {
 
   POM_DEVELOPER_ID="square"
   POM_DEVELOPER_NAME="Square, Inc."
+}
+
+buildscript {
+  ext.kotlin_version = '1.8.0'
+  repositories {
+    google()
+    mavenCentral()
+    mavenLocal()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:7.3.1'
+    classpath 'com.google.gms:google-services:4.3.15'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
 }

@@ -20,16 +20,16 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.sdk.pos.ChargeRequest;
 import com.squareup.sdk.pos.CurrencyCode;
 import com.squareup.sdk.pos.PosClient;
@@ -38,7 +38,7 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static android.support.design.widget.Snackbar.LENGTH_LONG;
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.squareup.sdk.pos.PosApi.AUTO_RETURN_NO_TIMEOUT;
 
 public class HelloChargeActivity extends AppCompatActivity {
