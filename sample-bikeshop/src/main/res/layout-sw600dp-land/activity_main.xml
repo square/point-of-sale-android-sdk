@@ -17,6 +17,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:baselineAligned="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,10 +43,10 @@
         android:background="@color/white"
         android:contentDescription="@string/logo"
         android:padding="@dimen/logo_padding"
-        android:src="@drawable/logo"
+        app:srcCompat="@drawable/logo"
         />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bike_item_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -18,7 +18,7 @@
 <com.example.owensbikes.BikeModifierView
     style="@style/BikeModifierButton"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:minHeight="?attr/listPreferredItemHeight"
     android:animateLayoutChanges="true"
     android:gravity="start|center_vertical"
     android:orientation="vertical"

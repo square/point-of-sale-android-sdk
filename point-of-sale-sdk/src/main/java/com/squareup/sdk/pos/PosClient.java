@@ -17,7 +17,7 @@
 package com.squareup.sdk.pos;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Provides methods for interacting with the Square Point of Sale app, such as by generating

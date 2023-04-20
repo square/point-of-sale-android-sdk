@@ -16,7 +16,7 @@
 
 package com.example.owensbikes;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import java.io.Serializable;
 
 /**

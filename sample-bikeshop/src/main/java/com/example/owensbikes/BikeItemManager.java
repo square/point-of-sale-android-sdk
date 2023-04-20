@@ -16,10 +16,10 @@
 
 package com.example.owensbikes;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,12 +43,12 @@ public class BikeItemManager {
   private final ViewGroup firstModifierRow;
   private final ViewGroup secondModifierRow;
   private final TextView totalAmount;
-  private final Activity activity;
+  private final AppCompatActivity activity;
   private ItemState state;
 
   private AdapterController adapterController;
 
-  BikeItemManager(Activity activity, AdapterController adapterController) {
+  BikeItemManager(AppCompatActivity activity, AdapterController adapterController) {
     this.activity = activity;
     this.adapterController = adapterController;
     totalAmount = (TextView) activity.findViewById(R.id.total_amount);
