@@ -34,14 +34,14 @@
         android:orientation="horizontal"
         >
 
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/modifier_list"
           android:layout_width="0dp"
           android:layout_height="match_parent"
           android:layout_weight="1"
           />
 
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/accessory_list"
           android:layout_width="0dp"
           android:layout_height="match_parent"

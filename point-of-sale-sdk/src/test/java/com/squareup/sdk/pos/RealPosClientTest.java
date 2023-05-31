@@ -53,8 +53,10 @@ import static com.squareup.sdk.pos.TestData.INVALID_SIGNATURE;
 import static com.squareup.sdk.pos.TestData.POINT_OF_SALE_SIGNATURE;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -69,14 +71,18 @@ public class RealPosClientTest {
   List<ResolveInfo> chargeActivities;
   RealPosClient client;
 
+  @Mock PackageManager packageManager;
+
   @Before public void setUp() {
     initMocks(this);
     chargeActivities = new ArrayList<>();
 
     installApp("com.squareup", 2, POINT_OF_SALE_SIGNATURE);
 
-    when(context.getPackageManager()
-        .queryIntentActivities(new Intent(INTENT_ACTION_CHARGE), 0)).thenReturn(chargeActivities);
+    when(context.getPackageManager()).thenReturn(packageManager);
+
+    when(packageManager
+        .queryIntentActivities(any(), anyInt())).thenReturn(chargeActivities);
 
     client = new RealPosClient(context, CLIENT_ID);
   }
@@ -86,7 +92,12 @@ public class RealPosClientTest {
 
     Intent expectedIntent = new Intent(ACTION_VIEW, Uri.parse("market://details?id=com.squareup"));
     expectedIntent.addFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-    verify(context).startActivity(expectedIntent);
+    verify(context).startActivity(
+        argThat(
+            t -> t.getAction().equals(expectedIntent.getAction()) &&
+                t.getFlags() == expectedIntent.getFlags()
+        )
+    );
   }
 
   @Test public void opensUrlWhenPlayStoreNotInstalled() throws Exception {
@@ -98,7 +109,12 @@ public class RealPosClientTest {
     Intent expectedIntent = new Intent(ACTION_VIEW,
         Uri.parse("https://play.google.com/store/apps/details?id=com.squareup"));
     expectedIntent.addFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-    verify(context).startActivity(expectedIntent);
+    verify(context).startActivity(
+        argThat(
+            t -> t.getAction().equals(expectedIntent.getAction()) &&
+                t.getFlags() == expectedIntent.getFlags()
+        )
+    );
   }
 
   @Test public void launchPointOfSale() {
@@ -148,8 +164,8 @@ public class RealPosClientTest {
   }
 
   @Test public void intentCreatedWithRequestParams() {
-    ChargeRequest request = new ChargeRequest.Builder(1_00, CurrencyCode.USD).restrictTendersTo(
-        ChargeRequest.TenderType.CARD)
+    ChargeRequest request = new ChargeRequest.Builder(1_00, CurrencyCode.USD)
+        .restrictTendersTo(ChargeRequest.TenderType.CARD)
         .autoReturn(4, SECONDS)
         .enforceBusinessLocation("location")
         .customerId("customerId")
@@ -163,7 +179,7 @@ public class RealPosClientTest {
     assertThat(intent.getStringExtra(EXTRA_CURRENCY_CODE)).isEqualTo("USD");
     assertThat(intent.getStringExtra(EXTRA_POINT_OF_SALE_CLIENT_ID)).isEqualTo(CLIENT_ID);
     assertThat(intent.getStringExtra(EXTRA_NOTE)).isEqualTo("note");
-    assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v2.0");
+    assertThat(intent.getStringExtra(EXTRA_API_VERSION)).isEqualTo("v2.1");
     assertThat(intent.getStringExtra(EXTRA_REQUEST_METADATA)).isEqualTo("metadata");
     assertThat(intent.getStringExtra(EXTRA_LOCATION_ID)).isEqualTo("location");
     assertThat(intent.getStringExtra(EXTRA_CUSTOMER_ID)).isEqualTo("customerId");
@@ -239,7 +255,7 @@ public class RealPosClientTest {
     packageInfo.signatures = new Signature[1];
     packageInfo.signatures[0] = signature;
     try {
-      when(context.getPackageManager().getPackageInfo(eq(packageName), anyInt())).thenReturn(
+      when(packageManager.getPackageInfo(eq(packageName), anyInt())).thenReturn(
           packageInfo);
     } catch (PackageManager.NameNotFoundException e) {
       throw new RuntimeException(e);

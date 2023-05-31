@@ -16,19 +16,19 @@
 
 package com.example.owensbikes;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.sdk.pos.ChargeRequest;
 import com.squareup.sdk.pos.PosClient;
 
 public class TransactionResultHandler {
 
-  private final Activity activity;
+  private final AppCompatActivity activity;
   private final PosClient posClient;
   private final DialogComposer dialogComposer;
 
-  TransactionResultHandler(Activity activity, PosClient posClient,
+  TransactionResultHandler(AppCompatActivity activity, PosClient posClient,
       DialogComposer dialogComposer) {
     this.activity = activity;
     this.posClient = posClient;

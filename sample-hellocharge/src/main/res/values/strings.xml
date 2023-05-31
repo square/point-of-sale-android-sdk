@@ -30,6 +30,7 @@
   <string name="note_default">Build with Square</string>
   <string name="note_hint">Note (optional)</string>
   <string name="other_tender_text">Other Tenders</string>
+  <string name="paypay_text">PayPay</string>
   <string name="tender_header">Tender Types</string>
   <string name="transaction_amount_default">100</string>
   <string name="transaction_amount_hint">Transaction Amount (cents)</string>

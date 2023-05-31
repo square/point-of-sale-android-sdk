@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<resources xmlns:android="http://schemas.android.com/tools">
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -43,11 +43,11 @@
   </style>
 
   <style name="ListHeader" parent="TextAppearance.AppCompat.Medium">
-    <item name="android:background">@drawable/list_header_light_grey_darker_grey_border</item>
+    <item name="background">@drawable/list_header_light_grey_darker_grey_border</item>
   </style>
 
   <style name="BikeListItem" parent="AppTheme">
-    <item name="android:background">@drawable/owen_selector_white_gray_border</item>
+    <item name="background">@drawable/owen_selector_white_gray_border</item>
   </style>
 
   <style name="NewAccessoryItem" parent="BikeListItem">
@@ -55,7 +55,7 @@
   </style>
 
   <style name="BikeModifierButton" parent="@style/Widget.AppCompat.Button">
-    <item name="android:background">@drawable/clear_rounded_white_border</item>
+    <item name="background">@drawable/clear_rounded_white_border</item>
   </style>
 
   <dimen name="my_button_padding">45dp</dimen>

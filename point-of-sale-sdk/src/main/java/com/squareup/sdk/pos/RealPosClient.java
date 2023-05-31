@@ -25,7 +25,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
@@ -45,7 +45,7 @@ final class RealPosClient implements PosClient {
 
   private static final String SDK_VERSION =
       "point-of-sale-sdk-" + BuildConfig.LIBRARY_VERSION + "-" + BuildConfig.GIT_SHA;
-  private static final String API_VERSION = "v2.0";
+  private static final String API_VERSION = "v2.1";
   private static final String POINT_OF_SALE_PACKAGE_NAME = "com.squareup";
   private static final Uri PLAY_STORE_WEB_URL =
       Uri.parse("https://play.google.com/store/apps/details?id=" + POINT_OF_SALE_PACKAGE_NAME);
