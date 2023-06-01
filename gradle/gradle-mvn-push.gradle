@@ -1,38 +1,29 @@
-apply plugin: 'maven-publish'
-apply plugin: 'signing'
+mavenPublishing {
+  coordinates(GROUP, POM_ARTIFACT_ID, VERSION_NAME)
 
-def isReleaseBuild() {
-    return VERSION_NAME.contains("SNAPSHOT") == false
-}
+  pom {
+    name = POM_ARTIFACT_ID
+    description = POM_DESCRIPTION
+    url = POM_URL
 
-def getReleaseRepositoryUrl() {
-  return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-      : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-}
-
-def getSnapshotRepositoryUrl() {
-  return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-      : "https://oss.sonatype.org/content/repositories/snapshots/"
-}
-
-def getRepositoryUsername() {
-    return hasProperty('SONATYPE_NEXUS_USERNAME') ? SONATYPE_NEXUS_USERNAME : ""
-}
-
-def getRepositoryPassword() {
-    return hasProperty('SONATYPE_NEXUS_PASSWORD') ? SONATYPE_NEXUS_PASSWORD : ""
-}
-
-publishing {
-  publications {
-    release(MavenPublication) {
-       groupId = GROUP
-       artifactId = POM_ARTIFACT_ID
-       version = VERSION_NAME
-
-      afterEvaluate {
-        from components.release
+    licenses {
+      license {
+        name = POM_LICENCE_NAME
+        url = POM_LICENCE_URL
       }
+    }
+
+    developers {
+      developer {
+        id = POM_DEVELOPER_ID
+        name = POM_DEVELOPER_NAME
+      }
+    }
+
+    scm {
+      connection = POM_SCM_CONNECTION
+      developerConnection = POM_SCM_DEV_CONNECTION
+      url = POM_SCM_URL
     }
   }
 }
