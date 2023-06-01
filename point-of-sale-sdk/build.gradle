@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-version rootProject.ext.VERSION_NAME
-group rootProject.ext.GROUP
+plugins {
+  id "com.vanniktech.maven.publish" version "0.25.2"
+}
 
 apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
+
+version rootProject.ext.VERSION_NAME
+group rootProject.ext.GROUP
 
 def gitSha() {
   return 'git rev-parse --short HEAD'.execute().text.trim()
