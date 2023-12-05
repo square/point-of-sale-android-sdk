@@ -18,6 +18,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
+  // This is configured to build the sample against the published POS SDK.
+  // If you instead want to work on the SDK itself, and use the sample to test
+  // that, uncomment the line below and comment out the one after it:
+  //   implementation project(':point-of-sale-sdk')
   implementation "com.squareup.sdk:point-of-sale-sdk:2.1"
   implementation "androidx.appcompat:appcompat:1.6.1"
   implementation "com.google.android.material:material:1.9.0"

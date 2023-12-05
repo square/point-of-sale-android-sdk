@@ -51,8 +51,12 @@ final class RealPosClient implements PosClient {
       Uri.parse("https://play.google.com/store/apps/details?id=" + POINT_OF_SALE_PACKAGE_NAME);
   private static final Uri PLAY_STORE_APP_URL =
       Uri.parse("market://details?id=" + POINT_OF_SALE_PACKAGE_NAME);
-  private static final String POINT_OF_SALE_FINGERPRINT =
-      "EA:54:A3:62:C8:5B:F4:34:F2:9F:B6:B0:42:D8:3E:5C:7D:C3:8A:D3";
+  private static final String[] POINT_OF_SALE_FINGERPRINTS = {
+      // the key used in Google to sign Play Store release has fingerprint:
+      "EA:54:A3:62:C8:5B:F4:34:F2:9F:B6:B0:42:D8:3E:5C:7D:C3:8A:D3",
+      // the key used inside Squre to sign direct APK artifacts has fingerprint:
+      "71:24:CC:BD:46:C4:51:33:D8:D5:72:3D:1D:5E:4C:45:64:27:3D:17"
+    };
 
   private final Context context;
   private final String clientId;
@@ -174,12 +178,12 @@ final class RealPosClient implements PosClient {
   }
 
   private boolean isPointOfSale(String packageName) {
-    return packageName.startsWith(POINT_OF_SALE_PACKAGE_NAME) //
-        && matchesExpectedFingerprint(packageName, POINT_OF_SALE_FINGERPRINT);
+    return packageName.startsWith(POINT_OF_SALE_PACKAGE_NAME)
+        && matchesExpectedFingerprints(packageName, POINT_OF_SALE_FINGERPRINTS);
   }
 
   @SuppressLint("PackageManagerGetSignatures")
-  private boolean matchesExpectedFingerprint(String packageName, String expectedFingerprint) {
+  private boolean matchesExpectedFingerprints(String packageName, String[] expectedFingerprints) {
     PackageInfo packageInfo;
     try {
       // Potential Multiple Certificate Exploit
@@ -231,11 +235,20 @@ final class RealPosClient implements PosClient {
 
       // If any of the embedded certificates is not on the list of authorized fingerprints for
       // this package, we error out.
-      if (!expectedFingerprint.equals(actualFingerprint)) {
+      if (!arrayContains(expectedFingerprints, actualFingerprint)) {
         return false;
       }
     }
     return true;
+  }
+
+  private boolean arrayContains(String[] array, String target) {
+    for (String value : array) {
+      if (value.equals(target)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private boolean isPlayStoreInstalled() {
